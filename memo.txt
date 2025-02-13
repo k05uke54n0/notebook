@@ -1,0 +1,2448 @@
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/Madara/braker/braker.codingseq.zip ../
+
+
+FamilyID        Cass<0> Smad<1> <2>     Dpon<3> Tcas<4> Sory<5> <6>     <7>     <8>     Agra<9> <10>
+OG0000000       -13     +1      +0      -3      -5      +22     -2      +5      -4      +14     +0
+OG0000002       -2      -3      +0      -2      +39     -9      -4      +3      -9      +32     +0
+OG0000003       -7      -7      +0      +12     +23     -12     +0      +1      -3      +10     +0
+OG0000005       +3      -2      +0      -8      +29     -3      +0      +9      +2      -6      +0
+OG0000006       -8      +20     +0      -10     -8      +15     +0      +1      -3      +10     +0
+OG0000008       -8      -3      +0      +9      -8      +6      +0      -1      -5      +19     +0
+OG0000009       +11     -5      +0      +4      -8      +2      +0      -2      +1      -2      +0
+OG0000010       -6      +2      +0      +1      +12     -5      +0      +1      +1      -2      +0
+OG0000011       -10     +6      +0      +13     +4      -5      +0      +0      +2      -4      +0
+OG0000012       -7      -2      +0      +0      +7      +3      -1      +7      -1      +1      +0
+OG0000013       -8      +0      +0      +6      +0      +1      +0      +1      -1      +3      +0
+OG0000016       -8      -5      +0      +17     +2      -1      +0      +0      -2      +4      +0
+
+これはBase_change.tabファイルの一部です。これについて、FamilyID列の要素の先頭に「ASTRAL_」と付けるpythonスクリプトを書いてください。
+
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tool/for_cafe ~/bio/for_cafe/241008_original_data
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano//tools/for_paml/ASTRAL_6sp/ASTRAL_branch_site_lrt_results.txt 241008
+
+>XP_030744951.1 SH2 domain-containing protein 3C isoform X4 [Sitophilus oryzae]
+MEPVADPHANAADLRKSLEWELSQDSRDLRSHAWYHGAIPRSRAEDIVRGDGSFLIRDCTSQPGNYVLTCRTKGHPLHFV
+INKVFLQPDTVYERIQYQFEDEAFDTVQDLITFYVGSGKPITVASEAKIQNPVNRMYPLSFYASKYPTPLPSSRLSSPAT
+TPVGTMQYRHSPLQGYRPNCSPTRRDGPPRLPSKKQRSQSLTPSEVNRMSQEKCNSADGVIQSPLMTRSVGSESVSSGLK
+FSTHSLPRTTHNTRLSLSNSANTLGRNSRITSDPTLSPCAERRLGTDAADSGIESPPPKPSRMPYLSRAESVDSSALGFP
+THGGLQRVTSYHASGSDSGNGSGDSALSSAAGDTGDLPKGSGVIIKNPRYNMVNSESSTTLKNFDCTEAEEKLLQFIESQ
+PVKFGSRLDLENFHTLLLPVNENKPLDAQALKRIKMTLQESGPRILANHLTKTDLDLIFGKFEAELPVTNLSSGIELCTL
+PHGFLLRHDLIERTECLKLLVAVTILTCPDVTERTETLNKWIEIAIDTKTALGNLFGFCGIMLGLCLPQIERLDTTWHML
+RQKHTDSAFNFEAKLRPTLKNMNSCSNPQAPNTTIPHLLPLILLLERDLQDFVNASNQTTLTQSCLSPWESNTQDFGLST
+LLNHLQASRKYTDLHHTYQRNAEIVLNEARLDELTLDMFKTEFHLKFLWGSRGAFASAQDRHSKFEQVLTVLYEKYCNFI
+EENEVQ
+
+>ggbk_cl|NC_065546.1_cds_XP_050304642.1_1
+
+XP_050304642.1
+
+#####################
+
+>lcl|NC_065546.1_cds_XP_050304642.1_1 [gene=LOC126742122] [db_xref=GeneID:126742122] [protein=protein SCAI] [protein_id=XP_050304642.1] [location=complement(join(2817..3061,3130..3300,4600..4830,4884..5071,5126..5359,7305..7559,7621..7719,8420..8602,8946..9043))] [gbkey=CDS]
+ATGGTCAGGATGGCCAGCATGGAGGAACACGAGAGGAAAATCGTGGTGGAGTTCGTTCATCTATTGGAGAAGTCGAAGCA
+GTTGTTCAATGGGTTAAGGGATTTACCGCAGTATGGCCACAAACAATGGCAGGCATATTTCGGGAGAACTTTCGACATTT
+ACACCAAATTGTGGAAATTCCAGCAGCAGCACCGGCAAATTTTAGATACCAAATATGGTTTGAAGAGATGGCAAATTGGG
+GAGATCGCTTCTAAGATTGGCCAGCTTTATTATCATTATTATTTAAGAACTAGCGAAACAAATTATTTGAATGAAGCATA
+CTCGTTCTACGCAGCCATTCGTGGAAGGGCGTATTACTCTCGAGCTGCAAAAGAAGACAGGTCTGAATTAATGGTAAAAA
+AGCTACGATACTATGCCCGATTTATAGTGGTGTGCCTCCTGCTTAGACGAATGAAACTAGTTAGAGAATTAATAGTAGAA
+TTAGACCGACATATCGCCGATTACACCAGTACCTATGAACCGGACGATCAGATTGAGTGGAGCCTCGTTCTGGATGAGAT
+CAAAGGTTTCATCGCTTCCGATTCTTTGGTTACGGTTTTACATGCAGATACAAATCCTATAGTATTATCACACAGGTTAA
+GCCCTCTCACAACACCGCCCGTAGAAAAATCCCAATACATGAATCTCACTTTACAAGAGATTCTAATCGTTGGTAGCGCC
+TCAGAACAAGTAAAGTTTTCAGAGCTCACTATGGATATGTTCAGAATGATCCAGACTTTAGAGAGGGAGCCCCAGGAGGA
+CTTTAATCATATATACGACGCATCTCCTGCCCCTGGGAGAGTACCATATGGAGTACCCGGACAAAAAGGTTATGTGGAAA
+ATGGAGATCGTCTCTCCCGAAGAGAAAACCCTCACAAATATTTGCTCTACAAACCTACGCTAAGTCAGGTCTTGGTTTTT
+CTTGCGAGTGGCTTTAAAGAACTTCCAACCAACGGTGCTTTGTTGCTGTATTTATCTTCTGATGGTTGTTTTTCGACCTC
+GAAACATCCCGAAGATATGGGATATGACCTTGGCGGGGTGGCGACGAGTAGTAAACGTGACGGTGACCATAAAAAAACTA
+AAGAAGTGCACTGCCTTTACCCTGGTGATCTTTACCCGTTCACGCGGCGCCCTTTATTTGTGATAGTGGATTCTGACAAT
+AGTTTCGTTTTTCAACACATTCCTAGGTATTTTGGACAACCTTTAGTTACCCTTATGTCTCCGCAGGATACTCCACCGGC
+TTTTCAAGATCAACAACACAACGGTTCTCTATTTACCCTGTTCTTGCACTCGCCATTGACAGCTTTCTGCTATTGTTGCA
+ATATATCCAGCATAGCGATTCACCACTGGGAGAGATGCCAGTCTTTTGTTGACCGATTCGTTACGGAAGCATCCAGGTTA
+TTTACTAGGGCCAGAGTAGATATCTCATATCTTCAATTCTTCGGAGACGACTTTTTGCGACTACTGTTGCTTCGTTACGT
+TTTTTGTGACGTGGTGCTGCACCTGCACCGTGCCTTCCGGGGCAGACAGTACCGCCCCCGATGTCAGCCGGCGCTTCCCG
+AGGCGGAACTTCTGGAACATCCATCCCTCCAGCATTTGGTGCTCGATTTGGCGACCCATTTAGAAGTCAAGACGCATTTT
+TTGGAAGGGCACGAGCTCGAATGA
+>lcl|NC_065546.1_cds_XP_050298438.1_2 [gene=LOC126737551] [db_xref=GeneID:126737551] [protein=odorant receptor 30a-like isoform X1] [protein_id=XP_050298438.1] [location=join(17462..17899,20994..21298,21735..21834,21931..22032,23750..23905,24139..24192)] [gbkey=CDS]
+ATGCGCCAATTGTTAAAATATTCCCGATATTTAATAATTTTGTCAGGAAAATGGCGAAAGCCGTACTTTCGAACAAAAAT
+GAGACAAACAATTTACAAAATCTATTCTGAAGCATTGCAGATAATATATTCCGTGTTATGCTGCTCGATGGCGTTAAAAT
+TCTTTAGCGTCTTAAAAGAGGGAGATCTAGAAAAATTGGCTGACTCGCTCGCAATTACATGCGTATTGTCAGGTATTAAG
+TCATTAATTTATCGGTACGGAGGATTTCTAGATTTATTCGAGATCATGCTGGATGAGGAGCAAACAATTTTAGCCATAGA
+TGATTTAGGTTTGACTAAGATTTATAAGGAATTTGCAAATTATATATATGTGACCTCGCGGATAATCTGCATTTACAGTT
+ATACCACTGCATCTTCCTTAGTGTTTTTTCGATTTTTGAACGGTTTTCTAGACAACTATACCGGCTCGGAAAAGCCCATG
+ATAATTACGGCATATTTTCCATTCGATCAGCAGGTACACTACAAGACAGCTCTGCTTATCCAGACGATTTTTCTAGCTAT
+ACAAGTGCTAAACTACTGCATGACCCAAGTTACATACATTACGGCAGCCACTTTCATTAAAATGGAACTGAAAATGTTGC
+AGCATGAGTTTAGGGAGTTCGATCAGTTTAAGACGATCTATAACATCATAGATGATGAAGCTATGATGATTAAGTTGATC
+CGACGGCATCAGTTTATAATAGGTTTCACCGCAGATGTAAACAAATCATTAAGGTCAAGCTTCCTTGTAGAGTTCCTAAT
+GAGCTCGGTCAACATTTCTTTTGTAGTTTTACAACTTATAGCGAGTGAAACAAACATGTTTCTACCCTTTACGTTAAATT
+ATTTCATTATATTGATAGCCCAGTTATTTATACTAGCCTGGCACGCTAATGAGATCACCATAGAGAGTATTGGTATATCA
+TCTGCCATATGGGAACATCCGTGGTACGAAAAACACTTAAAAATCCAAAAAATGATGTATATGGTCATATGTCGGTCCCA
+TAAACCTTTAACTTTGACCATCGGACCGTTCGGTATCCTTACCAATCAAACAGTAATTAAGGTAATTAACGCTTCATACT
+CGTATGTTACCATTATGATTAATAATGTTAATTAA
+>lcl|NC_065546.1_cds_XP_050298445.1_3 [gene=LOC126737551] [db_xref=GeneID:126737551] [protein=odorant receptor Or2-like isoform X2] [protein_id=XP_050298445.1] [location=join(21033..21298,21735..21834,21931..22032,23750..23905,24139..24192)] [gbkey=CDS]
+ATGATAATTACGGCATATTTTCCATTCGATCAGCAGGTACACTACAAGACAGCTCTGCTTATCCAGACGATTTTTCTAGC
+TATACAAGTGCTAAACTACTGCATGACCCAAGTTACATACATTACGGCAGCCACTTTCATTAAAATGGAACTGAAAATGT
+TGCAGCATGAGTTTAGGGAGTTCGATCAGTTTAAGACGATCTATAACATCATAGATGATGAAGCTATGATGATTAAGTTG
+ATCCGACGGCATCAGTTTATAATAGGTTTCACCGCAGATGTAAACAAATCATTAAGGTCAAGCTTCCTTGTAGAGTTCCT
+AATGAGCTCGGTCAACATTTCTTTTGTAGTTTTACAACTTATAGCGAGTGAAACAAACATGTTTCTACCCTTTACGTTAA
+ATTATTTCATTATATTGATAGCCCAGTTATTTATACTAGCCTGGCACGCTAATGAGATCACCATAGAGAGTATTGGTATA
+TCATCTGCCATATGGGAACATCCGTGGTACGAAAAACACTTAAAAATCCAAAAAATGATGTATATGGTCATATGTCGGTC
+CCATAAACCTTTAACTTTGACCATCGGACCGTTCGGTATCCTTACCAATCAAACAGTAATTAAGGTAATTAACGCTTCAT
+ACTCGTATGTTACCATTATGATTAATAATGTTAATTAA
+
+上記は、~/tools/for_paml/data/6sp_nama_data/Agra.fastaというファイルの中身の一部です。また、
+
+>XP_050304642.1 protein SCAI [Anthonomus grandis grandis]
+MVRMASMEEHERKIVVEFVHLLEKSKQLFNGLRDLPQYGHKQWQAYFGRTFDIYTKLWKFQQQHRQILDTKYGLKRWQIG
+EIASKIGQLYYHYYLRTSETNYLNEAYSFYAAIRGRAYYSRAAKEDRSELMVKKLRYYARFIVVCLLLRRMKLVRELIVE
+LDRHIADYTSTYEPDDQIEWSLVLDEIKGFIASDSLVTVLHADTNPIVLSHRLSPLTTPPVEKSQYMNLTLQEILIVGSA
+SEQVKFSELTMDMFRMIQTLEREPQEDFNHIYDASPAPGRVPYGVPGQKGYVENGDRLSRRENPHKYLLYKPTLSQVLVF
+LASGFKELPTNGALLLYLSSDGCFSTSKHPEDMGYDLGGVATSSKRDGDHKKTKEVHCLYPGDLYPFTRRPLFVIVDSDN
+SFVFQHIPRYFGQPLVTLMSPQDTPPAFQDQQHNGSLFTLFLHSPLTAFCYCCNISSIAIHHWERCQSFVDRFVTEASRL
+FTRARVDISYLQFFGDDFLRLLLLRYVFCDVVLHLHRAFRGRQYRPRCQPALPEAELLEHPSLQHLVLDLATHLEVKTHF
+LEGHELE
+>XP_050304643.1 pancreatic triacylglycerol lipase-like isoform X3 [Anthonomus grandis grandis]
+MRIHYLVFLLVISYESFQLNTTTGKSSTYENSTEALLDQTPEGGCLEADQSWFHNQYRPVNLKPSKREIVKTQFVFIRKN
+LCSDEVTFDLDFKVVTTTKESLKSAKFKNGVFLFILIHDFTSNGYTGWIKHISNVLKLRTKKCNIISVDWGAGAQPPFDQ
+AVANARLVALEIVHFLKFLRKHNDIVMDEVHLIGHGLGAHIAGYVGKDHQARKITVFTGLDPTGPRFSGMPIHVKLDATD
+AKYVEILHTDAMDYNSQGTRELEGHADFFINNANIQPGCGEAQSKYDLLSITRGMLKEGEIMPGCSHKRAFKYYIESLEV
+EDCTFLGIKCQSYSDFKQGKCTSCGKKGRDCRTFGLVTYPTENRGSYFLQTDESRPFCLFQYRITIVLQKSKSSYYGFFE
+FIMIDKYHTVTKSAMAEARQFQDGVNSFVFYAKAPEMMKIKEVKIGWKEKTIRFCLFRCYWWVNVKKVSLRSLNSNKKNW
+KEMDFCPKSGFSIRSGEYIEFVAC
+>XP_050304644.1 ras-related protein Rab-3 isoform X1 [Anthonomus grandis grandis]
+MPRSGDERFELRKQRSRFLSWVEIPLGYLTDHTMAGADPKWQKDAADQNFDYMFKLLIIGNSSVGKTSFLFRYADDSFTS
+AFVSTVGIDFKVKTVFRHDKRVKLQIWDTAGQERYRTITTAYYRGAMGFILMYDITNEESFNSVQDWVTQIKTYSWDNAQ
+VILVGNKCDMEDDRVISFERGKQLAEQLGVEFFETSAKENINVKAVFERLVDIICDKMSDSLDTDPTLMAGSGKGQRLTD
+APQGPQTGNCNC
+
+上記は~/tools/for_orthofinder/Smad_Agra_Cass_Dpon_Sory_Tcas_fasta_dir/Agra.fastaの一部です。
+
+この２つのファイルについて、~/tools/for_paml/data/6sp_nama_data/Agra.fastaのヘッダーに示されたprotein_IDと一致する配列を~/tools/for_paml/data/6sp_nama_data/Agra.fastaから検索し、対応する~/tools/for_paml/data/6sp_nama_data/Agra.fastaのヘッダーを~/tools/for_paml/data/6sp_nama_data/Agra.fastaのヘッダーと置き換えるスクリプトを書いてください。
+書き換えた後のファイルは~/tools/for_paml/data/6sp_nama_data/changehedderディレクトリにAgra.fastaという名前で保存してください。
+
+
+
+>lcl|NC_065546.1_cds_XP_050304642.1_1 [gene=LOC126742122] [db_xref=GeneID:126742122] [protein=protein SCAI] [protein_id=XP_050304642.1] [location=complement(join(2817..3061,3130..3300,4600..4830,4884..5071,5126..5359,7305..7559,7621..7719,8420..8602,8946..9043))] [gbkey=CDS]
+>XP_050304642.1 protein SCAI [Anthonomus grandis grandis]
+>lcl|NC_065546.1_cds_XP_050304642.1_1 XP_050304642.1 protein SCAI [Anthonomus grandis grandis]
+>Agra_cl|NC_065546.1_cds_XP_050304642.1_1
+
+
+Agra_P_050292688.1 
+
+
+                # ヘッダーが「]」で終わる場合
+                elif header.endswith("]"):
+                    # ヘッダーの最後の「[]」内の英字を抽出
+                    within_brackets = header.split('[')[-1].split(']')[0]
+                    first_letter = within_brackets[0]  # 最初の1文字
+                    space_after = within_brackets.split()[-1][:3]  # スペース後の3文字
+
+                    # 元のヘッダーから最初の「>」の次の文字から最初の「 」までの部分を取得
+                    first_part = header.split()[0][1:]
+                    new_header = f">{first_letter}{space_after}_{first_part}"
+
+OG0008033: Agra_P_050292688.1 Cass_AG9767834.1 Dpon_P_019769583.1 Smad_g5339.t1 Sory_P_030760502.1 Tcas_P_001812254.1
+
+
+../241009_RemakeHedder_6sp_afterchange/
+/tools/for_paml/data/241008_SCO
+
+
+OG0008033: Agra_P_050292688.1 Cass_AG9767834.1 Dpon_P_019769583.1 Smad_g5339.t1 Sory_P_030760502.1 Tcas_P_001812254.1
+OG0008034: Agra_P_050292700.1 Cass_AG9761214.1 Dpon_P_019755574.2 Smad_g6358.t1 Sory_P_030761209.1 Tcas_P_008195282.1
+OG0008035: Agra_P_050292731.1 Cass_AH1135743.1 Dpon_P_048519923.1 Smad_g2098.t1 Sory_P_030765758.1 Tcas_P_008196870.1
+OG0008036: Agra_P_050292732.1 Cass_AG9767756.1 Dpon_P_019773495.1 Smad_g5269.t1 Sory_P_030765067.1 Tcas_P_015836383.1
+OG0008037: Agra_P_050292739.1 Cass_AG9768060.1 Dpon_P_019769194.2 Smad_g11904.t1 Sory_P_030755089.1 Tcas_P_969265.1
+OG0008039: Agra_P_050292743.1 Cass_AG9767942.1 Dpon_P_019767966.1 Smad_g4980.t1 Sory_P_030750408.1 Tcas_P_971491.1
+上記はextracted_orthogroups.txtというファイルの一部です。OG番号とそれに対応するCDSのIDが格納されています。
+また、../data/241009_RemakeHedder_6sp_afterchange/ディレクトリには6種の昆虫のゲノムのCDS配列が保存されています。
+kosukesano@at137:~/tools/for_paml/data$ ls ../data/241009_RemakeHedder_6sp_afterchange/
+Agra_changehedder.fasta  Cass_changehedder.fasta  Dpon_changehedder.fasta  Smad_changehedder.fasta  Sory_changehedder.fasta  Tcas_changehedder.fasta
+例えば、Agra_changehedder.fastaの中身の一部は以下のようになっています。
+>Agra_P_050304642.1
+ATGGTCAGGATGGCCAGCATGGAGGAACACGAGAGGAAAATCGTGGTGGAGTTCGTTCATCTATTGGAGAAGTCGAAGCAGTTGTTCAATGGGTTAAGGGATTTACCGCAGTATGGCCACAAACAATGGCAGGCATATTTCGGGAGAACTTTCGACATTTACACCAAATTGTGGAAATTCCAGCAGCAGCACCGGCAAATTTTAGATACCAAATATGGTTTGAAGAGATGGCAAATTGGGGAGATCGCTTCTAAGATTGGCCAGCTTTATTATCATTATTATTTAAGAACTAGCGAAACAAATTATTTGAATGAAGCATACTCGTTCTACGCAGCCATTCGTGGAAGGGCGTATTACTCTCGAGCTGCAAAAGAAGACAGGTCTGAATTAATGGTAAAAAAGCTACGATACTATGCCCGATTTATAGTGGTGTGCCTCCTGCTTAGACGAATGAAACTAGTTAGAGAATTAATAGTAGAATTAGACCGACATATCGCCGATTACACCAGTACCTATGAACCGGACGATCAGATTGAGTGGAGCCTCGTTCTGGATGAGATCAAAGGTTTCATCGCTTCCGATTCTTTGGTTACGGTTTTACATGCAGATACAAATCCTATAGTATTATCACACAGGTTAAGCCCTCTCACAACACCGCCCGTAGAAAAATCCCAATACATGAATCTCACTTTACAAGAGATTCTAATCGTTGGTAGCGCCTCAGAACAAGTAAAGTTTTCAGAGCTCACTATGGATATGTTCAGAATGATCCAGACTTTAGAGAGGGAGCCCCAGGAGGACTTTAATCATATATACGACGCATCTCCTGCCCCTGGGAGAGTACCATATGGAGTACCCGGACAAAAAGGTTATGTGGAAAATGGAGATCGTCTCTCCCGAAGAGAAAACCCTCACAAATATTTGCTCTACAAACCTACGCTAAGTCAGGTCTTGGTTTTTCTTGCGAGTGGCTTTAAAGAACTTCCAACCAACGGTGCTTTGTTGCTGTATTTATCTTCTGATGGTTGTTTTTCGACCTCGAAACATCCCGAAGATATGGGATATGACCTTGGCGGGGTGGCGACGAGTAGTAAACGTGACGGTGACCATAAAAAAACTAAAGAAGTGCACTGCCTTTACCCTGGTGATCTTTACCCGTTCACGCGGCGCCCTTTATTTGTGATAGTGGATTCTGACAATAGTTTCGTTTTTCAACACATTCCTAGGTATTTTGGACAACCTTTAGTTACCCTTATGTCTCCGCAGGATACTCCACCGGCTTTTCAAGATCAACAACACAACGGTTCTCTATTTACCCTGTTCTTGCACTCGCCATTGACAGCTTTCTGCTATTGTTGCAATATATCCAGCATAGCGATTCACCACTGGGAGAGATGCCAGTCTTTTGTTGACCGATTCGTTACGGAAGCATCCAGGTTATTTACTAGGGCCAGAGTAGATATCTCATATCTTCAATTCTTCGGAGACGACTTTTTGCGACTACTGTTGCTTCGTTACGTTTTTTGTGACGTGGTGCTGCACCTGCACCGTGCCTTCCGGGGCAGACAGTACCGCCCCCGATGTCAGCCGGCGCTTCCCGAGGCGGAACTTCTGGAACATCCATCCCTCCAGCATTTGGTGCTCGATTTGGCGACCCATTTAGAAGTCAAGACGCATTTTTTGGAAGGGCACGAGCTCGAATGA
+>Agra_P_050298438.1
+ATGCGCCAATTGTTAAAATATTCCCGATATTTAATAATTTTGTCAGGAAAATGGCGAAAGCCGTACTTTCGAACAAAAATGAGACAAACAATTTACAAAATCTATTCTGAAGCATTGCAGATAATATATTCCGTGTTATGCTGCTCGATGGCGTTAAAATTCTTTAGCGTCTTAAAAGAGGGAGATCTAGAAAAATTGGCTGACTCGCTCGCAATTACATGCGTATTGTCAGGTATTAAGTCATTAATTTATCGGTACGGAGGATTTCTAGATTTATTCGAGATCATGCTGGATGAGGAGCAAACAATTTTAGCCATAGATGATTTAGGTTTGACTAAGATTTATAAGGAATTTGCAAATTATATATATGTGACCTCGCGGATAATCTGCATTTACAGTTATACCACTGCATCTTCCTTAGTGTTTTTTCGATTTTTGAACGGTTTTCTAGACAACTATACCGGCTCGGAAAAGCCCATGATAATTACGGCATATTTTCCATTCGATCAGCAGGTACACTACAAGACAGCTCTGCTTATCCAGACGATTTTTCTAGCTATACAAGTGCTAAACTACTGCATGACCCAAGTTACATACATTACGGCAGCCACTTTCATTAAAATGGAACTGAAAATGTTGCAGCATGAGTTTAGGGAGTTCGATCAGTTTAAGACGATCTATAACATCATAGATGATGAAGCTATGATGATTAAGTTGATCCGACGGCATCAGTTTATAATAGGTTTCACCGCAGATGTAAACAAATCATTAAGGTCAAGCTTCCTTGTAGAGTTCCTAATGAGCTCGGTCAACATTTCTTTTGTAGTTTTACAACTTATAGCGAGTGAAACAAACATGTTTCTACCCTTTACGTTAAATTATTTCATTATATTGATAGCCCAGTTATTTATACTAGCCTGGCACGCTAATGAGATCACCATAGAGAGTATTGGTATATCATCTGCCATATGGGAACATCCGTGGTACGAAAAACACTTAAAAATCCAAAAAATGATGTATATGGTCATATGTCGGTCCCATAAACCTTTAACTTTGACCATCGGACCGTTCGGTATCCTTACCAATCAAACAGTAATTAAGGTAATTAACGCTTCATACTCGTATGTTACCATTATGATTAATAATGTTAATTAA
+このように、各遺伝子のIDがヘッダー行になっており、下に塩基配列のファイルが保存されています。
+
+これらについて、各OGに含まれる遺伝子を../data/241009_RemakeHedder_6sp_afterchange/ディレクトリ内の対応する種のゲノムデータから検索し、１つのファイルにまとめて各OGごとの.fnaファイルとして出力するスクリプトを書きました。
+以下がそのmakefna.pyです。
+import os
+
+# 入力ファイルと出力ディレクトリのパスを設定
+extracted_orthogroups_path = '/home/kosukesano/tools/for_paml/data/241008_SCO/extracted_orthogroups.txt'
+cds_dir = '../241009_RemakeHedder_6sp_afterchange/'
+output_dir = '/home/kosukesano/tools/for_paml/data/CDS_SCO/'
+
+# ファイルの拡張子を変数に
+file_extension = ".fasta"
+
+# 種ごとのファイル名マッピング
+species_to_file = {
+    "Cass": "Cass_changehedder.fasta",
+    "Tcas": "Tcas_changehedder.fasta",
+    "Dpon": "Dpon_changehedder.fasta",
+    "Sory": "Sory_changehedder.fasta",
+    "Agra": "Agra_changehedder.fasta",
+    "Smad": "Smad_changehedder.fasta"
+}
+
+# 必要な出力ディレクトリを作成
+os.makedirs(output_dir, exist_ok=True)
+
+# `extracted_orthogroups.txt`を読み込み、各オーソログに対して処理
+with open(extracted_orthogroups_path, 'r') as infile:
+    for line in infile:
+        columns = line.strip().split()
+        orthogroup_id = columns[0].replace(':', '')
+        print(f"orthogroup_id = {orthogroup_id}")
+        protein_ids = columns[1:]
+
+        output_file_path = os.path.join(output_dir, f"{orthogroup_id}.fna")
+        print(f"{orthogroup_id}.fna start")
+
+        with open(output_file_path, 'w') as outfile:
+            for i, protein_id in enumerate(protein_ids):
+                species = list(species_to_file.keys())[i]
+                cds_file_path = os.path.join(cds_dir, species_to_file[species])
+                print(f"{species_to_file[species]}")
+
+                # `seqkit grep`コマンドを構築して実行
+                grep_command = f"singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 seqkit grep -r -p '{protein_id}' {cds_file_path} >> {output_file_path}"
+                os.system(grep_command)
+                print(f"{protein_id} finished")
+
+しかし、これで出力されたファイルはどれもDpon種の配列しか格納されていませんでした。以下はその一例で、OG0008033.fnaの中身です。
+>Dpon_P_019769583.1
+ATGAGCGCTAAATTAGACGTAAACAGACGCGTCCTGGCCATTCAGGCGAAAAAGAAGCGA
+CACAAGCCTGGAAAAAAGAAAGGCAAAATGGAAAAGAACGGTCATGGTGAAAATCGAATC
+CACTCGAAAAACGAACCCTCCCATAGTTCAAGCAATGAGACTATCGAGGATCCGGACACA
+CCTTACACGAGCGATGAGGAGGAGCAGGAGGACAGCACTGATTACCGCAAGGGAGGTTAC
+CACCCTGTTAAAATCGGCGACCTCTTTCTAGGAAGATACCATGTCACCCGTAAACTAGGT
+TGGGGTCATTTTTCCACTGTTTGGCTTTGTTGGGATTTGGACGATAAACGATTTGTGGCG
+TTGAAAATCGTCAAATCTGCCGAACATTTCACTGAAACTGCACTCGATGAAATCAAAATT
+CTGAAAGCAGTGCGGGACTCCGATCCGATGGATCCCAAAAGGAACAAAACCGTTCAACTC
+CTGAACGACTTCAAAATTAGTGGAGTCAATGGGGTGCATGTCTGTATGGTATTCGAAGTG
+CTTGGCCACCATTTACTCAAGCTGATCATCAAATCCAACTACCACGGAATACCCCTCGAG
+AATGTGAAAACCATTATGAGGCAGGTGCTGGAGGGGCTCGACTACCTGCATACAAAATGC
+AGCATCATTCACACAGATATCAAACCAGAAAACGTTCTAGTATCAGTATCTGAAGATTAC
+ATCAGTCGGCTTGCGTATGAAGCCACTGAAATGCACCAGTTAGGAGTTAAACTACCCACT
+TCTTTCAGAAGTACCGCGCCGCCGCAGGAAGTGCAGCCGCAAAAAATGAGCAAAAACAAG
+AAAAAGAAGCTGAAAAAGAAGGCCAAGAGGCAAAATGAACTGCTAAAGAAACAGATGGAG
+CAAATTATTGAAATAGAGGAAAAGAAAAAAGTCAAAGAGCATGGTGATGTTAATGGTGAA
+ATAGATTGTAATGGCACCAACAATGGGAGTCCGGAGCGAACTGTCGAAGACCCGGAACAA
+CTAACAAATGGTATAACGCAACTTGGGGGCGGCGAAAACATGATTTCCTGCGAAGACCCC
+TCTATTGCGGATGCAGTCGTGATTATGTCTGAGGATGATTCTCCCTCGTTAACTTCGAAG
+AGTGAAAGCAAGATGGATTTGGACCCAGCATTCGTGGAATGTGATTTTGAAGTTAAAATT
+GCTGATCTAGGCAATGCGTGTTGGGTGGACAAGCATTTCACCGAAGACATCCAGACCCGA
+CAATATCGATCGTTGGAAGTCCTACTTGGATCGGGATACAACACATCTGCAGACATCTGG
+AGCACTGCTTGTATGGCTTTTGAATTAGCCACTGGCGACTATCTGTTCGAGCCTCATTCT
+GGAGATGACTATTGTCGGGACGAAGACCACCTGGCCCACATTATTGAGTTGTTGGGCCCA
+ATACCCAAGAAAATCGCTCAAAGTGGCACCAATTCCAAACTGTTTTTCAACAAGAGAAAT
+GAGCTGCGCCACATTACCGGTTTAAAACCCTGGTTTTTAGAGGACGTTCTCAGAGACAAA
+TATGACTGGAAACGTAAGGAGGCTGAAGAATTCGCGGCATTCCTAAAACCGATGCTTGAT
+TTTAACCCAGACACCCGAGCCACTGCCGCCGAATGCTTAACCCATCCATGGCTGAAGAAG
+AACCACCACCATCTCTCTCCAGGTGACTGA
+
+このスクリプトについて、6種すべての対応するCDSを１つのファイルにまとめて保存するように修正してください。また、ファイルに書き込んだ塩基配列とそのヘッダーは標準出力に出力するようにしてください。
+
+
+singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 seqkit grep -r -p '{protein_id}' {cds_file_path}
+singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 seqkit grep -r -p 'Agra_P_050292688.1' ../241009_RemakeHedder_6sp_afterchange/Agra_changehedder.fasta
+
+
+
+#################################################################
+
+OG0008033: Agra_P_050292688.1 Cass_AG9767834.1 Dpon_P_019769583.1 Smad_g5339.t1 Sory_P_030760502.1 Tcas_P_001812254.1
+OG0008034: Agra_P_050292700.1 Cass_AG9761214.1 Dpon_P_019755574.2 Smad_g6358.t1 Sory_P_030761209.1 Tcas_P_008195282.1
+OG0008035: Agra_P_050292731.1 Cass_AH1135743.1 Dpon_P_048519923.1 Smad_g2098.t1 Sory_P_030765758.1 Tcas_P_008196870.1
+OG0008036: Agra_P_050292732.1 Cass_AG9767756.1 Dpon_P_019773495.1 Smad_g5269.t1 Sory_P_030765067.1 Tcas_P_015836383.1
+OG0008037: Agra_P_050292739.1 Cass_AG9768060.1 Dpon_P_019769194.2 Smad_g11904.t1 Sory_P_030755089.1 Tcas_P_969265.1
+OG0008039: Agra_P_050292743.1 Cass_AG9767942.1 Dpon_P_019767966.1 Smad_g4980.t1 Sory_P_030750408.1 Tcas_P_971491.1
+上記はextracted_orthogroups.txtというファイルの一部です。OG番号とそれに対応する遺伝子のIDが格納されています。
+また、../data/241009_RemakeHedder_6sp_afterchange/ディレクトリには6種の昆虫のゲノムのCDS配列が保存されています。
+kosukesano@at137:~/tools/for_paml/data$ ls ../data/241009_RemakeHedder_6sp_afterchange/
+Agra_changehedder.fasta  Cass_changehedder.fasta  Dpon_changehedder.fasta  Smad_changehedder.fasta  Sory_changehedder.fasta  Tcas_changehedder.fasta
+例えば、Agra_changehedder.fastaの中身の一部は以下のようになっています。
+>Agra_P_050304642.1
+ATGGTCAGGATGGCCAGCATGGAGGAACACGAGAGGAAAATCGTGGTGGAGTTCGTTCATCTATTGGAGAAGTCGAAGCAGTTGTTCAATGGGTTAAGGGATTTACCGCAGTATGGCCACAAACAATGGCAGGCATATTTCGGGAGAACTTTCGACATTTACACCAAATTGTGGAAATTCCAGCAGCAGCACCGGCAAATTTTAGATACCAAATATGGTTTGAAGAGATGGCAAATTGGGGAGATCGCTTCTAAGATTGGCCAGCTTTATTATCATTATTATTTAAGAACTAGCGAAACAAATTATTTGAATGAAGCATACTCGTTCTACGCAGCCATTCGTGGAAGGGCGTATTACTCTCGAGCTGCAAAAGAAGACAGGTCTGAATTAATGGTAAAAAAGCTACGATACTATGCCCGATTTATAGTGGTGTGCCTCCTGCTTAGACGAATGAAACTAGTTAGAGAATTAATAGTAGAATTAGACCGACATATCGCCGATTACACCAGTACCTATGAACCGGACGATCAGATTGAGTGGAGCCTCGTTCTGGATGAGATCAAAGGTTTCATCGCTTCCGATTCTTTGGTTACGGTTTTACATGCAGATACAAATCCTATAGTATTATCACACAGGTTAAGCCCTCTCACAACACCGCCCGTAGAAAAATCCCAATACATGAATCTCACTTTACAAGAGATTCTAATCGTTGGTAGCGCCTCAGAACAAGTAAAGTTTTCAGAGCTCACTATGGATATGTTCAGAATGATCCAGACTTTAGAGAGGGAGCCCCAGGAGGACTTTAATCATATATACGACGCATCTCCTGCCCCTGGGAGAGTACCATATGGAGTACCCGGACAAAAAGGTTATGTGGAAAATGGAGATCGTCTCTCCCGAAGAGAAAACCCTCACAAATATTTGCTCTACAAACCTACGCTAAGTCAGGTCTTGGTTTTTCTTGCGAGTGGCTTTAAAGAACTTCCAACCAACGGTGCTTTGTTGCTGTATTTATCTTCTGATGGTTGTTTTTCGACCTCGAAACATCCCGAAGATATGGGATATGACCTTGGCGGGGTGGCGACGAGTAGTAAACGTGACGGTGACCATAAAAAAACTAAAGAAGTGCACTGCCTTTACCCTGGTGATCTTTACCCGTTCACGCGGCGCCCTTTATTTGTGATAGTGGATTCTGACAATAGTTTCGTTTTTCAACACATTCCTAGGTATTTTGGACAACCTTTAGTTACCCTTATGTCTCCGCAGGATACTCCACCGGCTTTTCAAGATCAACAACACAACGGTTCTCTATTTACCCTGTTCTTGCACTCGCCATTGACAGCTTTCTGCTATTGTTGCAATATATCCAGCATAGCGATTCACCACTGGGAGAGATGCCAGTCTTTTGTTGACCGATTCGTTACGGAAGCATCCAGGTTATTTACTAGGGCCAGAGTAGATATCTCATATCTTCAATTCTTCGGAGACGACTTTTTGCGACTACTGTTGCTTCGTTACGTTTTTTGTGACGTGGTGCTGCACCTGCACCGTGCCTTCCGGGGCAGACAGTACCGCCCCCGATGTCAGCCGGCGCTTCCCGAGGCGGAACTTCTGGAACATCCATCCCTCCAGCATTTGGTGCTCGATTTGGCGACCCATTTAGAAGTCAAGACGCATTTTTTGGAAGGGCACGAGCTCGAATGA
+>Agra_P_050298438.1
+ATGCGCCAATTGTTAAAATATTCCCGATATTTAATAATTTTGTCAGGAAAATGGCGAAAGCCGTACTTTCGAACAAAAATGAGACAAACAATTTACAAAATCTATTCTGAAGCATTGCAGATAATATATTCCGTGTTATGCTGCTCGATGGCGTTAAAATTCTTTAGCGTCTTAAAAGAGGGAGATCTAGAAAAATTGGCTGACTCGCTCGCAATTACATGCGTATTGTCAGGTATTAAGTCATTAATTTATCGGTACGGAGGATTTCTAGATTTATTCGAGATCATGCTGGATGAGGAGCAAACAATTTTAGCCATAGATGATTTAGGTTTGACTAAGATTTATAAGGAATTTGCAAATTATATATATGTGACCTCGCGGATAATCTGCATTTACAGTTATACCACTGCATCTTCCTTAGTGTTTTTTCGATTTTTGAACGGTTTTCTAGACAACTATACCGGCTCGGAAAAGCCCATGATAATTACGGCATATTTTCCATTCGATCAGCAGGTACACTACAAGACAGCTCTGCTTATCCAGACGATTTTTCTAGCTATACAAGTGCTAAACTACTGCATGACCCAAGTTACATACATTACGGCAGCCACTTTCATTAAAATGGAACTGAAAATGTTGCAGCATGAGTTTAGGGAGTTCGATCAGTTTAAGACGATCTATAACATCATAGATGATGAAGCTATGATGATTAAGTTGATCCGACGGCATCAGTTTATAATAGGTTTCACCGCAGATGTAAACAAATCATTAAGGTCAAGCTTCCTTGTAGAGTTCCTAATGAGCTCGGTCAACATTTCTTTTGTAGTTTTACAACTTATAGCGAGTGAAACAAACATGTTTCTACCCTTTACGTTAAATTATTTCATTATATTGATAGCCCAGTTATTTATACTAGCCTGGCACGCTAATGAGATCACCATAGAGAGTATTGGTATATCATCTGCCATATGGGAACATCCGTGGTACGAAAAACACTTAAAAATCCAAAAAATGATGTATATGGTCATATGTCGGTCCCATAAACCTTTAACTTTGACCATCGGACCGTTCGGTATCCTTACCAATCAAACAGTAATTAAGGTAATTAACGCTTCATACTCGTATGTTACCATTATGATTAATAATGTTAATTAA
+このように、各遺伝子のIDがヘッダー行になっており、下に塩基配列のファイルが保存されています。
+
+これらについて、OG0008033に含まれる各昆虫の遺伝子について、../data/241009_RemakeHedder_6sp_afterchange/ディレクトリに格納されている昆虫のゲノムのCDS配列データから対応する遺伝子を検索し、そのヘッダーと配列データを１つのファイルにまとめて保存するPythonスクリプトを書いてください。
+出力ファイルはOG0008033.fnaとしてください。
+
+
+ありがとうございます。では、このスクリプトについて以下の機能を追加してください。
+・遺伝子IDはextracted_orthogroups.txtファイルから自動で取得する。
+・このスクリプトはOG0008033のみについてだったが、extracted_orthogroups.txtファイルに格納されているすべてのOGについて同じ作業を行う。
+・出力ファイルは「OG番号 + .fna」という名前で、/home/kosukesano/tools/for_paml/data/CDS_SCO/ディレクトリに保存する。
+・スクリプトの実行中において、出力ファイルに格納したヘッダーと塩基配列を標準出力にもprintし、進捗を表示する。
+
+また、説明は日本語で行ってください。
+
+
+/home/kosukesano/tools/for_paml/ASTRAL_6sp/data/tree_ASTRAL_ultrametric.nwk
+
+# ディレクトリの設定
+input_dir="/home/kosukesano/tools/for_paml/data/CDS_SCO"
+bsA_dir="/home/kosukesano/tools/for_paml/241009_ASTRAL_6sp/bsA"
+result_dir="$bsA_dir/result"
+template_ctl="$bsA_dir/template.ctl"
+##########################################################
+
+
+>Agra_P_050306960.1
+atg---aaacgaattcgcctt--tttgtagttttgttaattttatgtcaatgttatgcgg
+gatgtaacgggatttatttgaatagt------agtaaagtttggaag---agtgacaatc
+ctgctatatggaccgaggagggaggcgtttggggagctatgctagaagattgggcactgg
+gaggaggaaccaaccac------agaactagcagagtaatgaggattcccatctcggaac
+acgcgtacgtcatccagga----ccgcgtggacacggacgtactactacaaaaagagagc
+aaaatcagcggcggtaaaatagtcacttccggtccacctacgaaaatcaccagcaccgga
+agtcacaacccttacagaccaccgccaaggcaagtatccgaaaccgatctgtacctgttg
+ggtgccatcgaaaaattagtatataaggtggatttcatggagaaaagactgcgaagggtg
+gaagagatgttgtattacgtcatggccggaaatcgagttgatacagaaccttgtccggat
+aatttcaccagagccggtcaaaattgctatcatttcgctagtaacgcgggcagagagtac
+gactggaaagtggcgagtaaacactgcaagaaattgggagcagttctggccgaaatggaa
+actatcgaggaaaatcaggatctggttgcttatatccagaacgattcccaccttaaaggt
+aaagatttttgggtgggcggattgaaccccggtctgctctggatctggagtaacacggcc
+agacccgtggtagcgccgggttcccaaaataacaaagaaaatccgtccgcggcaatttat
+ggcgagggcaggtgtctgaggttggcctacaatccagcgttgaggtcctacgattacaaa
+ggtaccgattgttcggtgaggtacagctatatatgtgaggcaccggaggaaactagtagt
+aacgaaattaaaaaaatcggaaggagtatgaagatttttgaggat---------taa
+>Cass_AG9771251.1
+atg---------------ttc--ctaattttcgtaataattgccggattatttaataata
+attgtcacgccatttatttgaccaataattcaagttacgtgaggaggattagcagtaatc
+ctgctgtttggactgagcaggagggagtttggggacctgtactggaagaatgggcattgg
+gaggaggagaaagtcacagtaaaagacaaagtagagtgatgcaaattccaatctccaacc
+gcgactacataatccaaga----gcgcgtcgatactataccgcc------aaaagaaagc
+aaaatcagtccaggcaaagttatcaacaccagcaattctggaaatattt-----------
+上記は~/tools/for_paml/data/CDS_SCOディレクトリにあるOG0009317_maffted.fnaファイルの一部です。~/tools/for_paml/data/CDS_SCOディレクトリにはこのようにヘッダー行と配列のみのファイルが多数格納されています。
+
+これらについて、~/tools/for_paml/data/CDS_SCOにある_maffted.fnaで終わるファイル全てについて、ヘッダー行を『元のヘッダーの「>」とその後ろの四文字分だけ』に置き換えるスクリプトを書いてください。
+
+
+
+
+
+
+/home/dendezia/tool/for_softmask/Ekam_softmask/RM_671004.MonOct70853342024/consensi.fa.classified
+/home/dendezia/tool/for_softmask/nama_data/Ekam_dataset/data/GCA_014849505.1/GCA_014849505.1_AAL_Ekam_1.0_genomic.fna
+
+lnL(ntime: 11  np: 13):   -905.484183      +0.000000
+
+result/OG0010044_maffted_fixed_branch_alt:lnL(ntime:  9  np: 14):  -6511.063981      +0.000000
+result/OG0010045_maffted_fixed_branch_alt:lnL(ntime:  9  np: 14):  -3952.666845      +0.000000
+result/OG0010046_maffted_fixed_branch_alt:lnL(ntime:  9  np: 14):  -3489.216642      +0.000000
+result/OG0010047_maffted_fixed_branch_alt:lnL(ntime:  9  np: 14):  -2615.556517      +0.000000
+result/OG0010048_maffted_fixed_branch_alt:lnL(ntime:  9  np: 14):  -1730.661858      +0.000000
+result/OG0010049_maffted_fixed_branch_alt:lnL(ntime:  9  np: 14): -12702.425389      +0.000000
+
+TREE #  1:  (1, ((2, 3), 4), (5, 6));   MP score: -1
+check convergence..
+lnL(ntime:  9  np: 14): -14966.057123      +0.000000
+TREE #  1:  (1, ((5, 6), (3, (4, 2))));   MP score: -1
+This is a rooted tree.  Please check!
+lnL(ntime: 10  np: 15): -14965.662577      +0.000000
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/241009_IQTREE_6sp/branch_site_lrt_results.txt /Users/kosukesano/bio/for_paml/241010/IQTREE_branch_site_lrt_results.txt
+
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/Madara/braker/braker_t1_sequences.aa.zip /Users/kosukesano/bio/
+
+scp ~/Downloads/Arthropoda.fa.gz dendezia@scorpion:/home/dendezia/tool/braker_git_install
+
+scp dendezia@scorpion:/home/dendezia/tool/for_softmask/nama_data/Ekam_dataset/data/GCA_014849505.1/GCA_014849505.1_AAL_Ekam_1.0_genomic.fna.masked.gz 
+
+scp /Users/kosukesano/bio/GCA_014849505.1/GCA_014849505.1_AAL_Ekam_1.0_genomic.fna.masked.gz kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/nama_data
+
+cp GCA_014849505.1_AAL_Ekam_1.0_genomic_upper.fna　~/tools/for_braker/nama_data/Pstr_oomoji.fna
+
+
+~/tools/for_softmask/nama_data/Pstr_data/GCA_016904865.1/GCA_016904865.1_GSC_weevil_1.0_genomic.fna
+BuildDatabase -name Pstr_BLAST_DATABASE_PREFIX /home/kosukesano/tools/for_softmask/nama_data/Pstr_data/GCA_016904865.1/Pstr_oomoji.fna
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/Madara/madara_braker.zip ../bio
+
+
+scp ~/Downloads/Release_241005-ojiro_hifiasm.tar.gz kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_softmask/nama_data
+
+scp ~/Downloads/Release_241005-ojiro_hifiasm.tar.gz dendezia@scorpion://home/dendezia/tool/for_softmask/nama_data
+
+
+Release_241005-ojiro_hifiasm/out.p_ctg.fa 
+
+BuildDatabase -name Ojiro_BLAST_DATABASE ../nama_data/Release_241005-ojiro_hifiasm/out.p_ctg.fa
+Building database Ekam_BLAST_DATABASE:
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l intel
+#$ -pe def_slot 24
+#$ -l s_vmem=12G
+#$ -l mem_req=12G
+
+/home/kosukesano/tools/for_softmask/Ojiro_softmask/RM_3181478.TueOct151949192024
+/home/kosukesano/tools/for_softmask/nama_data/Release_241005-ojiro_hifiasm/out.p_ctg.fa
+
+
+/home/dendezia/tool/for_softmask/Ojiro_softmask/RM_1996100.TueOct150214432024
+/home/dendezia/tool/for_softmask/nama_data/Release_241005-ojiro_hifiasm
+
+scp dendezia@scorpion:/home/dendezia/tool/for_softmask/nama_data/Release_241005-ojiro_hifiasm/out.p_ctg.fa.masked ~/bio/241017_Ojiro_masked.fa
+scp ~/bio/241017_Ojiro_masked.fa kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/nama_data
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 16
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l intel
+#$ -pe def_slot 16
+#$ -l s_vmem=12G
+#$ -l mem_req=12G
+echo start at
+date
+
+source /home/kosukesano/tools/pyenv_env/braker_profile
+
+braker.pl --genome=/home/kosukesano/tools/for_braker/nama_data/Pst_NotUseEDTA.fna\
+        --prot_seq=/home/kosukesano/tools/Arthropoda.fa\
+        --threads=16\
+        --species=Pstr_NotUseEDTA\
+        --AUGUSTUS_CONFIG_PATH=/usr/share/augustus/config\
+        --AUGUSTUS_BIN_PATH=/usr/bin\
+        --AUGUSTUS_SCRIPTS_PATH=/usr/share/augustus/scripts\
+        --GENEMARK_PATH=/home/kosukesano/tools/GeneMarkETP_git_install/GeneMark-ETP/bin\
+        --PROTHINT_PATH=/home/kosukesano/tools/ProtHint_git_install/ProtHint/bin\
+        --TSEBRA_PATH=/home/kosukesano/tools/TSEBRA_git_install/TSEBRA/bin
+
+date
+
+
+/Volumes/Elements_1/240529_RNAseq/RawData/ojiro_*/*.gz
+
+scp /Volumes/Elements_1/240529_RNAseq/first_raw_read/ojiro* kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/nama_data/Ojiro_RNAseq
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/241009_ASTRAL_6sp/*w_ratios.txt /Users/kosukesano/bio/for_paml/241019_branch
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/241009_IQTREE_6sp/*w_ratios.txt /Users/kosukesano/bio/for_paml/241019_branch
+
+
+/home/kosukesano/tools/for_orthofinder/241019_6plusOjiro
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 16
+echo start at
+date
+
+
+singularity exec -e /usr/local/biotools/b/busco:5.1.3--pyhdfd78af_0 busco\
+        -m protein\
+        -i /home/kosukesano/tools/for_braker/Ojiro/gputest/braker/RemakeHedder_Ojiro/Ojiro.fasta
+        -o /home/kosukesano/tools/for_braker/Ojiro/gputest/braker/BUSCO_OUTPUT_Ojiro\
+        -l\
+        /home/kosukesano/old_envilonment_until20240430/busco_downloads/busco_downloads/lineages/arthropoda_odb10/\
+        -f
+
+date
+
+
+orthogroups_file_path = '/home/kosukesano/tools/for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/Orthogroups/Orthogroups.txt'
+single_copy_orthologues_file_path = '/home/kosukesano/tools/for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/Orthogroups/Orthogroups_SingleCopyOrthologues.txt'
+output_file_path = '/home/kosukesano/tools/for_paml/data/plusOjiro/extracted_orthogroups.txt'
+
+
+
+
+#####################################
+
+### new_makefna.pyの中身
+
+# 必要なモジュールをインポート
+import os
+
+# ファイルパスの設定
+orthogroups_file = "extracted_orthogroups.txt"
+input_dir = "/home/kosukesano/tools/for_paml/data/plusOjiro/plusOjiro_nama_data/Amino_seq"
+output_dir = "/home/kosukesano/tools/for_paml/data/plusOjiro/CDS_SCO/"
+
+# ディレクトリが存在しない場合、作成
+os.makedirs(output_dir, exist_ok=True)
+
+# OG番号と遺伝子IDをextracted_orthogroups.txtから取得
+with open(orthogroups_file, "r") as ortho_f:
+    for line in ortho_f:
+        if line.strip():  # 空行を無視
+            # 行をOG番号と遺伝子IDに分割
+            og_number, gene_ids_str = line.split(":")
+            og_number = og_number.strip()
+            gene_ids = gene_ids_str.strip().split()
+
+            # 遺伝子IDを種ごとに分割
+            genes = {
+                "Agra": gene_ids[0],
+                "Cass": gene_ids[1],
+                "Dpon": gene_ids[2],
+                "Ojir": gene_ids[3],
+                "Smad": gene_ids[4],
+                "Sory": gene_ids[5],
+                "Tcas": gene_ids[6]
+            }
+
+            # 出力ファイルのパスを設定
+            output_file = os.path.join(output_dir, f"{og_number}.fna")
+
+            # 出力ファイルを開く
+            with open(output_file, "w") as out_f:
+                # 各種ごとに遺伝子IDを取得し、対応するファイルからシーケンスを検索
+                for species, gene_id in genes.items():
+                    fasta_file = os.path.join(input_dir, f"{species}_changehedder.fasta")
+
+                    with open(fasta_file, "r") as fasta_f:
+                        write_flag = False
+                        for line in fasta_f:
+                            if line.startswith(f">{gene_id}"):
+                                # ヘッダー行を見つけたら、出力ファイルに書き込みを開始
+                                out_f.write(line)
+                                print(line.strip())  # 標準出力にヘッダーを表示
+                                write_flag = True
+                            elif line.startswith(">") and write_flag:
+                                # 次のヘッダー行が見つかったら、現在の遺伝子の書き込みを終了
+                                write_flag = False
+                            elif write_flag:
+                                # シーケンス部分を書き込む
+                                out_f.write(line)
+                                print(line.strip())  # 標準出力にシーケンスを表示
+
+            print(f"{og_number}.fna ファイルが {output_dir} に保存されました。")
+
+
+
+#$ -S /bin/bash
+
+source ~/tools/pyenv_env/ManualPhilo_profile
+
+# ディレクトリパス
+input_dir="/home/kosukesano/tools/for_paml/data/plusOjiro/CDS_SCO/"
+output_dir="/home/kosukesano/tools/for_paml/data/plusOjiro/CDS_SCO/"
+
+# 各ファイルに対してアラインメントを実行
+for file in "$input_dir"*.fna; do
+  # 元のファイル名から拡張子を除いたものを取得
+  base_name=$(basename "$file" .fna)
+
+  # 出力ファイル名を生成
+  output_file="${output_dir}${base_name}_maffted.fna"
+
+  # MAFFTを実行
+  mafft --auto --maxiterate 1000 --localpair "$file" > "$output_file"
+
+  echo "Aligned file created: $output_file"
+done
+
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/Species_Tree/SpeciesTree_rooted.txt /Users/kosukesano/bio/for_cafe/241019_orthofinder_data
+
+scp /Users/kosukesano/bio/for_cafe/241019_orthofinder_data/tree_ultrametric.nwk kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/241019_plusOjiro
+
+
+
+##analysis_manual.pptxの#46も参照
+
+##AFTER you made MSA file(all_seq.fa) in DDBJ with makeMSA.sh
+
+##時間は10secほど
+
+import numpy as np
+import pandas as pd
+import os
+
+path = "/home/kosukesano/tools/for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/"
+withpath = "../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/"
+
+OGs = pd.read_table(path + "Orthogroups/Orthogroups.tsv")
+
+##with openは相対パスしか受け付けないらしい
+new = pd.DataFrame()
+with open(withpath + "Orthogroups/Orthogroups_SingleCopyOrthologues.txt", "r") as fin:
+    for line in fin:
+        li = line.rstrip()
+        new = pd.concat([new, OGs[OGs["Orthogroup"] == li]])
+print(new)
+new.to_csv(path + "ManualPhylo_data/OG_list.txt", sep = " ", index = False, header = False)
+
+##OG_list.txtと同じ順番の種名リストであるspecies_list.txtを作成
+##できたOG_list.txtに、DDBJで作ったall_seq.faで配列情報を与える。
+
+li = []
+allspe = OGs.columns.tolist()
+allspe2 = allspe[1:len(allspe)]
+with open(withpath + "ManualPhylo_data/species_list.txt", "w") as file:
+   for column_name in allspe2:
+       file.write("%s\n" % column_name)
+
+
+###ManualPhylo_2の中身
+
+
+
+
+echo start at
+date
+
+# Enter the directory containing the fasta files
+filesout="/home/kosukesano/tools/for_orthofinder/241019_6plusOjiro"  ## Please replace with the actual directory containing the fasta files
+
+# Define the output directory and output file
+new="/home/kosukesano/tools/for_IQTREE/241019_plusOjiro/"
+mkdir -p $new
+
+# Concatenate all fasta files into one file
+for file in "$filesout"/*.fasta; do
+    cat "$file" >> "./${new}/all_seq.fa"
+done
+
+
+date
+
+
+
+
+
+##ManualPhylo_1.pyの続き
+
+import sys
+from Bio import SeqIO
+
+path = "../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data/"
+
+fasta_in = sys.argv[1]                                  #１番目の引数には上記のall_seq.faなどfastaファイルを指定する
+query_in = sys.argv[2]                                  #２番目の引数には上記のOG_list.txtなどオーソログファイルを指定する
+
+for q in open(query_in, "r"):                                           #オーソログファイルを開いて1行づつ読み込む
+        query = q.split()                                                       #スペース毎に切りとってリスト形式でqueryに保存する
+        f = open(path + query[0], 'w')                                  #最初の列(OG名）と同じ名前のファイルを作成する
+        for record in SeqIO.parse(fasta_in, 'fasta'):   #fastaファイルを開くSeqIOを使ってパースする(1項目づつ読み込む）
+                id_part = record.id                                     #fastaのID部分を読み込む
+                desc_part = record.description                  #fastaのdescription部分を読み込む
+                seq = record.seq                                        #fastaの配列部分を読み込む
+                for i in range(len(query)):                         #オーソログファイル中の各OGに含まれる配列数を数えて、その分繰り返す(python2の人はrange を x rangeにする)
+                        if desc_part == query[i] :                  #オーソログファイルの配列descriptionとfastaの配列descriptionが一致したら、、、
+                                fasta_seq = '>' + desc_part + '\n' + seq + '\n'         #fasta形式に整え
+                                print(fasta_seq)                                        #標準出力にfastaを出力（進行状況把握用）
+                                f.write(str(fasta_seq))                             #各OGファイルにfastaを出力
+        f.close()
+
+##できたOGファイルは、align.shやOG_list.txtと同じ場所に
+##align.shのある場所までいき、作動。cwdを231016/ManualPhylo_dataにしないとtrimalが作動せず、イライラ
+
+
+python IQTREE_2.py all_seq.fa ../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data/OG_list.txt 
+
+import sys
+from Bio import SeqIO
+
+path = "../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data/"
+
+fasta_in = sys.argv[1]                                  #１番目の引数には上記のall_seq.faなどfastaファイルを指定する
+query_in = sys.argv[2]                                  #２番目の引数には上記のOG_list.txtなどオーソログファイルを指定する
+
+for q in open(query_in, "r"):                                           #オーソログファイルを開いて1行づつ読み込む
+        query = q.split()                                                       #スペース毎に切りとってリスト形式でqueryに保存する
+        f = open(path + query[0], 'w')                                  #最初の列(OG名）と同じ名前のファイルを作成する
+        for record in SeqIO.parse(fasta_in, 'fasta'):   #fastaファイルを開くSeqIOを使ってパースする(1項目づつ読み込む）
+                id_part = record.id                                     #fastaのID部分を読み込む
+                desc_part = record.description                  #fastaのdescription部分を読み込む
+                seq = record.seq                                        #fastaの配列部分を読み込む
+                for i in range(len(query)):                         #オーソログファイル中の各OGに含まれる配列数を数えて、その分繰り返す(python2の人はrange を x rangeにする)
+                        if id_part == query[i] or desc_part == query[i] :                   #オーソログファイルの配列descriptionとfastaの配列descriptionが一致したら、、、
+                                fasta_seq = '>' + id_part + ' ' + desc_part + '\n' + seq + '\n'         #fasta形式に整え
+                                print(fasta_seq)                                        #標準出力にfastaを出力（進行状況把握用）
+                                f.write(str(fasta_seq))                             #各OGファイルにfastaを出力
+        f.close()
+
+##できたOGファイルは、align.shやOG_list.txtと同じ場所に
+##align.shのある場所までいき、作動。cwdを231016/ManualPhylo_dataにしないとtrimalが作動せず、イライラ
+
+
+
+import os
+from Bio import SeqIO
+
+# 処理するディレクトリのパス
+input_dir = '../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data/'
+input_dir = os.path.expanduser(input_dir)
+
+# ディレクトリ内のファイルをリスト
+files = [f for f in os.listdir(input_dir) if f.endswith('.maffted.trimed.fa')]
+
+# 各ファイルに対して処理を適用
+for file in files:
+    input_file = os.path.join(input_dir, file)
+    
+    # 出力ファイルのパス
+    og_number = file.split('.')[0]  # OG番号を取得
+    output_file = os.path.join(input_dir, f"{og_number}.maffted.trimed.edit.fa")
+    
+    # ファイルの読み込みと書き換え
+    with open(output_file, 'w') as outfile:
+        for record in SeqIO.parse(input_file, 'fasta'):
+            header = record.description
+            seq = str(record.seq)
+
+            # ヘッダーが「>g」で始まる場合、「>Smad」に置き換え
+            if header.startswith("g"):
+                new_header = ">Smad"
+
+            # ヘッダーが「]」で終わる場合、指定の形式に変換
+            elif header.endswith("]"):
+                # 「[]」内の最初の1文字とスペース後の3文字を抽出
+                within_brackets = header.split('[')[1].split(']')[0]
+                first_letter = within_brackets[0]
+                space_after = within_brackets.split()[-1][:3]
+                new_header = f">{first_letter}{space_after}"
+
+            else:
+                new_header = header
+
+            # 新しいヘッダーと配列を出力ファイルに書き込む
+            outfile.write(f"{new_header}\n{seq}\n")
+
+        # ジョブの進行状況を出力
+        print(f"Processed: {file}")
+
+print("全てのファイルが処理されました。")
+
+
+
+### ManualPhylo_3.pyの中身
+
+
+##align.shした後
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+from Bio import SeqIO
+
+path = "~/tools/for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data"
+
+query_in = sys.argv[1]                            #1番目の引数には上記のOG_list.txtなどオーソログファイルを指定する
+species_in = sys.argv[2]                          #2番目の引数にはOG_list.txtと同じ順番で種名を記述したファイルを指定する
+
+sp_list = []
+for sp in open(species_in, "r"):                     #種名ファイルを開く
+        sp_list.extend(sp.split())                            #スペース毎に切りとってリスト形式でsp_listに保存する
+
+for q in open(query_in, "r"):                     #オーソログファイルを開いて1行づつ読み込む
+        query = q.split()                             #スペース毎に切りとってリスト形式でqueryに保存する
+
+        f = open(path + query[0]+".maffted.trimed.fa", 'w')
+        for record in SeqIO.parse(path + query[0]+".maffted.trimed.fa", 'fasta'): #fastaファイルを開くSeqIOを使ってパースする(1項目づつ読み込む）
+                desc_part = record.description            #fastaのdescription部分を読み込む
+                seq = record.seq                          #fastaの配列部分を読み込む
+                desc_part_new = desc_part.split()[0]
+
+                for i in range(len(query)-1):              #オーソログファイル中の各OGに含まれる配列数を数えて、その分繰り返す
+
+                        if desc_part_new == query[i+1] :            #オーソログファイルの配列descriptionとfastaの配列descriptionが一致したら、、、
+                                fasta_seq = '>' + sp_list[i] + '\n' + seq + '\n'     #配列名を該当する種名に置き換えて、fasta形式に整えて
+                                print(fasta_seq)                  #標準出力にfastaを出力（進行状況把握用）
+                f.write(str(fasta_seq))           #各OGファイルにfastaを出力
+        f.close()
+
+##scorpionでnano run.nexを変更し、以下を実行
+##iqtree –sp run.nex –nt AUTO –bb 1000
+~
+
+
+
+python IQTREE_3.py ../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data/OG_list.txt ../../for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data/species_list.txt
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l intel
+#$ -pe def_slot 16
+echo start at
+date
+
+# Singularityイメージのパスを指定
+SINGULARITY_IMAGE="/usr/local/biotools/i/iqtree:2.3.3--h21ec9f0_0"
+
+# 作業ディレクトリに移動
+cd ~/tools/for_orthofinder/241019_6plusOjiro/OrthoFinder/Results_Oct19/ManualPhylo_data
+
+# 出力ファイル
+output_file="all_trees.nwk"
+
+# 既存の出力ファイルを削除
+if [ -f $output_file ]; then
+    rm $output_file
+fi
+
+# *.maffted.trimed.edit.fa ファイルを処理
+for file in *.maffted.trimed.edit.fa; do
+    # ファイル名から拡張子を除いたベース名を取得
+    base_name=$(basename $file .maffted.trimed.fa)
+
+    # Singularityを使用してIQ-TREEを実行して系統樹を作成
+    singularity exec -e $SINGULARITY_IMAGE iqtree2 -s $file -nt AUTO -bb 1000 -cptime 600 -pre ${base_name}
+
+    # 作成された系統樹ファイル (.treefile) を output_file に追加
+    if [ -f ${base_name}.treefile ]; then
+        echo -n "${base_name}: " >> $output_file
+        cat ${base_name}.treefile >> $output_file
+        echo "" >> $output_file
+    else
+        echo "Error: ${base_name}.treefile not found" >&2
+    fi
+done
+
+echo "All trees have been written to $output_file"
+
+date
+
+
+singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 seqkit seq -n Pst_NotUseEDTA.fna  |wc -l
+
+
+
+
+singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 seqkit seq -m 1000 kohuki_softmasked.fasta > kohuki_softmasked_upper1000.fasta
+
+
+
+/home/kosukesano/tools/for_cafe/241019_plusOjiro/results
+
+
+scp /Users/kosukesano/Downloads/Dval.zip kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_softmask/nama_data/Dval_data
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/Ojiro/ojiro_braker.tar.gz /Users/kosukesano/bio/
+
+
+(Agra:0.1737342551,(((Cass:0.2041659391,Smad:0.2191384169)42:0.0351109086,Dpon:0.4645554212)51:0.0267138936,Sory:0.3500283363)53:0.0524272426,Tcas:0.5480180652);
+
+
+
+
+### IQTREE_1.py
+
+##analysis_manual.pptxの#46も参照
+
+##AFTER you made MSA file(all_seq.fa) in DDBJ with makeMSA.sh
+
+##時間は10secほど
+
+import numpy as np
+import pandas as pd
+import os
+
+path = "/home/kosukesano/tools/for_orthofinder/241104_5plusOjiro/OrthoFinder/Results_Nov04/"
+withpath = "../../for_orthofinder/241104_5plusOjiro/OrthoFinder/Results_Nov04/"
+
+OGs = pd.read_table(path + "Orthogroups/Orthogroups.tsv")
+
+# ManualPhylo_dataディレクトリが存在しない場合は作成
+os.makedirs(path + "ManualPhylo_data", exist_ok=True)
+
+##with openは相対パスしか受け付けないらしい
+new = pd.DataFrame()
+with open(withpath + "Orthogroups/Orthogroups_SingleCopyOrthologues.txt", "r") as fin:
+    for line in fin:
+        li = line.rstrip()
+        new = pd.concat([new, OGs[OGs["Orthogroup"] == li]])
+print(new)
+new.to_csv(path + "ManualPhylo_data/OG_list.txt", sep = " ", index = False, header = False)
+
+##OG_list.txtと同じ順番の種名リストであるspecies_list.txtを作成
+##できたOG_list.txtに、DDBJで作ったall_seq.faで配列情報を与える。
+
+li = []
+allspe = OGs.columns.tolist()
+allspe2 = allspe[1:len(allspe)]
+with open(withpath + "ManualPhylo_data/species_list.txt", "w") as file:
+   for column_name in allspe2:
+       file.write("%s\n" % column_name)
+
+#$ -S /bin/bash
+#$ -cwd
+
+echo start at
+date
+
+# Enter the directory containing the fasta files
+filesout="/home/kosukesano/tools/for_orthofinder/241104_5plusOjiro"  ## Please replace with the actual directory containing the fasta files
+
+# Define the output directory and output file
+new="/home/kosukesano/tools/for_IQTREE/241104_5sp_plusOjiro"
+mkdir -p $new
+
+# Concatenate all fasta files into one file
+for file in "$filesout"/*.fasta; do
+    cat "$file" >> "${new}/all_seq.fa"
+done
+
+
+date
+
+### IQTREE_2.pyの中身
+
+import sys
+from Bio import SeqIO
+
+path = "../../for_orthofinder/241104_5plusOjiro/OrthoFinder/Results_Nov04/ManualPhylo_data/"
+
+fasta_in = sys.argv[1]                                  #１番目の引数には上記のall_seq.faなどfastaファイルを指定する
+query_in = sys.argv[2]                                  #２番目の引数には上記のOG_list.txtなどオーソログファイルを指定する
+
+for q in open(query_in, "r"):                                           #オーソログファイルを開いて1行づつ読み込む
+        query = q.split()                                                       #スペース毎に切りとってリスト形式でqueryに保存する
+        f = open(path + query[0], 'w')                                  #最初の列(OG名）と同じ名前のファイルを作成する
+        for record in SeqIO.parse(fasta_in, 'fasta'):   #fastaファイルを開くSeqIOを使ってパースする(1項目づつ読み込む）
+                id_part = record.id                                     #fastaのID部分を読み込む
+                desc_part = record.description                  #fastaのdescription部分を読み込む
+                seq = record.seq                                        #fastaの配列部分を読み込む
+                for i in range(len(query)):                         #オーソログファイル中の各OGに含まれる配列数を数えて、その分繰り返す(python2の人はrange を x rangeにする)
+                        if desc_part == query[i] :                  #オーソログファイルの配列descriptionとfastaの配列descriptionが一致したら、、、
+                                fasta_seq = '>' + desc_part + '\n' + seq + '\n'         #fasta形式に整え
+                                print(fasta_seq)                                        #標準出力にfastaを出力（進行状況把握用）
+                                f.write(str(fasta_seq))                             #各OGファイルにfastaを出力
+        f.close()
+
+
+
+
+
+### IQTREE_3.pyの中身
+
+import os
+
+# ファイルのヘッダーを変更する関数
+def modify_headers(input_file, output_file):
+    with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
+        for line in infile:
+            if line.startswith(">"):
+                # ヘッダー行の最初の四文字を抽出して書き換え
+                outfile.write(f">{line[1:5]}\n")
+            else:
+                outfile.write(line)
+
+# 作業ディレクトリ内のすべての ".maffted.trimed.fa" ファイルに対して処理を適用し、出力を別ディレクトリに保存
+def process_directory(input_directory, output_directory):
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+    
+    for filename in os.listdir(input_directory):
+        if filename.endswith(".maffted.trimed.fa"):
+            input_file = os.path.join(input_directory, filename)
+            output_file = os.path.join(output_directory, filename.replace(".maffted.trimed.fa", ".maffted.trimed.edit.fa"))
+            modify_headers(input_file, output_file)
+            print(f"Processed: {filename}")
+
+# 実行するディレクトリを指定
+input_directory = "/home/kosukesano/tools/for_orthofinder/241104_5plusOjiro/OrthoFinder/Results_Nov04/ManualPhylo_data"
+output_directory = "/home/kosukesano/tools/for_IQTREE/241104_5sp_plusOjiro"
+
+process_directory(input_directory, output_directory)
+
+
+
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l intel
+#$ -pe def_slot 16
+echo start at
+date
+
+# Singularityイメージのパスを指定
+SINGULARITY_IMAGE="/usr/local/biotools/i/iqtree:2.3.3--h21ec9f0_0"
+
+# 作業ディレクトリに移動
+cd /home/kosukesano/tools/for_IQTREE/241104_5sp_plusOjiro
+
+# 出力ファイル
+output_file="all_trees.nwk"
+
+# 既存の出力ファイルを削除
+if [ -f $output_file ]; then
+    rm $output_file
+fi
+
+# *.maffted.trimed.edit.fa ファイルを処理
+for file in *.maffted.trimed.edit.fa; do
+    # ファイル名から拡張子を除いたベース名を取得
+    base_name=$(basename $file .maffted.trimed.edit.fa)
+
+    # Singularityを使用してIQ-TREEを実行して系統樹を作成
+    singularity exec -e $SINGULARITY_IMAGE iqtree2 -s $file -nt AUTO -bb 1000 -cptime 600 -pre ${base_name}
+
+    # 作成された系統樹ファイル (.treefile) を output_file に追加
+    if [ -f ${base_name}.treefile ]; then
+        echo -n "${base_name}: " >> $output_file
+        cat ${base_name}.treefile >> $output_file
+        echo "" >> $output_file
+    else
+        echo "Error: ${base_name}.treefile not found" >&2
+    fi
+done
+
+echo "All trees have been written to $output_file"
+
+date
+
+
+
+
+##analysis_manual.pptxの#46も参照
+
+##AFTER you made MSA file(all_seq.fa) in DDBJ with makeMSA.sh
+
+##時間は10secほど
+
+import numpy as np
+import pandas as pd
+import os
+
+path = "/home/kosukesano/tools/for_orthofinder/241104_10sp/OrthoFinder/Results_Nov04/"
+withpath = "../../for_orthofinder/241104_10sp/OrthoFinder/Results_Nov04/"
+
+OGs = pd.read_table(path + "Orthogroups/Orthogroups.tsv")
+
+# ManualPhylo_dataディレクトリが存在しない場合は作成
+os.makedirs(path + "ManualPhylo_data", exist_ok=True)
+
+##with openは相対パスしか受け付けないらしい
+new = pd.DataFrame()
+with open(withpath + "Orthogroups/Orthogroups_SingleCopyOrthologues.txt", "r") as fin:
+    for line in fin:
+        li = line.rstrip()
+        new = pd.concat([new, OGs[OGs["Orthogroup"] == li]])
+print(new)
+new.to_csv(path + "ManualPhylo_data/OG_list.txt", sep = " ", index = False, header = False)
+
+##OG_list.txtと同じ順番の種名リストであるspecies_list.txtを作成
+##できたOG_list.txtに、DDBJで作ったall_seq.faで配列情報を与える。
+
+li = []
+allspe = OGs.columns.tolist()
+allspe2 = allspe[1:len(allspe)]
+with open(withpath + "ManualPhylo_data/species_list.txt", "w") as file:
+   for column_name in allspe2:
+       file.write("%s\n" % column_name)
+
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+
+echo start at
+date
+
+# Enter the directory containing the fasta files
+filesout="/home/kosukesano/tools/for_orthofinder/241104_10sp"  ## Please replace with the actual directory containing the fasta files
+
+# Define the output directory and output file
+new="/home/kosukesano/tools/for_IQTREE/241105_10sp"
+mkdir -p $new
+
+# Concatenate all fasta files into one file
+for file in "$filesout"/*.fasta; do
+    cat "$file" >> "${new}/all_seq.fa"
+done
+
+
+date
+
+
+
+
+import sys
+from Bio import SeqIO
+
+path = "../../for_orthofinder/241104_10sp/OrthoFinder/Results_Nov04/ManualPhylo_data/"
+
+fasta_in = sys.argv[1]                                  #１番目の引数には上記のall_seq.faなどfastaファイルを指定する
+query_in = sys.argv[2]                                  #２番目の引数には上記のOG_list.txtなどオーソログファイルを指定する
+
+for q in open(query_in, "r"):                                           #オーソログファイルを開いて1行づつ読み込む
+        query = q.split()                                                       #スペース毎に切りとってリスト形式でqueryに保存する
+        f = open(path + query[0], 'w')                                  #最初の列(OG名）と同じ名前のファイルを作成する
+        for record in SeqIO.parse(fasta_in, 'fasta'):   #fastaファイルを開くSeqIOを使ってパースする(1項目づつ読み込む）
+                id_part = record.id                                     #fastaのID部分を読み込む
+                desc_part = record.description                  #fastaのdescription部分を読み込む
+                seq = record.seq                                        #fastaの配列部分を読み込む
+                for i in range(len(query)):                         #オーソログファイル中の各OGに含まれる配列数を数えて、その分繰り返す(python2の人はrange を x rangeにする)
+                        if desc_part == query[i] :                  #オーソログファイルの配列descriptionとfastaの配列descriptionが一致したら、、、
+                                fasta_seq = '>' + desc_part + '\n' + seq + '\n'         #fasta形式に整え
+                                print(fasta_seq)                                        #標準出力にfastaを出力（進行状況把握用）
+                                f.write(str(fasta_seq))                             #各OGファイルにfastaを出力
+        f.close()
+
+python IQTREE_2.py all_seq.fa ../../for_orthofinder/241104_10sp/OrthoFinder/Results_Nov04/ManualPhylo_data/OG_list.txt 
+
+scp /Users/kosukesano/Downloads/PANTHER19.0_hmmscoring.tgz kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_panther/
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/Madara/madara_braker.sh /Users/kosukesano/Downloads/
+
+
+### IQTREE_3.pyの中身
+
+import os
+
+# ファイルのヘッダーを変更する関数
+def modify_headers(input_file, output_file):
+    with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
+        for line in infile:
+            if line.startswith(">"):
+                # ヘッダー行の最初の四文字を抽出して書き換え
+                outfile.write(f">{line[1:5]}\n")
+            else:
+                outfile.write(line)
+
+# 作業ディレクトリ内のすべての ".maffted.trimed.fa" ファイルに対して処理を適用し、出力を別ディレクトリに保存
+def process_directory(input_directory, output_directory):
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+    
+    for filename in os.listdir(input_directory):
+        if filename.endswith(".maffted.trimed.fa"):
+            input_file = os.path.join(input_directory, filename)
+            output_file = os.path.join(output_directory, filename.replace(".maffted.trimed.fa", ".maffted.trimed.edit.fa"))
+            modify_headers(input_file, output_file)
+            print(f"Processed: {filename}")
+
+# 実行するディレクトリを指定
+input_directory = "/home/kosukesano/tools/for_orthofinder/241104_10sp/OrthoFinder/Results_Nov04/ManualPhylo_data"
+output_directory = "/home/kosukesano/tools/for_IQTREE/241105_10sp"
+
+process_directory(input_directory, output_directory)
+
+
+
+alias pshttpd='ps aux | grep httpd'
+alias codeml='singularity exec -e /usr/local/biotools/p/paml:4.9--h779adbc_6 codeml'
+singularity exec -e /usr/local/biotools/p/paml:4.9--h779adbc_6 codeml
+
+
+scp /Users/kosukesano/Downloads/hmmer-3.1b2.tar.gz kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_panther
+
+perl pantherScore2.2.pl -l ../target/famlib/rel/PANTHER19.0_altVersion/hmmscoring/PANTHER19.0/books/ -D B -V -i  ../test.fa -o ../output.txt -n
+
+PATH=$PATH:/home/kosukesano/tools/for_panther/hmmer-3.1b2/src
+
+
+
+perl pantherScore2.2.pl -l ../target/famlib/rel/PANTHER19.0_altVersion/hmmscoring/PANTHER19.0/ -D B -V -i  ../Smad.fasta -o Smad_out.txt
+
+
+scp /Users/kosukesano/Downloads/flanking_dna.fasta dendezia@scorpion:~/tool/for_softmask/nama_data
+
+BuildDatabase -name Takagawa_BLAST_DATABASE ../nama_data/flanking_dna.fasta
+
+/home/kosukesano/tools/for_panther/pantherScore2.2
+
+/home/kosukesano/tools/for_panther/working_dir/241108_test
+
+perl pantherScore2.2.pl -l ../target/famlib/rel/PANTHER19.0_altVersion/hmmscoring/PANTHER19.0/ -D B -V -i  ../test.fa -o output.txt -n
+
+perl /home/kosukesano/tools/for_panther/pantherScore2.2/pantherScore2.2.pl -l /home/kosukesano/tools/for_panther/target/famlib/rel/PANTHER19.0_altVersion/hmmscoring/PANTHER19.0/ -D B -V -i  /home/kosukesano/tools/for_panther/test.fa -o output.txt -n
+
+
+OG0000769
+
+
+OG0000769: Agra_P_050303580.1 Agra_P_050303581.1 Cass_AG9768182.1 Dpon_P_019767992.2 Dpon_P_048517880.1 Dpon_P_048518052.1 Smad_g2479.t1 Smad_g3654.t1 Smad_g3654.t2 Smad_g3655.t1 Smad_g3656.t1 Smad_g4097.t1 Smad_g4916.t1 Smad_g4916.t2 Sory_P_030758496.1 Sory_P_030758497.1 Sory_P_030758499.1 Sory_P_030758501.1 Tcas_P_968478.1
+
+
+### concatinate.shの中身
+
+#$ -S /bin/bash
+#$ -cwd
+
+echo start at
+date
+
+# Enter the directory containing the fasta files
+filesout="/home/kosukesano/tools/for_orthofinder/RemakeHedder_6sp"  ## Please replace with the actual directory containing the fasta files
+
+# Define the output directory and output file
+new="/home/kosukesano/tools/for_ETE/test_241108"
+mkdir -p $new
+
+# Concatenate all fasta files into one file
+for file in "$filesout"/*.fasta; do
+    cat "$file" >> "${new}/all_seq.fa"
+done
+
+echo end at
+date
+
+
+
+
+#########################
+
+Smad_g9309.t1   PTHR23226:SF416 FI01424P        2.8e-43 151.2   132-521
+Smad_g10140.t29 PTHR23110:SF111 LONGITUDINALS LACKING PROTEIN, ISOFORMS F_I_K_T 1.6e-103        350.5   1-403
+Smad_g6717.t2   PTHR47958:SF73  RNA HELICASE    7.1e-265        884.7   63-514
+Smad_g13408.t1  PTHR24394       ZINC FINGER PROTEIN     5.6e-131        441.5   49-482
+Smad_g1852.t1   PTHR10009:SF7   GH10609P-RELATED        2.3e-156        523.7   6-419
+Smad_g11009.t1  PTHR45703:SF32  DYNEINS HEAVY CHAIN     0       6045.5  1-3926
+Smad_g6907.t3   PTHR16154:SF6   SPINOPHILIN, ISOFORM J  0       1148.1  1-1768
+Smad_g7989.t1   PTHR14710       GEM-ASSOCIATED PROTEIN 6        4e-33   117.8   6-159
+Smad_g7989.t1   PTHR14710:SF2   GEM-ASSOCIATED PROTEIN 6        4e-33   117.8   6-159
+Smad_g6622.t2   PTHR46763:SF1   DYNEIN REGULATORY COMPLEX PROTEIN 8     4.5e-65 221.7   8-163
+Smad_g6622.t2   PTHR46763       DYNEIN REGULATORY COMPLEX PROTEIN 8     4.5e-65 221.7   8-163
+Smad_g2620.t2   PTHR23511:SF36  EG:BACR7A4.13 PROTEIN-RELATED   1e-135  456.4   5-446
+
+上記は~/tools/for_panther/working_dir/241108_Madara/ディレクトリにあるoutput.txtの中身の一部です。左から遺伝子IDとPANTHERのID、遺伝子機能が羅列されています。
+
+また、
+PTHR10725   PTHR10725:SF25:DNA_TRANSPOSASE_THAP9
+PTHR10948   PTHR10948:SF24:TRANSPOSASE_INSI_FOR_INSERTION_SEQUENCE_ELEMENT_IS30C    PTHR10948:TRANSPOSASE
+PTHR11439   PTHR11439:GAG-POL-RELATED_RETROTRANSPOSON   PTHR11439:SF197:GAG-POL-RELATED_RETROTRANSPOSON_FAMILY_PROTEIN  PTHR11439:SF200:TRANSPOSON_TY5-1_PROTEIN_YCL074W-RELATED    PTHR11439:SF207:TRANSPOSON_TY4-H_GAG-POL_POLYPROTEIN-RELATED    PTHR11439:SF209:GAG-POL-RELATED_RETROTRANSPOSON_FAMILY_PROTEIN  PTHR11439:SF211:TRANSPOSON_TY1-A_GAG_POLYPROTEIN-RELATED    PTHR11439:SF219:TRANSPOSON_TY5-1_PROTEIN_YCL075W-RELATED
+PTHR11505   PTHR11505:L1_TRANSPOSABLE_ELEMENT-RELATED   PTHR11505:SF196:LINE-1_TYPE_TRANSPOSASE_DOMAIN-CONTAINING_PROTEIN_1 PTHR11505:SF199:LINE-1_RETROTRANSPOSABLE_ELEMENT_ORF1_PROTEIN
+PTHR11697   PTHR11697:SF154:AC-LIKE_TRANSPOSASE-RELATED PTHR11697:SF180:AC-LIKE_TRANSPOSASE-RELATED
+PTHR12066   PTHR12066:SF1:TELOMERASE_REVERSE_TRANSCRIPTASE  PTHR12066:TELOMERASE_REVERSE_TRANSCRIPTASE
+PTHR13802   PTHR13802:SF51:RETROTRANSPOSON_GAG_DOMAIN-CONTAINING_PROTEIN_1  PTHR13802:SF53:RETROTRANSPOSON_GAG_DOMAIN-CONTAINING_PROTEIN_1
+PTHR15503   PTHR15503:SF16:RETROTRANSPOSON-DERIVED_PROTEIN_PEG10    PTHR15503:SF18:RETROTRANSPOSON_GAG_DOMAIN-CONTAINING_PROTEIN_4  PTHR15503:SF20:RETROTRANSPOSON-LIKE_PROTEIN_1
+PTHR19303   PTHR19303:SF316:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_6   PTHR19303:SF317:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_7   PTHR19303:SF318:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_1   PTHR19303:SF320:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_4   PTHR19303:SF352:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_2   PTHR19303:SF355:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_3   PTHR19303:SF360:TIGGER_TRANSPOSABLE_ELEMENT-DERIVED_PROTEIN_5   PTHR19303:SF377:POGO_TRANSPOSABLE_ELEMENT_WITH_KRAB_DOMAIN  PTHR19303:SF384:POGO_TRANSPOSABLE_ELEMENT_WITH_ZNF_DOMAIN   PTHR19303:TRANSPOSON
+これは、~/tools/for_panther/working_dir/nama_data/transpsons_dataにあるPANTHER11.0_transpsons.txtの一部です。PANTHERデータベースのうち、トランスポゾン関連遺伝子のPANTHER IDが格納されています。
+
+また、
+PTHR10725:SF25  DNA_TRANSPOSASE_THAP9
+PTHR10948   TRANSPOSASE
+PTHR10948:SF24  TRANSPOSASE_INSI_FOR_INSERTION_SEQUENCE_ELEMENT_IS30C
+PTHR11439   GAG-POL-RELATED_RETROTRANSPOSON
+PTHR11439:SF197 GAG-POL-RELATED_RETROTRANSPOSON_FAMILY_PROTEIN
+PTHR11439:SF200 TRANSPOSON_TY5-1_PROTEIN_YCL074W-RELATED
+PTHR11439:SF207 TRANSPOSON_TY4-H_GAG-POL_POLYPROTEIN-RELATED
+PTHR11439:SF209 GAG-POL-RELATED_RETROTRANSPOSON_FAMILY_PROTEIN
+PTHR11439:SF211 TRANSPOSON_TY1-A_GAG_POLYPROTEIN-RELATED
+PTHR11439:SF219 TRANSPOSON_TY5-1_PROTEIN_YCL075W-RELATED
+PTHR11505   L1_TRANSPOSABLE_ELEMENT-RELATED
+これは、~/tools/for_panther/working_dir/nama_data/transpsons_dataにあるPANTHER11.0_transpsons_subfamily.txtの一部です。PANTHERデータベースのうち、トランスポゾン関連遺伝子ファミリーのPANTHER IDが格納されています。
+
+この３つのファイルを読み込み、「PANTHER11.0_transpsons.txt」と「PANTHER11.0_transpsons_subfamily.txt」に含まれるPANTHER IDを持つ遺伝子を「output.txt」から取り除くpythonスクリプトを書いてください。
+出力ファイルは別途作成してください。
+
+
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:~/tools/for_panther/working_dir/nama_data/transpsons_data ~/bio/for_panther/nama_data/
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_panther/working_dir/241109_Sigenobu_Madara/output.txt ~/bio/for_panther/nama_data/241112_Sigenobu_Madara
+
+~/tools/for_ETE/test_241108
+OG0000769.maffted.trimed.fa
+OG0000769_tree.txt
+
+
+
+/home/kosukesano/tools/for_paml/paml/bin
+
+/home/kosukesano/tools/for_ETE/test_241108/makeCDS
+
+
+>Agra_P_050304642.1
+
+~/tools/for_paml/data/241009_RemakeHedder_6sp_afterchange/
+
+
+lnL(ntime: 36  np: 41): -16818.408514      +0.000000
+
+lnL(ntime: 36  np: 40): -16819.254271      +0.000000
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_IQTREE/241105_10sp /Users/kosukesano/bio/for_cafe/241113_10sp_Orthofinder_data
+
+
+scp /Users/kosukesano/bio/for_cafe/241113_10sp_Orthofinder_data/Orthogroups.GeneCount2.tsv tree_ultrametric.nwk kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/241113_10sp
+
+
+
+
+OG0000769.maffted.trimed_no_iso.fa
+OG0000769_no_iso.nwk
+
+
+
+(Tcas_P_968478.1:0.202115,((((((Smad_g3654.t1#:0.0013465,(Smad_g4097.t1#:3.76835e-06,Smad_g3655.t1#:0.655663):0.058338):0.122327,(Smad_g2479.t1#:0.220495,Smad_g3656.t1#:0.168247):0.018168):0.0411733,(Agra_P_050303581.1:0.00429096,Agra_P_050303580.1:0.00290804):0.128306):0.033771,(Dpon_P_048518052.1:3.76835e-06,Dpon_P_048517880.1:0.414566):0.312121):0.00786914,((Sory_P_030758497.1:0,(Sory_P_030758499.1:0,Sory_P_030758496.1:0):0):0.137347,Sory_P_030758501.1:0.0940817):0.0866472):0.145205,(Dpon_P_019767992.2:0.193095,(Cass_AG9768182.1:0.145471,Smad_g4916.t1#:0.00511556):0.0288039):0.115741):0.202115);
+
+
+singularity exec -e $SINGULARITY_IMAGE iqtree2 -s $file -nt AUTO -bb 1000 -cptime 600 -pre ${base_name}
+singularity exec -e /usr/local/biotools/i/iqtree:2.3.3--h21ec9f0_0 iqtree2 -s OG0000769.maffted.trimed_no_iso.fa -nt AUTO -bb 1000 -cptime 600
+
+
+
+OG0000769.maffted.trimed_no_iso.fa.treefile
+
+lnL(ntime: 31  np: 36): -16742.026907      +0.000000
+
+lnL(ntime: 31  np: 35): -16742.026907      +0.000000
+
+
+
+python3 -m fasp exclude_isoforms_by_length nama_data/Madara.aa output_data/Madara_iso1.aa nama_data/Madara.gtf
+python3 -m fasp exclude_isoforms_by_length test.faa output.faa test.gff
+
+python3 -m fasp exclude_isoforms_by_length nama_data/Tcas.aa output_data/Tcas_iso1.aa nama_data/Tcas.gtf
+python3 -m fasp exclude_isoforms_by_length nama_data/Agra.faa output_data/Agra_iso1.faa nama_data/Agra.gff
+python3 -m fasp exclude_isoforms_by_length nama_data/Cass.faa output_data/Cass_iso1.faa nama_data/Cass.gff
+python3 -m fasp exclude_isoforms_by_length nama_data/Dpon.faa output_data/Dpon_iso1.faa nama_data/Dpon.gff
+python3 -m fasp exclude_isoforms_by_length nama_data/Sory.faa output_data/Sory_iso1.faa nama_data/Sory.gff
+
+
+
+scp /Users/kosukesano/Downloads/Dfam-RepeatMasker.lib.gz kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_softmask
+
+
+
+
+
+/home/kosukesano/tools/for_softmask/241118_Madara_softmask/RM_2232007.MonNov181355052024
+
+
+docker container run -dit --mount type=bind,source="$PWD",target=/work --workdir /work --user "$(id -u):$(id -g)" --name dfamtet dfam/tetools
+73f896bc2cd927361517e63d4fdc5242fe8b9287184e9326c4877881bd7aef94
+
+
+less ../../../../Volumes/Elements_1/240514_new_weebil_genome/231117_madaragenome_fasta 
+
+/Users/kosukesano/Downloads/Dfam-RepeatMasker.lib 
+
+
+RepeatMasker -pa 4 -qq  -lib [/Users/kosukesano/Downloads/Dfam-RepeatMasker.lib] -dir /Users/kosukesano/bio/for_RepeatMasker_Docker/test_out -xsmall -gff /Users/kosukesano/bio/for_RepeatMasker_Docker/test.fasta
+
+
+
+apptainer exec ../dfam-tetools_1.sif RepeatMasker -pa 4 -qq -dir output_dir ../nama_data/231117_madaragenome.fasta 
+
+/home/dendezia/tool/for_RepeatMasker_Docker/nama_data
+
+scp /Users/kosukesano/Downloads/Dfam-RepeatMasker.lib kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_RepeatMasker_Docker/nama_data
+/home/kosukesano/tools/for_RepeatMasker_Docker/nama_data
+
+
+scp /Users/kosukesano/bio/for_RepeatMasker_Docker/231117_madaragenome_fasta dendezia@scorpion:/home/dendezia/tool/for_RepeatMasker_Docker/nama_data
+
+
+
+/home/dendezia/tool/for_RepeatMasker_Docker/nama_data
+
+/home/kosukesano/tools/for_RepeatMasker_Docker/241125_madara
+
+
+scp dendezia@scorpion:/home/dendezia/tool/for_RepeatMasker_Docker/241126_madara/output_dir/231117_madaragenome.fasta.masked ~/Downloads/241127_madara_DockerRM.fasta
+
+
+scp dendezia@scorpion:/home/dendezia/tool/for_softmask/241126_madara_EDTA/output_dir/231117_madaragenome.fasta.masked ~/Downloads/241127_madara_dfam_RM_data_NotUsedBuildDB.fasta
+
+
+scp ~/Downloads/241127* kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/nama_data
+
+kosukesano@at139:~/tools/for_braker/241127_madara/dfam_RMdata_buildDB$ ls ../../nama_data/241127*
+../../nama_data/241127_madara_DockerRM.fasta  ../../nama_data/241127_madara_dfam_RM_data_NotUsedBuildDB.fasta  ../../nama_data/241127_madara_dfam_RMdata_buildDB.fasta
+
+
+cat Dfam-RepeatMasker.lib ~/tools/for_softmask/RM_16988.WedMay221052072024/consensi.fa.classified > 241128_for_madara.lib
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_RepeatMasker_Docker/nama_data/241128_for_madara.lib ~/Downloads/
+
+scp /Users/kosukesano/Downloads/241128* dendezia@scorpion:/home/dendezia/tool/for_RepeatMasker_Docker/nama_data
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241127_madara/DockerRM/braker/braker.gtf /Users/kosukesano/bio/madara_MaskType_test/241127_DockerRM.gtf
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241127_madara/dfam_RM_data_NotUsedBuildDB/braker/braker.aa /Users/kosukesano/bio/madara_MaskType_test/241127_dfam_RM_data_NotUsedBuildDB.fasta
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241129_madara/braker/braker.gtf /Users/kosukesano/bio/madara_MaskType_test/241129_DockerPlusMadara.gtf
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241120_madara_dfam/braker/braker.gtf /Users/kosukesano/bio/madara_MaskType_test/241120_beetleDB.gtf
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241127_madara/dfam_RM_data_NotUsedBuildDB/braker/braker.gtf /Users/kosukesano/bio/madara_MaskType_test/241127_dfam_RM_data_NotUsedBuildDB.gtf
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241127_madara/dfam_RMdata_buildDB/braker/braker.gtf /Users/kosukesano/bio/madara_MaskType_test/241127_dfam_RMdata_buildDB.gtf
+
+
+/home/kosukesano/tools/for_braker/241129_madara
+
+singularity exec -e /usr/local/biotools/b/busco:5.1.3--pyhdfd78af_0 busco -m protein /home/kosukesano/tools/for_braker/241129_madara/braker/braker.aa -o BUSCO_OUTPUT_MADARA -l /home/kosukesano/old_envilonment_until20240430/busco_downloads/busco_downloads/lineages/arthropoda_odb10/ -f
+
+
+(gemoma) kosukesano@at138:~/tools/for_gemoma/nama_data/reference/Tcas$ ls
+Tcas.fna  Tcas_genomic.gff  Tcas_protein.faa
+(gemoma) kosukesano@at138:~/tools/for_gemoma/nama_data/reference/Tcas$ pwd
+/home/kosukesano/tools/for_gemoma/nama_data/reference/Tcas
+(gemoma) kosukesano@at138:~/tools/for_gemoma/nama_data/reference/Tcas$ 
+kosukesano@at138:~/tools/for_gemoma/241203_test$ ls ../../for_softmask/nama_data/
+231117_madaragenome.fasta
+
+
+scp /Volumes/Elements_1/merged_madara.zip kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_gemoma/nama_data
+
+
+scp -r /Users/kosukesano/bio/reference dendezia@scorpion:/home/dendezia/tool/for_gemoma/nama_data
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_gemoma/nama_data/reference /Users/kosukesano/bio/
+
+
+singularity exec -e /usr/local/biotools/b/busco:5.8.1--pyhdfd78af_0 busco -m protein -i /home/kosukesano/tools/for_braker/241129_madara/braker/braker.aa _MADARA2 -l arthropoda_odb10 -f
+
+scp hmmer-3.1b2.tar.gz dendezia@scorpion:/home/dendezia/tool/for_panther
+
+scp PANTHER19.0_hmmscoring.tgz dendezia@scorpion:/home/dendezia/tool/for_panther
+
+
+/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0/etc/profile.d/conda.sh" ]; then
+        . "/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+if [ -f "/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0/etc/profile.d/mamba.sh" ]; then
+    . "/Users/kosukesano/.pyenv/versions/mambaforge-23.10.0-0/etc/profile.d/mamba.sh"
+
+
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+
+echo start at
+date
+
+source /Users/kosukesano/pyenv_conda_environment/gemoma_profile
+
+GeMoMa GeMoMaPipeline \
+        t=/Users/kosukesano/bio/231117_madaragenome.fasta \
+        r=NO \
+        o=true \
+        i=Tcas \
+        a=/Users/kosukesano/bio/for_gemoma/nama_data/reference/Tcas/Tcas_genomic.gff \
+        g=/Users/kosukesano/bio/for_gemoma/nama_data/reference/Tcas/Tcas.fna \
+        GeMoMa.Score=ReAlign \
+        AnnotationFinalizer.r=NO \
+        threads=1 \
+        outdir=/Users/kosukesano/bio/for_gemoma/241212/madara_out
+
+echo end at
+date
+
+
+pyenv_env
+/home/dendezia/tool/for_gemoma/241204_test/madara_out_debug
+
+predicted_proteins.fasta
+
+
+/home/dendezia/tool/for_RepeatMasker_Docker/241128_madara/output_dir/
+
+
+busco -m protein -i 241216_madara_out/predicted_proteins.fasta -o BUSCO_OUTPUT_GEMOMA -l arthropoda_odb10 -f
+
+
+scp /Volumes/Elements_1/merged_madara.zip dendezia@scorpion:/home/dendezia/tool/for_gemoma/nama_data
+
+
+wget -P Homo_sapiens https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_000001405.40/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED
+ncbi-acc-download -F fasta -o Homo_sapiens/ GCF_000001405.40
+
+
+/home/dendezia/tool/for_gemoma/nama_data/reference/Homo_sapiens/ncbi_dataset/data/GCF_000001405.40
+
+GeMoMa \
+        -Xmx100g \
+        GeMoMaPipeline \
+        t=/home/dendezia/tool/for_gemoma/nama_data/241128_madara_masked.fasta \
+        r=NO \
+        o=true \
+        s=own \
+        i=Tcas \
+        a=/home/dendezia/tool/for_gemoma/nama_data/reference/Tcas/Tcas_genomic.gff \
+        g=/home/dendezia/tool/for_gemoma/nama_data/reference/Tcas/Tcas.fna \
+        s=own \
+        i=Hsap \
+        a=/home/dendezia/tool/for_gemoma/nama_data/reference/Homo_sapiens/ncbi_dataset/data/GCF_000001405.40/genomic.gff
+        g=/home/dendezia/tool/for_gemoma/nama_data/reference/Homo_sapiens/ncbi_dataset/data/GCF_000001405.40/GCF_000001405.40_GRCh38.p14_genomic.fna
+        GeMoMa.Score=ReAlign \
+        AnnotationFinalizer.r=NO \
+        threads=10 \
+        outdir=/home/dendezia/tool/for_gemoma/241217/241217_2sp_out
+
+
+
+busco -m protein -i predicted_proteins.fasta -o BUSCO_OUTPUT_GEMOMA -l arthropoda_odb10 -f
+
+/home/kosukesano/tools/for_softmask/nama_data/Release_241005-ojiro_hifiasm/out.p_ctg.fa
+
+
+
+scp Homo_sapiens.zip kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_gemoma/nama_data/reference
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 10
+#$ -l s_vmem=256G
+#$ -l mem_req=256G
+echo start at
+date
+
+# 環境の読み込み
+source /home/kosukesano/tools/pyenv_env/gemoma_profile
+
+# GeMoMaPipelineの実行
+GeMoMa \
+        -Xmx100g \
+        GeMoMaPipeline \
+        t=/home/kosukesano//tools/for_braker/nama_data/231117_Madara_softmasked.fasta \
+        r=NO \
+        o=true \
+        i=Tcas \
+        a=/home/kosukesano/tools/for_gemoma/nama_data/reference/Tcas/Tcas_genomic.gff \
+        g=/home/kosukesano/tools/for_gemoma/nama_data/reference/Tcas/Tcas.fna \
+        GeMoMa.Score=ReAlign \
+        AnnotationFinalizer.r=NO \
+        threads=10 \
+        outdir=/home/kosukesano/tools/for_gemoma/241226/tcas_out
+
+echo end at
+date
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241226_ojiro/241226_ojiro_braker.tar.gz ~/Downloads/
+
+docker run -v /home/kosukesano/tools/for_ginger:/workspace -w /workspace i10labtitech/tools:GINGER_v1.0.1 \
+generateSampleData_cel [サンプル入力データのディレクトリ名]
+
+
+apptainer shell /home/kosukesano/tools/for_ginger/tools_GINGER_v1.0.1.sif
+
+
+singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 seqkit seq -m 1000 Sfem_assembly.fasta > 250121_Sfem_upper1000.fasta
+
+
+
+## Installation ################################################################
+
+```sh
+cd <Root directory of GINGER source tree>
+make
+cp pipeline/nextflow.config <Your working directory>
+```
+
+これはGINGERというツールのインストール方法です。これを参照して~/tools/for_ginger/250123_testディレクトリで以下のコマンドを実行しました。
+
+kosukesano@at137:~/tools/for_ginger/250123_test$ git clone https://github.com/i10labtitech/GINGER.git
+
+こうしたところ、このような出力がなされました。
+
+kosukesano@at137:~/tools/for_ginger/250123_test$ git clone https://github.com/i10labtitech/GINGER.git
+Cloning into 'GINGER'...
+remote: Enumerating objects: 428, done.
+remote: Counting objects: 100% (428/428), done.
+remote: Compressing objects: 100% (237/237), done.
+remote: Total 428 (delta 247), reused 366 (delta 185), pack-reused 0 (from 0)
+Receiving objects: 100% (428/428), 1.10 MiB | 1.28 MiB/s, done.
+Resolving deltas: 100% (247/247), done.
+kosukesano@at137:~/tools/for_ginger/250123_test$ ls
+GINGER
+kosukesano@at137:~/tools/for_ginger/250123_test$ ls GINGER/
+AUTHORS  CHANGES  ChangeLog  FAQ  INSTALL  LICENSE  Makefile  README  VERSION  generateSampleData_cel.pl  nextflow.config.user  pipeline  runEvaluatePred.pl  runGINGER.pl  src  util
+kosukesano@at137:~/tools/for_ginger/250123_test$
+
+この後私がすべき作業を逐語的にわかりやすく説明してください。
+
+
+kosukesano@at137:~/tools/for_ginger/250123_test/GINGER$ ls util/
+abinitio  denovo  homology  merge_phase0  merge_phase1  merge_phase2  summar
+
+/home/kosukesano/tools/for_ginger/250123_test/GINGER/util
+
+/home/kosukesano/tools/for_ginger/250123_test/nama_data
+
+kosukesano@at137:~/tools/for_ginger/250123_test$ ls nama_data/
+231117_Madara_softmasked.fasta  231117_madaragenome.fasta  231117_madaragenome.fasta.out  adult-1_1.fastq  adult-1_2.fastq
+kosukesano@at137:~/tools/for_ginger/250123_test$ 
+
+/home/kosukesano/old_envilonment_until20240430/outgroup/Drosophila_melanogaster/ncbi_dataset/data/GCF_000001215.4
+
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 24
+#$ -l s_vmem=12G
+#$ -l mem_req=12G
+
+echo start at
+date
+
+apptainer exec /home/kosukesano/tools/for_RepeatMasker_Docker/dfam-tetools_1.sif\
+        RepeatMasker\
+        -pa 6\
+        -s\
+        -lib /home/kosukesano/tools/for_softmask/250121_Sfem_softmask/Sfem_merged.fasta\
+        -dir /home/kosukesano/tools/for_softmask/250121_Sfem_softmask/output_dir\
+        -xsmall\
+        -gff\
+        /home/kosukesano/tools/for_softmask/nama_data/250121_Sfem_upper1000.fasta
+
+
+echo end at
+date
+
+apptainer pull docker://i10labtitech/tools:GINGER_v1.0.1
+apptainer pull --arch amd64 --dir ./images --force library://i10labtitech/tools:GINGER_v1.0.1
+export PATH=$PATH:/home/kosukesano/tools/for_ginger/250123_test/GINGER
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 24
+#$ -l s_vmem=12G
+#$ -l mem_req=12G
+
+echo start at
+date
+
+apptainer exec /home/kosukesano/tools/for_RepeatMasker_Docker/dfam-tetools_1.sif\
+        RepeatMasker\
+        -pa 6\
+        -s\
+        -lib /home/kosukesano/tools/for_softmask/250121_Kohuki_softmask/Kohuki_merged.fasta\
+        -dir /home/kosukesano/tools/for_softmask/250121_Kohuki_softmask/output_dir\
+        -xsmall\
+        -gff\
+        /home/kosukesano/tools/for_softmask/nama_data/250121_kohuki_upper1000.fasta
+
+
+echo end at
+date
+
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 16
+echo start at
+date
+
+source /home/kosukesano/tools/pyenv_env/braker_profile
+
+braker.pl --genome=/home/kosukesano/tools/for_braker/nama_data/250127_Sfem_upper1000_masked.fasta\
+        --prot_seq=/home/kosukesano/tools/Arthropoda.fa\
+        --rnaseq_sets_ids=Sfem-1_1,femo-larva_1,femo_H1_1,femo_H3_1,femo_L1_1,femo_L3_1,femo_O1_1,femo_O3_1,femo_T1_1,femo_T3_1,Sfem-1_2,femo-larva_2,femo_H1_2,femo_H3_2,femo_L1_2,femo_L3_2,femo_O1_2,femo_O3_2,femo_T1_2,femo_T3_2,femo-female_1,femo-male_1,femo_H2_1,femo_H4_1,femo_L2_1,femo_L4_1,femo_O2_1,femo_O4_1,femo_T2_1,femo_T4_1,femo-female_2,femo-male_2,femo_H2_2,femo_H4_2,femo_L2_2,femo_L4_2,femo_O2_2,femo_O4_2,femo_T2_2,femo_T4_2 \
+        --rnaseq_sets_dir=/home/kosukesano/tools/for_braker/nama_data/Sfem_RNAseq\
+        --threads=16\
+        --species=250127_Sfemorata\
+        --AUGUSTUS_CONFIG_PATH=/usr/share/augustus/config\
+        --AUGUSTUS_BIN_PATH=/usr/bin\
+        --AUGUSTUS_SCRIPTS_PATH=/usr/share/augustus/scripts\
+        --GENEMARK_PATH=/home/kosukesano/tools/GeneMarkETP_git_install/GeneMark-ETP/bin\
+        --PROTHINT_PATH=/home/kosukesano/tools/ProtHint_git_install/ProtHint/bin\
+        --TSEBRA_PATH=/home/kosukesano/tools/TSEBRA_git_install/TSEBRA/bin
+
+date
+
+###############################################################################
+
+nextflow.enable.dsl = 1
+
+params {
+    /****************************************
+     Input
+     ****************************************/
+
+    INPUT_GENOME       = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/231117_madaragenome.fasta" // FASTA format
+    INPUT_MASKEDGENOME = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/231117_Madara_softmasked.fasta" // FASTA format
+    INPUT_REPOUT       = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/231117_madaragenome.fasta.out" // An output file from RepeatMasker
+    // RNA-Seq-based method
+    INPUT_RNASEQR1     = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/adult-1_1.fastq" // FASTQ format
+    INPUT_RNASEQR2     = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/adult-1_2.fastq" // FASTQ format
+    // Homology-based method
+    HOMOLOGY_DATA = [
+        "PREFIX"  : ["Dmel"], // a prefix of a file name (any string that can be used as a file name)
+        "PROTEIN" : ["/home/kosukesano/old_envilonment_until20240430/outgroup/Drosophila_melanogaster/ncbi_dataset/data/GCF_000001215.4/protein.faa"], // a full path to a file containing Specie
+sC
+        "SPALNDB" : ["InsectDm"] // a paramete file name *
+        // * parameter files of Spaln are in Spaln's source tree [Spaln's root/table/*]
+        // * for example, "NematodC", "InsectDm", "Angiosp", "Fish_mdl", "Tetrapod", etc.
+    ]
+    /****************************************
+     Output
+     ****************************************/
+
+    // --- Directory to publish results ---
+    PDIR      = "/home/kosukesano/tools/for_ginger/250123_test" // like "/home/you/GINGERoutput/"
+    PDIR_PREP = "${PDIR}/Prep" // *** No need to edit ***
+
+    /****************************************
+     Merge phase; step1
+     ****************************************/
+
+    MAPPING_WEIGHT  = 1.6 // genome-guided assembly-based method
+    DENOVO_WEIGHT   = 1.4 // de novo assembly-based method
+    AUGUSTUS_WEIGHT = 1.8 // ab initio-based method (Augustus)
+    SNAP_WEIGHT     = 1.2 // ab initio-based method (SNAP)
+    HOMOLOGY_WEIGHT = 2.0 // homology-based method
+    // if you want to add other GFF files, comment out and/or edit following sentences
+//    RNASEQ_OTHER1_WEIGHT = 1.0   // additional RNA-Seq-based method
+//    RNASEQ_OTHER2_WEIGHT = 1.0   // additional RNA-Seq-based method
+//    HOMOLOGY_OTHER1_WEIGHT = 1.0 // additional homology-based method
+//    HOMOLOGY_OTHER2_WEIGHT = 1.0 // additional homology-based method
+//    ABINITIO_OTHER1_WEIGHT = 1.0 // additional ab initio-abesd-based method
+//    ABINITIO_OTHER2_WEIGHT = 1.0 // additional ab initio-abesd-based method
+
+
+
+python3 -m fasp exclude_isoforms_by_length nama_data/Cass.fasta Cass_iso1.fasta nama_data/Cass.gff
+
+#####################################################################################
+
+nextflow.enable.dsl = 1
+
+params {
+
+    /****************************************
+     Input
+     ****************************************/
+
+    INPUT_GENOME       = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/231117_madaragenome.fasta"
+    INPUT_MASKEDGENOME = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/231117_Madara_softmasked.fasta"
+    INPUT_REPOUT       = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/231117_madaragenome.fasta.out"
+    INPUT_RNASEQR1     = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/adult-1_1.fastq"
+    INPUT_RNASEQR2     = "/home/kosukesano/tools/for_ginger/250123_test/nama_data/adult-1_2.fastq"
+//    RNASEQ_OTHER1      = "/full/path/to?additional RNA-Seq-based method GFF"
+//    RNASEQ_OTHER2      = "/full/path/to?additional RNA-Seq-based method GFF"
+//    HOMOLOGY_OTHER1    = "/full/path/to?additional homology-based method GFF"
+//    HOMOLOGY_OTHER2    = "/full/path/to?additional homology-based method GFF"
+//    ABINITIO_OTHER1    = "/full/path/to?additional ab initio-based method GFF"
+//    ABINITIO_OTHER2    = "/full/path/to?additional ab initio-based method GFF"
+    
+    HOMOLOGY_DATA = [
+        "PREFIX"  : ["Dmel"], 
+        "PROTEIN" : ["/home/kosukesano/old_envilonment_until20240430/outgroup/Drosophila_melanogaster/ncbi_dataset/data/GCF_000001215.4/protein.faa"],
+        "SPALNDB" : ["InsectDm", // No.1
+                     "NematodC"] // No.2
+    ]
+
+    AUGUSTUS_SPEC          = "250128_test" // [Augustus]/config/species must not have files with the same name
+
+    /****************************************
+     Output
+     ****************************************/
+
+    // --- Directory to publish results ---
+
+    PDIR      = "/home/kosukesano/tools/for_ginger/250123_test"
+
+    /****************************************
+     General
+     ****************************************/
+    
+    // --- Scratch dirs ---
+    SCRATCH     = "/scratch"
+    
+    // --- ---
+    N_THREAD    = 20
+    
+    // --- ---
+    MAX_MEMORY  = "250G"
+
+    /****************************************
+     RNA-Seq mapping based
+     ****************************************/
+
+    // --- Tools for to_merge ---
+    MIN0        = 90 // MINはtranscriptの最小base長
+
+    MIN1        = 300 // MINはtranscriptの最小base長
+    
+    /****************************************
+     RNA-Seq denovo based
+     ****************************************/
+
+    // --- Tools for trinity ---
+    SRA_FLAG        = 1
+
+    /****************************************
+     Ab initio based
+     ****************************************/
+
+    AUGUSTUS_TRAINING_SIZE = 1000 // `echo 1000`
+    SNAP_TRAINING_SIZE  = AUGUSTUS_TRAINING_SIZE
+    AUGUSTUS_TRAINING_DATA = "${PDIR}/Prep/mapping/to_learn_2nd/ginger_learn_2nd.gff3" // gff
+    SNAP_TRAINING_DATA  = "${PDIR}/Prep/mapping/to_learn_2nd/ginger_learn_2nd.gff3" // gff_p
+
+    /****************************************
+     Merge phase; step1
+     ****************************************/
+    MAPPING_WEIGHT  = 1.6
+    DENOVO_WEIGHT   = 1.4
+    HOMOLOGY_WEIGHT = 2.0
+    AUGUSTUS_WEIGHT = 1.8
+    SNAP_WEIGHT     = 1.2
+
+    /********************************************************************************
+     ********************************************************************************
+     ***** Do not edit following settings *******************************************
+     ********************************************************************************
+     ********************************************************************************/
+
+    OPREFIX   = "ginger"
+    PDIR_PREP = "${PDIR}/Prep"
+    PDIR_PREP_MAPPING = "${PDIR}/Prep/mapping"
+    PDIR_PREP_MAPPING_MAPPING = "${PDIR}/Prep/mapping/mapping"
+    PDIR_PREP_MAPPING_MERGE = "${PDIR}/Prep/mapping/merge"
+    PDIR_PREP_MAPPING_TOLEARN1ST = "${PDIR}/Prep/mapping/to_learn_1st"
+    PDIR_PREP_MAPPING_TOLEARN2ND = "${PDIR}/Prep/mapping/to_learn_2nd"
+    PDIR_PREP_DENOVO = "${PDIR}/Prep/denovo"
+    PDIR_PREP_DENOVO_TRINITY = "${PDIR}/Prep/denovo/trinity"
+    PDIR_PREP_DENOVO_OASES = "${PDIR}/Prep/denovo/oases"
+    PDIR_PREP_HOMOLOGY = "${PDIR}/Prep/homology"
+    PDIR_PREP_HOMOLOGY_HOMOLOGY = "${PDIR}/Prep/homology/homology"
+    PDIR_PREP_HOMOLOGY_HOMOLOGYMERGE = "${PDIR}/Prep/homology/homology_merge"
+    PDIR_PREP_HOMOLOGY_HOMOLOGYFILTER = "${PDIR}/Prep/homology/homology_filter"
+    PDIR_PREP_ABINITIO = "${PDIR}/Prep/abinitio"
+    PDIR_PREP_ABINITIO_AUGUSTUS = "${PDIR}/Prep/abinitio/augustus"
+    PDIR_PREP_ABINITIO_SNAP = "${PDIR}/Prep/abinitio/snap"
+    AUGUSTUS_WORK_DIR = "${PDIR}/Prep/augustus_config"
+
+}
+
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 12
+echo start at
+date
+
+
+date
+singularity exec -e /usr/local/biotools/b/busco:5.1.3--pyhdfd78af_0 busco\
+        -m geno\
+        -i /home/kosukesano/tools/for_braker/250127_Sfem/braker/braker.aa
+        -o /home/kosukesano/tools/for_braker/250127_Sfem/braker/BUSCO_output\
+        -l /home/kosukesano/old_envilonment_until20240430/busco_downloads/busco_downloads/lineages/arthropoda_odb10/\
+        -f
+
+echo end at
+dateq
+
+docker cp /Users/kosukesano/bio/memo.txt dfam/tetools:/opt/src
+
+docker cp /Users/kosukesano/bio/memo.txt d3c9a7023050:/
+
+
+docker cp /Users/kosukesano/bio/for_ginger/test/GINGER/generateSampleData_cel.pl 109eb3231793:/usr/PLfile
+
+ runGINGER.pl 250130_nextflow.config.usr 
+
+
+
+######################################
+### Manualphylo_1.pyの中身
+
+##analysis_manual.pptxの#46も参照
+
+##AFTER you made MSA file(all_seq.fa) in DDBJ with makeMSA.sh
+
+##時間は10secほど
+
+import numpy as np
+import pandas as pd
+import os
+
+path = "/home/kosukesano/tools/for_orthofinder/250128_6sp_iso1/Change_hedder/OrthoFinder/Results_Jan28"
+withpath = "../"
+
+OGs = pd.read_table(path + "Orthogroups/Orthogroups.tsv")
+
+##with openは相対パスしか受け付けないらしい
+new = pd.DataFrame()
+with open(withpath + "Orthogroups/Orthogroups_SingleCopyOrthologues.txt", "r")            as fin:
+        for line in fin:
+                li = line.rstrip()
+                new = pd.concat([new, OGs[OGs["Orthogroup"] == li]])
+print(new) 
+new.to_csv(path + "ManualPhylo_data/OG_list.txt", sep = " ", index = False, header = False)
+
+##OG_list.txtと同じ順番の種名リストであるspecies_list.txtを作成
+##できたOG_list.txtに、DDBJで作ったall_seq.faで配列情報を与える。
+
+li = []
+allspe = OGs.columns.tolist()
+allspe2 = allspe[1:len(allspe)]
+with open(withpath + "ManualPhylo_data/species_list.txt", "w") as file:
+   for column_name in allspe2:
+       file.write("%s\n" % column_name)
+
+
+
+
+
+### fasta_concatinate.shの中身
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -pe def_slot 5
+#$ -l medium
+#$ -l s_vmem=64G
+#$ -l mem_req=64G
+echo start at
+date
+
+# Enter the directory containing the fasta files
+filesout="/home/kosukesano/tools/for_orthofinder/250128_6sp_iso1/Change_hedder"  ## Please replace with the actual directory containing the fasta files
+
+# Define the output directory and output file
+new="/home/kosukesano/tools/for_orthofinder/250128_6sp_iso1/Change_hedder/OrthoFinder/Results_Jan28/Manualphylo_data"
+mkdir -p $new
+
+# Concatenate all faa files into one file
+for file in "$filesout"/*.faa; do
+    cat "$file" >> "./${new}/all_seq.fa"
+done
+
+
+date
+
+
+### Manualphylo_2.pyの中身
+
+##ManualPhylo_1.pyの続き
+
+import sys
+from Bio import SeqIO
+
+path = "../Manualphylo_data/"
+
+fasta_in = sys.argv[1]                                  #１番目の引数には上記のall_seq.faなどfastaファイルを指定する
+query_in = sys.argv[2]                                  #２番目の引数には上記のOG_list.txtなどオーソログファイルを指定する
+
+for q in open(query_in, "r"):                                           #オーソログファイルを開いて1行づつ読み込む
+        query = q.split()                                                       #スペース毎に切りとってリスト形式でqueryに保存する
+        f = open(path + query[0], 'w')                                  #最初の列(OG名）と同じ名前のファイルを作成する
+        for record in SeqIO.parse(fasta_in, 'fasta'):   #fastaファイルを開くSeqIOを使ってパースする(1項目づつ読み込む）
+                id_part = record.id                                     #fastaのID部分を読み込む
+                desc_part = record.description                  #fastaのdescription部分を読み込む
+                seq = record.seq                                        #fastaの配列部分を読み込む
+                for i in range(len(query)):                         #オーソログファイル中の各OGに含まれる配列数を数えて、その分繰り返す(python2の人はrange を x rangeにする)
+                        if id_part == query[i] or desc_part == query[i] :                   #オーソログファイルの配列descriptionとfastaの配列descriptionが一致したら、、、
+                                fasta_seq = '>' + id_part + ' ' + desc_part + '\n' + seq + '\n'         #fasta形式に整え
+                                print(fasta_seq)                                        #標準出力にfastaを出力（進行状況把握用）
+                                f.write(str(fasta_seq))                             #各OGファイルにfastaを出力
+        f.close()
+
+##できたOGファイルは、align.shやOG_list.txtと同じ場所に
+##align.shのある場所までいき、作動。cwdを231016/ManualPhylo_dataにしないとtrimalが作動せず、イライ
+
+
+ssh CellWallEvolution@10.33.25.227
+ssh Makino Lab@10.33.25.227
+
+scp ~/.ssh/id_rsa.pub makinolab@10.33.25.227:~/
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l intel
+#$ -pe def_slot 16
+echo start at
+date
+
+# Singularityイメージのパスを指定
+SINGULARITY_IMAGE="/usr/local/biotools/i/iqtree:2.3.3--h21ec9f0_0"
+
+# 作業ディレクトリに移動
+cd /home/kosukesano/tools/for_orthofinder/250128_6sp_iso1/Change_hedder/OrthoFinder/Results_Jan28/Manualphylo_data
+
+# 出力ファイル
+output_file="all_trees.nwk"
+
+# 既存の出力ファイルを削除
+if [ -f $output_file ]; then
+    rm $output_file
+fi
+
+# *.maffted.trimed.fa ファイルを処理
+for file in *.maffted.trimed.fa; do
+    # ファイル名から拡張子を除いたベース名を取得
+    base_name=$(basename $file .maffted.trimed.fa)
+
+    # Singularityを使用してIQ-TREEを実行して系統樹を作成
+    singularity exec -e $SINGULARITY_IMAGE iqtree2 -s $file -nt AUTO -bb 1000 -cptime 600 -pre ${base_name}
+
+    # 作成された系統樹ファイル (.treefile) を output_file に追加
+    if [ -f ${base_name}.treefile ]; then
+        echo -n "${base_name}: " >> $output_file
+        cat ${base_name}.treefile >> $output_file
+        echo "" >> $output_file
+    else
+        echo "Error: ${base_name}.treefile not found" >&2
+    fi
+done
+
+echo "All trees have been written to $output_file"
+
+date
+
+
+/home/kosukesano/tools/for_softmask/250121_Kohuki_softmask/RM_3406303.MonJan271052052025/250121_kohuki_upper1000.fasta.cat.gz
+
+
+
+OG0003316: (Agra_P_050297705.1:0.1651293024,(Cass_AG9763147.1:0.1818482204,(Sory_P_030749172.1:0.1209868450,Tcas_P_008190965.1:0.9786646109)49:0.1585813214)37:0.0878202062,(Dpon_P_019756877.1:0.1886146557,Smad_g5919.t1:0.3120157875)25:0.0602110128);
+
+OG0003318: (Agra_P_050313709.1:0.0315659308,(Cass_AG9759263.1:0.0142661688,Sory_P_030746210.1:0.0106140127)72:0.0047846194,((Dpon_P_019760448.1:0.0204733482,Tcas_P_008193499.1:0.0623490402)46:0.0013761600,Smad_g2942.t1:0.0000010000)41:0.0000010000);
+
+OG0003319: (Agra_P_050310562.1:0.1472894568,((Cass_AG9760850.1:0.1222426475,Smad_g874.t1:0.1761863246)64:0.0413255253,Sory_P_030761663.1:0.1262376730)58:0.0310103463,(Dpon_P_019762920.2:0.1504657030,Tcas_P_008197831.1:0.3955563338)53:0.0738820816);
+
+OG0003320: (Agra_P_050302120.1:0.2407713260,(Cass_AG9772342.1:0.0426387253,Dpon_P_019761695.1:0.2475477632)61:0.0326335634,(Smad_g4673.t1:0.1131079176,(Sory_P_030759635.1:0.2653371088,Tcas_P_966819.1:0.5311370910)99:0.1490033020)61:0.0232625701);
+
+上記のようなツリーファイルall_tree.nwkについて、葉のラベルはAgra_P_050297705やSmad_g5919のように、「四文字の種名」＋「_」＋「遺伝子名」となっています。このラベルについて、「_」と「遺伝子名」をそれぞれ全て取り除き、「種名」のみにするようなpythonのスクリプトを書いてください。
+
+
+
+scp -r /Volumes/Elements_1/240529_RNAseq/RawData/kohuki_* kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/nama_data/Kohuki_RNAseq
+
+
+docker run $vOpt --rm i10labtitech/tools:GINGER_v1.0.1 /bin/bash -c "/usr/bin/wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/invertebrate/Caenorhabditis_elegans/all_assembly_versions/GC
+F_000002985.6_WBcel235/GCF_000002985.6_WBcel235_genomic.fna.gz -O $sampleDir/GCF_000002985.6_WBcel235_genomic.fna.gz"
+
+
+250203_kohuki_upper1000_masked.fasta
+
+kofuki_H1_1.fq  kofuki_H2_2.fq  kofuki_H4_1.fq  kofuki_O1_2.fq  kofuki_O3_1.fq  kofuki_O4_2.fq  kofuki_T2_1.fq  kofuki_T3_2.fq  kofuki_male_1.fq
+kofuki_H1_2.fq  kofuki_H3_1.fq  kofuki_H4_2.fq  kofuki_O2_1.fq  kofuki_O3_2.fq  kofuki_T1_1.fq  kofuki_T2_2.fq  kofuki_T4_1.fq  kofuki_male_2.fq
+kofuki_H2_1.fq  kofuki_H3_2.fq  kofuki_O1_1.fq  kofuki_O2_2.fq  kofuki_O4_1.fq  kofuki_T1_2.fq  kofuki_T3_1.fq  kofuki_T4_2.fq
+
+
+# ファイルパスの設定
+orthogroups_file_path = '/home/kosukesano/tools/for_orthofinder/250128_6sp_iso1/Change_hedder/OrthoFinder/Results_Jan28/Orthogroups/Orthogroups.txt'
+single_copy_orthologues_file_path = '/home/kosukesano/tools/for_orthofinder/250128_6sp_iso1/Change_hedder/OrthoFinder/Results_Jan28/Orthogroups/Orthogroups_SingleCopyOrthologues.txt'
+output_file_path = '/home/kosukesano/tools/for_paml/data/250205_6sp/extracted_orthogroups.txt'
+
+# ファイルパスの設定
+paml_fasta = "/home/kosukesano/tools/for_paml/data/250205_6sp/nama_data/Agra.fasta"
+orthofinder_fasta = "/home/kosukesano/old_envilonment_until20240430/other_weevil/Anthonomus_grandis_grandis/ncbi_dataset/data/GCF_022605725.1/protein.faa"
+output_fasta = "/home/kosukesano/tools/for_paml/data/250205_6sp/changehedder/Agra_changehedder.fasta"
+
+
+>lcl|NC_065546.1_cds_XP_050304642.1_1 XP_050304642.1 protein SCAI [Anthonomus grandis grandis]
+>Agra_cl|NC_065546.1_cds_XP_050304642.1_1
+
+Agra_P_050297705
+
+
+# ファイルパスの設定
+orthogroups_file = "/home/kosukesano/tools/for_paml/data/250205_6sp/extracted_orthogroups.txt"
+input_dir = "/home/kosukesano/tools/for_paml/data/250205_6sp/changehedder/kansei/"
+output_dir = "/home/kosukesano/tools/for_paml/data/250205_6sp/SCO_CDS/"
+
+
+
+dendezia@scorpion:~/tool/for_ginger$ perl runGINGER.pl nextflow_config.test 
+syntax error at runGINGER.pl line 117, near "my "
+Execution of runGINGER.pl aborted due to compilation errors.
+
+
+
+/home/kosukesano/tools/for_paml/data/250205_6sp/SCO_CDS
+/home/kosukesano/tools/for_paml/data/250205_6sp/out.tre
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+
+# ディレクトリの設定
+input_dir="/home/kosukesano/tools/for_paml/data/250205_6sp/SCO_CDS"
+bsA_dir="/home/kosukesano/tools/for_paml/250206_6sp/bsA"
+result_dir="$bsA_dir/result"
+template_ctl="$bsA_dir/template.ctl"
+
+# 出力ディレクトリが存在しない場合は作成
+mkdir -p "$result_dir"
+
+# テンプレートの制御ファイルを読み込む
+ctl_template=$(cat "$template_ctl")
+
+# ディレクトリ内の_maffted_fixed.fastaファイルを処理
+for file in "$input_dir"/*_maffted.fna; do
+  if [[ -f "$file" ]]; then
+    base_name=$(basename "$file" .fna)
+    outfile_path="$result_dir/${base_name}_branch_alt"
+
+    # 一時的な制御ファイルの内容を生成
+    ctl_content="${ctl_template//<SEQFILE>/$file}"
+    ctl_content="${ctl_content//<OUTFILE>/$outfile_path}"
+
+    # 一時的な制御ファイルを作成
+    ctl_path="$bsA_dir/bsA.ctl"
+    echo "$ctl_content" > "$ctl_path"
+
+    # PAMLを実行
+    singularity exec -e /usr/local/biotools/p/paml:4.9--h779adbc_6 codeml "$ctl_path"
+
+    echo "Processed file: $file, output: $outfile_path"
+  fi
+done
+
+
+
+/home/kosukesano/tools/for_paml/data/250206_test/OG0003316_maffted_fixed.fna
+
+trimal -in input.aln -out output.aln -htmlout output.html -gt 0.9 -cons 60 
+
+trimal -in OG0003316_maffted_fixed.fna -out OG0003316_trimed.fna -htmlout output.html -gt 0.9 -cons 60
+
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 6
+
+source ~/tools/pyenv_env/ManualPhilo_profile
+
+# ディレクトリパス
+input_dir="/home/kosukesano/tools/for_paml/data/250205_6sp/SCO_CDS/"
+output_dir="/home/kosukesano/tools/for_paml/data/250205_6sp/SCO_CDS/"
+
+# 各ファイルに対してアラインメントを実行
+for file in "$input_dir"*_maffted_fixed.fna; do
+  # 元のファイル名から拡張子を除いたものを取得
+  base_name=$(basename "$file" _maffted_fixed.fna)
+
+  # 出力ファイル名を生成
+  output_file="${output_dir}${base_name}_trimed.fna"
+  output_html="${output_dir}${base_name}_trimed.html"
+
+  # MAFFTを実行
+  mafft --auto --maxiterate 1000 --localpair "$file" > "$output_file"
+  trimal -in "$file" -out "$output_file" -htmlout "$output_html" -gt 0.9 -cons 60
+
+
+  echo "trimed file created: $output_file"
+done
+
+
+
+(Agra,((Sory,Tcas)1:0.8510176414897351,(Dpon,(Smad,Cass)0.89:0.0330270621831446)1:0.05640338444435427):0.0); 
+
+/home/kosukesano/tools/for_paml/250207_6sp/bsA
+
+ OG0008545_trimed_branch_alt
+
+
+
+ #!/bin/bash
+#$ -S /bin/sh
+#$ -pe def_slot 8
+#$ -l s_vmem=64G,mem_req=64G
+#$ -cwd
+#$ -o ~/results_sh_eando
+#$ -e ~/results_sh_eando
+
+echo "pwd: $(pwd)"
+echo HOME: $HOME
+echo USER: $USER
+echo JOB_ID: $JOB_ID
+
+echo starting at
+date
+
+#BLASTの標準列名を定義
+
+header="qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+
+#出力ファイルの定義
+
+output_file="/home/kosukesano/reference_sequence/250210_Fnc_anno/out_madara_blastp_test.txt"
+
+#列名を出力ファイルに書き込む
+
+echo "$header" > $output_file
+
+#BLASTpを実行し、結果を追加する
+
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query /home/kosukesano/reference_sequence/250210_Fnc_anno/241129_madara_iso1.aa \
+-db ${HOME}/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/merge_4sp \
+-evalue 1e-04 \
+-outfmt 6 >> $output_file
+
+echo ending at
+date
+
+
+
+################3
+
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 16
+
+
+echo "pwd: $(pwd)"
+echo HOME: $HOME
+echo USER: $USER
+echo JOB_ID: $JOB_ID
+
+echo starting at
+date
+
+#BLASTの標準列名を定義
+
+header="qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+
+#出力ファイルの定義
+
+output_file="/home/kosukesano/reference_sequence/250210_Fnc_anno/out_madara_as_ref_blastp_.txt"
+
+#列名を出力ファイルに書き込む
+
+echo "$header" > $output_file
+
+#BLASTpを実行し、結果を追加する
+
+#ココクゾウムシのblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query /home/kosukesano/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Sory_protein.fasta \
+-db /home/kosukesano/reference_sequence/250210_Fnc_anno/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Sory_blastp_RefAsMadara.txt
+
+#コクヌストモドキのblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query /home/kosukesano/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Tcas_protein.fasta \
+-db /home/kosukesano/reference_sequence/250210_Fnc_anno/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Tcas_blastp_RefAsMadara.txt
+
+#ショウジョウバエのblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query /home/kosukesano/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Dmel_protein.fasta \
+-db /home/kosukesano/reference_sequence/250210_Fnc_anno/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Dmel_blastp_RefAsMadara.txt
+
+#大腸菌のblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query /home/kosukesano/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Ecol_protein.fasta \
+-db /home/kosukesano/reference_sequence/250210_Fnc_anno/madara_ref\
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Ecol_blastp_RefAsMadara.txt
+
+echo ending at
+date
+
+
+##########################
+##########
+######
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 12
+
+echo "pwd: $(pwd)"
+echo HOME: $HOME
+echo USER: $USER
+echo JOB_ID: $JOB_ID
+
+echo starting at
+date
+
+#BLASTの標準列名を定義
+
+header="qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+
+#出力ファイルの定義
+
+output_file="/home/kosukesano/tools/for_paml/250210_tRNA/blast_test/e2_out.txt"
+
+#列名を出力ファイルに書き込む
+
+echo "$header" > $output_file
+
+#BLASTpを実行し、結果を追加する
+
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query /home/kosukesano/tools/for_paml/250210_tRNA/blast_test/241129_madara_iso1.aa \
+-db /home/kosukesano/tools/for_paml/250210_tRNA/blast_test/madara \
+-evalue 1e-04 \
+-outfmt 6 >> $output_file
+
+echo ending at
+date
+
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/reference_sequence/250210_Fnc_anno/merged_with_gene_function.csv ~/Desctop/
+
+
+
+g6098.t1
+OG0003486: Agra_P_050303404.1 Cass_AG9761647.1 Dpon_P_019770637.1 Smad_g6098.t1 Sory_P_030753778.1 Tcas_P_970625.1
+
+
+1207 nucleotides, not a multiple of 3!Processed file: /home/kosukesano/tools/for_paml/data/250205_6sp/SCO_CDS/OG0005028_trimed.fna, output: /home/kosukesano/tools/for_paml/250207_6sp/bsA/result/OG0005028_trimed_branch_alt
+
+../250207_6sp/bsA/bsA_paml.sh.o27474801
+
+singularity exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0 exec -e /usr/local/biotools/s/seqkit\:2.5.0--h9ee0642_0
+
+singularity exec -e /usr/local/biotools/p/prank\:prank:v.170427--h9f5acd7_6 prank -d=OG0005028.fna -o=out_prefix -codon -F
+
+
+
+
+###########################################
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 6
+
+
+
+# ディレクトリパス
+input_dir="/home/kosukesano/tools/for_paml/data/250211_6sp/PRANK_CDS/"
+output_dir="/home/kosukesano/tools/for_paml/data/250211_6sp/PRANK_CDS/"
+
+# 各ファイルに対してアラインメントを実行
+for file in "$input_dir"OG000\d+.fna; do
+  # 元のファイル名から拡張子を除いたものを取得
+  base_name=$(basename "$file" .fna)
+
+  # 出力ファイル名を生成
+  output_file="${output_dir}${base_name}_pranked.fna"
+
+  # prankを実行
+  singularity exec -e /usr/local/biotools/p/prank\:v.170427--h9f5acd7_6 prank -d="$file" -o="$output_file" -codon -F
+
+  echo "Aligned file created: $output_file"
+done
+
+/home/kosukesano/tools/for_paml/250210_tRNA/blast_test
+
+5114
+
+MPRSGDERFELRKQRSRFLSWVEIPLGYLTDHTMAGADPKWQKDAADQNFDYMFKLLIIGNSSVGKTSFL
+
+
+/home/kosukesano/tools/for_paml/data/250211_6sp/PRANK_CDS
+
+
+
+#########################################################
+
+#!/bin/bash
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+
+# ディレクトリの設定
+input_dir="/home/kosukesano/tools/for_paml/250210_tRNA/PRANK_CDS_plusN"
+bsA_dir="/home/kosukesano/tools/for_paml/250210_tRNA/paml/bsA"
+result_dir="$bsA_dir/result"
+template_ctl="$bsA_dir/template.ctl"
+tree_dir="/home/kosukesano/tools/for_paml/250210_tRNA/paml/tree"
+
+# 出力ディレクトリが存在しない場合は作成
+mkdir -p "$result_dir"
+
+# テンプレートの制御ファイルを読み込む
+ctl_template=$(cat "$template_ctl")
+
+# ディレクトリ内の_pranked.fna.best.fasファイルを処理
+for file in "$input_dir"/*_pranked.fna.best.fas; do
+  if [[ -f "$file" ]]; then
+    base_name=$(basename "$file" _pranked.fna.best.fas)
+    treefile="$tree_dir/${base_name}_tree.txt"
+    outfile_path="$result_dir/${base_name}_branch_alt"
+
+    if [[ -f "$treefile" ]]; then
+      # 一時的な制御ファイルの内容を生成
+      ctl_content="${ctl_template//<SEQFILE>/$file}"
+      ctl_content="${ctl_content//<OUTFILE>/$outfile_path}"
+      ctl_content="${ctl_content//<TREEFILE>/$treefile}"
+
+      # 一時的な制御ファイルを作成
+      ctl_path="$bsA_dir/bsA.ctl"
+      echo "$ctl_content" > "$ctl_path"
+
+      # PAMLを実行
+      singularity exec -e /usr/local/biotools/p/paml:4.9--h779adbc_6 codeml "$ctl_path"
+
+      echo "Processed file: $file, output: $outfile_path, tree: $treefile"
+    else
+      echo "Tree file not found for OG: $base_name, skipping..."
+    fi
+  fi
+done
+
+
+
+(((((Cass_AG9767339.1:0.219534,Cass_AG9767341.1:0.183066):0.0476607,((Dpon_P_019771423.2:0.26235,(Dpon_P_019771421.1:0.211628,Dpon_P_019771422.2:0.22165):0.0850752):0.0230941,Dpon_P_019771424.1:0.294062):0.0083209):0.0205807,((Dpon_P_019753777.2:0.216645,(((Smad_g6392.t1:0.0766473,Smad_g6393.t1:0.10031)#1:0.0861987,Cass_AG9769432.1:0.226714):0.0148442,Agra_P_050293077.1:0.222631):0.00660142):0.0322604,((Agra_P_050298924.1:0.132088,(Agra_P_050298923.1:0.0633483,Agra_P_050298919.1:0.0763927):0.0350471):0.00731419,Agra_P_050298922.1:0.115012):0.195813):0.00989029):0.0265135,(Agra_P_050298913.1:0.456562,Cass_AG9767342.1:0.411676):0.0724481):0.0304569,(((Sory_P_030764408.1:0.121071,Sory_P_030764405.1:0.10019):0.0113252,Sory_P_030748578.1:0.107475):0.152322,(Sory_P_030745462.1:0.0881765,Sory_P_030764390.1:0.155438):0.186729):0.0304569);
+
+((Tcas_P_008191789.1:0.195037,(Tcas_P_008191746.2:0.195064,Tcas_P_008191790.1:0.154403):0.142316):0.0932756,((Sory_P_030757424.1:0.278902,(((Smad_g9321.t1:0.0374676,Smad_g9322.t1:0.0488743)#1:0.189006,(((Cass_AG9768050.1:0.221584,Cass_AG9768049.1:0.249189):0.0303415,Cass_AG9764168.1:0.297034):0.0234637,Smad_g9323.t1:0.491149):0.0169726):0.0154115,Dpon_P_048526435.1:0.268314):0.0125788):0.0038849,((((Cass_AG9767024.1:0.0662455,(Cass_AG9767022.1:0.0620059,Cass_AG9767023.1:0.0707601):0.0057445):0.0158053,Cass_AG9767021.1:0.115864):0.257372,Agra_P_050303467.1:0.436697):0.0310096,Smad_g9319.t1#1:0.315786):0.0756105):0.0932756);
+
+(Tcas_P_969004.1:0.285469,(((Agra_P_050301451.1:0.299935,(Cass_AG9765083.1:0.366266,Cass_AG9765086.1:0.119827):0.111097):0.0450811,Smad_g8427.t1#1:0.250836):0.0117959,((Sory_P_030763309.1:0.0842077,Sory_P_030763310.1:0.10169):0.0977105,((Cass_AG9762209.1:0.154279,(Dpon_P_019771209.2:0.111198,Smad_g396.t1#1:0.104081):0.0176565):0.00892255,Agra_P_050312692.1:0.13991):0.0360109):0.0151873):0.285469);
+
+
+((Smad_g6208.t1#1:0.370384,Tcas_P_970860.1:0.315517):0.0609762,(Tcas_P_008191440.1:0.222721,(Agra_P_050312228.1:0.140659,(Dpon_P_019768607.2:0.11794,(Cass_AG9761783.1:0.109999,(Smad_g6207.t1#1:0.134813,(Sory_P_030767690.1:2.19747e-06,(Sory_P_030746489.1:2.19747e-06,Sory_P_030746471.1:0.387535):0.0468567):0.195905):0.0283617):0.00232241):0.013794):0.0723037):0.0609762);
+
+(Sory_P_030759556.1:0.228889,(Cass_AG9769396.1:0.54362,(Smad_g6414.t2:0.143989,(Smad_g4169.t1:0.10725,((Smad_g4170.t1:0.0706882,Smad_g4171.t1:0.0617738):0.00887809,Smad_g4172.t1:0.150235):0.0251223):0.0161221)#1:0.262992):0.228889);
+
+
+/home/kosukesano/tools/for_paml/data/250211_6sp/PRANK_JobSplit/OG3
+
+
+/Users/kosukesano/.ssh/id_rsa
