@@ -43,7 +43,9 @@ source ~/pyenv_conda_environment/.pyenv_profile
 source ~/tools/pyenv_env/ETE_profile 
 # ETEを使う際、初めに行う。ETE用の環境に入る。
 
-
+git add notebook_from240501.qmd
+git commit -m "updated notebook__from240501.qmd"
+git push
 
 ssh scorpion
 #牧野研スコーピオンサーバーへのログイン。
