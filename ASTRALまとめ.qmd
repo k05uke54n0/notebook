@@ -1,0 +1,283 @@
+---
+title: " ASTRALまとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.show="hold")
+library(BiocManager)
+library(tidyverse)
+library(ape)
+library(ggtree)
+
+```
+
+# 概要
+`ASTRAL`は**Ultra Tree法**で種系統樹を推定するツール。複数の遺伝子系統樹をインプットとし、それらを統合して最終的な種系統樹を推定する。<br>
+`IQ-TREE`などの最尤法で系統推定するツールを用いて種系統樹を推定しようとする場合、遺伝子ごとの進化的背景やそれに伴う変異の蓄積具合の違いからバイアスが生じてしまう。`ASTRAL`で採用されているアルゴリズムはそれらの影響を緩和し、より正確な種の系統関係を描き出せる。<br>
+`ASTRAL`は現在3つのバージョンがあるが、ここでは最新の`ASTRAL-Ⅲ`を取り上げる。<br>
+
+## インストール
+`ASTRAL`はjavaベースのアプリケーションであり、特別なインストール等は必要としない。以下のzipファイルをダウンロードして解凍するか、Githubリポジトリをクローンして実行ファイルを入手する。
+
+- [zipファイル](https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip)<br>
+    解凍すると`/ASTRAL`というディレクトリができる。この中の`astral.5.7.8.jar`が実行用のファイル。<br>
+
+    ```bash
+    kosukesano@at139:~/tools/for_ASTRAL$ ls
+    Astral  Astral.5.7.8.zip
+    kosukesano@at139:~/tools/for_ASTRAL$ ls Astral/astral.5.7.8.jar 
+    Astral/astral.5.7.8.jar
+    kosukesano@at139:~/tools/for_ASTRAL$ 
+    ```
+
+
+- [Githubリポジトリ](https://github.com/smirarab/ASTRAL/)<br>
+    同様に解凍するか、`make sh`コマンドでビルドする。
+
+インストールが正しく行われているかを確認するには、解凍してできた`/ASTRAL`ディレクトリで以下のコマンドを実行する。
+```bash
+java -jar astral.5.7.8.jar -i test_data/song_primates.424.gene.tre
+```
+うまくインストールされていれば、下記のように出力される。
+```bash
+kosukesano@at139:~/tools/for_ASTRAL/Astral$  java -jar astral.5.7.8.jar -i test_data/song_primates.424.gene.tre
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.8
+Gene trees are treated as unrooted
+424 trees read from test_data/song_primates.424.gene.tre
+index0
+All output trees will be *arbitrarily* rooted at Marmoset
+
+======== Running the main analysis
+Number of taxa: 14 (14 species)
+Taxa: [Marmoset, Orangutan, Human, Chimpanzee, Gorilla, Macaque, Galago, Mouse_Lemur, Tree_Shrew, Rat, Tarsier, Rabbit, Horse, Sloth]
+Taxon occupancy: {Human=424, Rat=424, Tarsier=424, Galago=424, Rabbit=424, Macaque=424, Sloth=424, Marmoset=424, Tree_Shrew=424, Chimpanzee=424, Mouse_Lemur=424, Horse=424, Orangutan=424, Gorilla=424}
+Number of gene trees: 424
+0 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 339
+Number of Clusters after addition by distance: 339
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:400
+polytomy size limit : 3
+discarded polytomies:  [3]
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+Threshold 0.2:
+Threshold 0.3333333333333333:
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 339
+max k is :0
+Number of Clusters after addition by greedy: 339
+gradient0 in heuristiic: 339
+partitions formed in 0.161 secs
+Dynamic Programming starting after 0.161 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 424424
+Polytree building time: 0.038 seconds.
+Number of quartet trees in the gene trees: 424424
+Size of largest cluster: 14
+Greedy score: 389226
+estimationFactor: 1.090430752313566
+Sub-optimal score: 389226
+Total Number of elements weighted: 452
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.9182656965675834
+Optimization score: 389734
+Optimal tree inferred in 0.266 secs.
+(Gorilla,((Human,Chimpanzee),(Orangutan,(Macaque,(Marmoset,(Tarsier,((Galago,Mouse_Lemur),((Horse,Sloth),(Tree_Shrew,(Rat,Rabbit))))))))));
+Final quartet score is: 389734
+Final normalized quartet score is: 0.9182656965675834
+Extended species tree:
+(Marmoset,((Tarsier,((Galago,Mouse_Lemur)1:2.4018020540034675,((Horse,Sloth)1:2.6056351956741435,(Tree_Shrew,(Rat,Rabbit)1:0.8024369743576611)0.92:0.08540838439417373)1:1.9852014529353605)1:0.655284855661726)1:4.260329699696363,(Macaque,(Orangutan,((Human,Chimpanzee)1:0.6408490436022495,Gorilla)1:2.3251916476229617)1:2.5898315305010144)1:2.7005416959060815));
+(Marmoset,((Tarsier,((Galago,Mouse_Lemur)1:2.4018020540034675,((Horse,Sloth)1:2.6056351956741435,(Tree_Shrew,(Rat,Rabbit)1:0.8024369743576611)0.92:0.08540838439417373)1:1.9852014529353605)1:0.655284855661726)1:4.260329699696363,(Macaque,(Orangutan,((Human,Chimpanzee)1:0.6408490436022495,Gorilla)1:2.3251916476229617)1:2.5898315305010144)1:2.7005416959060815):0.0); 
+Weight calculation took 0.030548876 secs
+ASTRAL finished in 0.524 secs
+kosukesano@at139:~/tools/for_ASTRAL/Astral$
+```
+
+なお、実行に必要なのは`ASTRAL/astral.5.7.8.jar`ファイルと`ASTRAL/lib/`ディレクトリの2つなので、これらが同じ場所にあれば別のディレクトリに移動させても機能する。
+
+## 実行
+
+コマンドラインで直接`.jar`ファイルを指定して実行する。
+```bash
+java -jar /path/to/astral/astral.5.7.8.jar -i in.tree -o out.tre 2>out.log
+```
+
+### オプション
+
+- `-i`　**必ず指定**<br>
+    インプットファイルを指定する。インプットファイルはNewick形式で、複数の遺伝子系統樹を1つのファイルにまとめておく必要がある。<br>
+    別途`IQ-TREE`などで遺伝子系統樹を推定しよう。<br>
+
+    ```bash
+    ### インプットファイルの例
+
+    (Agra:0.1962311383,(Cass:0.2737125622,Dpon:0.4314826509)58:0.0388335162,((Ojir:0.1884717832,Smad:0.0950291253)68:0.0184005888,(Sory:0.1629302513,Tcas:0.8891383096)100:0.2691112598)56:0.0252050251);
+    (Agra:0.1645525619,((Cass:0.1252043672,Ojir:0.0860232128)84:0.0242432941,(Dpon:0.1701453015,(Sory:0.1835772404,Tcas:0.6861333996)88:0.0900709846)63:0.0247642718)72:0.0305779483,Smad:0.2109701455);
+    (Agra:0.1100427967,((Cass:0.0955507603,Ojir:0.1287234232)73:0.0317355323,(Dpon:0.1303599602,Smad:0.0647500881)76:0.0203893317)63:0.0181371303,(Sory:0.1006153953,Tcas:0.3953947490)49:0.0419663784);
+    (Agra:0.4734422323,((Cass:0.3459721819,(Ojir:0.1523919439,Smad:0.2970797745)70:0.0760245349)64:0.0387204688,Dpon:0.5214459005)70:0.0939484407,(Sory:0.5067822335,Tcas:0.5722473244)96:0.3153927449);
+    (Agra:0.0676763862,(((Cass:0.0513178210,Sory:0.0872491099)55:0.0117899417,(Dpon:0.0290622381,Ojir:0.0484115485)68:0.0277100990)40:0.0182122330,Smad:0.0515274720)44:0.0181724661,Tcas:0.2695415393);
+    ```
+
+    枝ラベルに引用符（`?`など）を入れるとエラーが生じる。`_`は大丈夫。<br>
+    同種の葉ラベルは基本的に統一する。もし同種別個体のデータが複数存在する場合は、次のオプションでそれらを1つにまとめる事もできる。
+
+- `-a`<br>
+    同種別個体のデータラベルを同じものとして扱うためのマッピングファイルを指定する。マッピングファイルは1種のラベルごとに1行使用し、以下の2つの形式のいずれかにする。<br>
+
+    ```bash
+    species_name [number of individuals] individual_1 individual_2 ...
+
+    species_name:individual_1,individual_2,...
+    ```
+- `-o`　**指定を強く推奨**<br>
+    最終出力ファイルを指定する。指定しない場合は標準出力に書き出される。
+
+- `2>` **指定を強く推奨**<br>
+    ログを保存するファイルを指定する。指定しない場合は最終出力と同様に、標準出力に書き出される。
+
+その他ブートストラップや外群の指定、事後確率などに関するオプションも存在する。オプションの一覧と機能は以下のコマンドで確認できる。
+
+```bash
+java -jar astral.5.7.8.jar
+```
+
+### シェルスクリプトの例
+
+```bash
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l medium
+#$ -pe def_slot 16
+echo start at
+date
+
+java -Xmx2G -jar astral.5.7.8.jar \
+    -i /home/kosukesano/tools/for_ASTRAL/Astral/data/241022_plusojiro/out_tree.nwk \
+    -o /home/kosukesano/tools/for_ASTRAL/Astral/241022_plusojiro/out.tre \
+    2>/home/kosukesano/tools/for_ASTRAL/Astral/241022_plusojiro/out.log
+
+echo end at
+date
+```
+## 出力
+
+上記シェルスクリプトの出力は以下の通り。
+```bash
+kosukesano@at139:~/tools/for_ASTRAL/Astral$ ls 241022_plusojiro/
+out.log  out.tre
+```
+オプションで指定した通り、最終出力のツリーファイル`out.tre`とログのファイル`out.log`が出力されている。
+
+`out.tre`の中身は以下の通り。
+```bash
+### out.tre
+
+(Agra,((Sory,Tcas)1:0.6958853007920697,(Dpon,((Ojir,Smad)1:0.08633688859898332,Cass)0.49:0.010010879561204266)1:0.08092200038809502):0.0);
+```
+Newick形式の種系統樹、内部ブランチの枝長、ローカル事後確率として推定された分枝のサポート値が出力される。別途オプションを指定することにより、ブートストラップ値などの注釈を出力させることもできる。<br>
+
+`ASTRAL`は内部枝の枝長は計算するが、終端枝の枝長は計算しない。このため、`ape`などのツールを用いてツリーの描画・およびその他解析を行おうとすると、終端枝長が無いためにエラーが生じる事がある（`ape`の場合は枝長を無視するオプションを加えるとうまくいく）。<br>
+終端枝長の欠如が解析に悪影響を与える場合、以下のスクリプトを用いてダミーの枝長を追加するという手もある。<br>
+
+>https://github.com/smirarab/global/blob/master/src/mirphyl/utils/add-bl.py<br>
+
+
+`out.log`の中身は以下の通り。
+```bash
+### out.logの中身
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.8
+Gene trees are treated as unrooted
+1279 trees read from /home/kosukesano/tools/for_ASTRAL/Astral/data/241022_plusojiro/out_tree.nwk
+index0
+All output trees will be *arbitrarily* rooted at Agra
+
+======== Running the main analysis
+Number of taxa: 7 (7 species)
+Taxa: [Agra, Cass, Dpon, Ojir, Smad, Sory, Tcas]
+Taxon occupancy: {Cass=1279, Ojir=1279, Sory=1279, Tcas=1279, Agra=1279, Smad=1279, Dpon=1279}
+Number of gene trees: 1279
+0 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 127
+Number of Clusters after addition by distance: 127
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:225
+polytomy size limit : 5
+discarded polytomies:  [4, 5]
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+Threshold 0.2:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 127
+Threshold 0.3333333333333333:
+polytomy of size 5; rounds with additions with at least 5 support: 0; clusters: 127
+max k is :0
+Number of Clusters after addition by greedy: 127
+gradient0 in heuristiic: 127
+partitions formed in 0.265 secs
+Dynamic Programming starting after 0.265 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 44765
+Polytree building time: 0.051 seconds.
+Number of quartet trees in the gene trees: 44765
+Size of largest cluster: 7
+Greedy score: 20706
+estimationFactor: 2.1619337390128464
+Sub-optimal score: 20706
+Total Number of elements weighted: 436
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.46996537473472577
+Optimization score: 21038
+Optimal tree inferred in 0.413 secs.
+(Cass,((Ojir,Smad),(Dpon,(Agra,(Sory,Tcas)))));
+Final quartet score is: 21038
+Final normalized quartet score is: 0.46996537473472577
+Extended species tree:
+(Agra,((Sory,Tcas)1:0.6958853007920697,(Dpon,((Ojir,Smad)1:0.08633688859898332,Cass)0.49:0.010010879561204266)1:0.08092200038809502));
+Weight calculation took 0.042043145 secs
+ASTRAL finished in 0.635 secs
+```
+
+## リンク集・参考文献<br>
+**ASTRAL-III: polynomial time species tree reconstruction from partially resolved gene trees**<br>
+`ASTRAL-Ⅲ`の論文。
+
+>https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2129-y<br>
+
+**ASTRAL**<br>
+`Github`ページ。インストールや実行時の説明なども記述されている。とりあえずここを見れば大体OK。<br>
+
+>https://github.com/smirarab/ASTRAL<br>
+
+
+**add-bl.py**<br>
+`Github`ページで紹介されていた、ダミーの枝長を追加するスクリプト。<br>
+
+>https://github.com/smirarab/global/blob/master/src/mirphyl/utils/add-bl.py<br>
+

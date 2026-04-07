@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../genome_data"
+		}
+	],
+	"settings": {}
+}

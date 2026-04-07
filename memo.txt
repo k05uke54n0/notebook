@@ -2446,3 +2446,174 @@ done
 
 
 /Users/kosukesano/.ssh/id_rsa
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/data/250211_6sp/cds.tar.gz /Users/kosukesano/Desktop/genome_data/
+
+Ojir_g6136.t1
+
+
+scp /Users/kosukesano/Downloads/Ojiro_braker/braker.codingseq dendezia@scorpion:/home/dendezia/tool/for_blast/nama_data/Ojiro_cds.fasta
+
+
+blastp -query Smad_g11508.fasta -db Ojiro -evalue 1e-04 -outfmt 6 >> output.txt
+
+
+scp /Users/kosukesano/Desktop/genome_data/cds.tar.gz dendezia@scorpion:/home/dendezia/tool/for_prank
+
+apptainer exec -e /usr/local/biotools/p/prank\:v.170427--h9f5acd7_6 prank \
+    -d=/home/kosukesano/tools/for_paml/data/250211_6sp/PRANK_CDS_plusN/OG000$(printf "%04d" 3316).fna \
+    -o=/home/kosukesano/tools/for_prank/250331_result/OG000$(printf "%04d" 3316)_pranked.fna \
+    -codon \
+    -F
+
+
+
+
+/home/kosukesano/tools/for_cafe/250418_Ojiro
+
+
+scp -r /Users/kosukesano/bio/for_cafe/Processed_data/250418_Ojiro kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/250418_Ojiro
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_RBH/250418/reciprocal_best_hits_madara.txt /Users/kosukesano/bio/madara_MaskType_test
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_RBH/250418/reciprocal_best_hits_madara.txt /Users/kosukesano/bio/madara_MaskType_test
+
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/250513_Sigenobu_madara /Users/kosukesano/bio/for_cafe/250513_data
+
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/250418_Ojiro/results /Users/kosukesano/bio/madara_MaskType_test /Users/kosukesano/bio/for_cafe/250418_cafe_data
+
+
+
+
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/250424_6sp/branch_site_lrt_results.txt /Users/kosukesano/bio/for_paml_debag
+
+
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_braker/241226_ojiro/iso1* /Users/kosukesano/Desktop/genome_data/241226_Ojiro_braker
+
+
+/home/kosukesano/tools/Arthropoda.fa
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/Arthropoda.fa.gz /Users/kosukesano/bio
+scp /Users/kosukesano/bio/Arthropoda.fa.gz dendezia@scorpion:~/tool/for_braker_container
+
+231117_Madara_softmasked.fasta
+
+cat Dfam-RepeatMasker.lib ~/tools/for_softmask/Pcer_softmask/RM_3645922.FriJun131350252025/consensi.fa.classified > 250617_for_Pcer.lib
+
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_orthofinder/250620_11sp/ /Users/kosukesano/Desktop/genome_data/250620_11sp_data
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_orthofinder/250620_11sp/old_OrthoFinder/Results_Jun20/Gene_Trees  /Users/kosukesano/bio/for_cafe/250623_11sp_data
+
+scp -r kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/250707_11sp/results /Users/kosukesano/bio/for_cafe/250708_11sp_data
+
+scp /Users/kosukesano/bio/for_cafe/250623_11sp_data/maesyori_result/tree_ultrametric.nwk kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_cafe/250625_11sp
+
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_orthofinder/250620_11sp/OrthoFinder/Results_Jun20/supermatrix.fasta.gz /Users/kosukesano/bio/
+
+dendezia@scorpion:/home/dendezia/tool/braker_git_install
+
+scp /Users/kosukesano/bio/supermatrix.fasta.gz dendezia@scorpion:/home/dendezia/tool/for_iqtree/data/250703
+
+
+
+transcript_ID	ojiro_E1	ojiro_E2	ojiro_E3	ojiro_E4	ojiro_H1	ojiro_H2	ojiro_H3	ojiro_H4	ojiro_L1	ojiro_L2	ojiro_L3	ojiro_L4	ojiro_O1	ojiro_O2	ojiro_O3	ojiro_O4	ojiro_T1	ojiro_T2	ojiro_T3	ojiro_T4
+g1.t1	0.003044425	0	0.003169806	0	0	0	0	0	0	0	0	0	0.006043302	0.004203997	0.015220764	0.008431045	0	0	0	0
+g2.t1	0.001119136	0.00136168	0	0.002069996	0	0	0	0	0	0	0	0	0	0.003090795	0	0.004648902	0.00173814	0	0	0
+g3.t1	0.113275722	0.245022749	0	0.319266929	0	0	0.293421156	1.051965826	0	0	0.447253877	0	0	0	0.396429563	0.134442362	0	0	0	0
+g4.t1	1.219825523	1.304017638	1.694268472	4.434212	0.154430478	0.180773911	0.136689254	0.096536088	3.877295986	4.860188499	1.635803168	5.570791241	1.679633886	1.910384639	1.946147111	1.917725612	0.058449343	0.015710763	0.090723148	0.135124385
+g5.t1	3.14405127	2.837922506	3.130331861	4.11804854	3.441673545	3.139508667	4.438072652	3.75791402	3.721197194	2.981970116	3.866709963	3.40764614	6.827630306	7.053937579	8.299939697	8.547104566	2.660145208	1.881172314	3.164235001	2.041877973
+g6.t1	4.402866753	2.874734686	3.053402572	3.856505967	7.226537402	4.955288586	7.976283444	8.642417917	4.088223401	3.10820161	3.57917563	3.771715391	2.769701983	3.774820514	8.543782198	8.13127606	4.005683488	4.12944093	6.865802964	6.593949402
+
+
+このようなデータフレームに対して、各部位・ステージごとのDEGを計算したいです。同じ数字の要素同士で、E vs 
+
+Mesalcidodes trifidus
+
+scp /Users/kosukesano/Downloads/Ccar_ncbi_dataset.zip kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_RepeatMasker_Docker/nama_data/Ccar
+
+
+
+cat ../nama_data/Dfam-RepeatMasker.lib RM_3228770.MonJul142110002025/consensi.fa.classified > 250715_for_Ccar.lib
+
+
+(Agra:0.0511998487,(((Cass:0.1598510101,(Sory:0.1109891666,Tcas:0.8677508746)61:0.1167121229)41:0.0642065422,Pcer:0.3061443101)33:0.0479679659,Orus:0.3740712275)46:0.0055463530,(Dpon:0.1789662318,(((Ebra:0.0057264531,Escr:0.0169396885)99:0.0825327126,Mtri:0.0929438170)58:0.0225816161,Ldef:0.1205972438)82:0.0623269297)73:0.0576935604);
+
+MFSDKYLLYTNVGLSLSLSGLGDLIEQKYEIYSKEITEWDKKRTLDMTLSGTTVGVVCHY
+MFSDKYLLYTNVGLSLSLSGLGDLIEQKYEIYSKEITEWDKKRTLDMTLSGTTVGVVCHY
+
+
+cat ../nama_data/Dfam-RepeatMasker.lib RM_3228770.MonJul142110002025/consensi.fa.classified > 250715_for_Ccar.lib
+
+cat SCO_iqtree/*.tree.treefile > gene_trees.treefile
+
+
+- polyphaga_odb12 [4010]
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_orthofinder/250620_11sp/old_OrthoFinder/Results_Jun20/SCO_changehedder.tar.gz /Users/kosukesano/bio/
+
+scp /Users/kosukesano/bio/SCO_changehedder.tar.gz dendezia@scorpion:/home/dendezia/tool/for_iqtree/data/250723
+
+
+
+
+apptainer exec /usr/local/biotools/m/macse:2.07--hdfd78af_0 macse -prog alignSequences -seq CDS_SCO_NoChLine/OG0004513.fna -out_NT OG0004513_CDS_macse.fasta -out_AA OG0004513_protein_macse.fasta
+
+trimal -in OG0008415_CDS_macse.fasta -out OG0008415_CDS_macse_trimed.fasta -htmlout OG0008415_CDS_macse_trimed.html -nogaps
+
+
+source ~/tools/pyenv_env/ManualPhilo_profile
+
+echo start at
+date
+
+printf "%04d" ${SLURM_ARRAY_TASK_ID}
+
+
+apptainer exec /usr/local/biotools/m/macse:2.07--hdfd78af_0 macse \
+    -prog alignSequences \
+    -seq non_triplet_CDS/OG000$(printf "%04d" ${SLURM_ARRAY_TASK_ID}).filtered.fna \
+    -out_NT CDS_SCO_trimed/OG000$(printf "%04d" ${SLURM_ARRAY_TASK_ID})_macse.fasta \
+    -out_AA CDS_SCO_trimed/OG000$(printf "%04d" ${SLURM_ARRAY_TASK_ID})_protein_macse.fasta
+
+
+trimal \
+    -in CDS_SCO_trimed/OG000$(printf "%04d" ${SLURM_ARRAY_TASK_ID})_macse.fasta \
+    -out CDS_SCO_trimed/main_result/OG000$(printf "%04d" ${SLURM_ARRAY_TASK_ID})_trimed.fna \
+    -htmlout CDS_SCO_trimed/OG000$(printf "%04d" ${SLURM_ARRAY_TASK_ID})_trimed.html \
+    -nogaps
+
+
+echo end at
+date
+
+apptainer exec -e /usr/local/biotools/b/busco:5.1.3--pyhdfd78af_0 busco -m protein -i 241226_ojiro_iso1.aa -o 250725_iso1_busco -l endopterygota_odb10 -f --evalue 1e-3 --limit 3
+
+apptainer exec -e /usr/local/biotools/b/busco:5.1.3--pyhdfd78af_0 busco -m genome -i output_dir/out.p_ctg.fa.masked -o 250725_busco -l endopterygota_odb10 -f --evalue 1e-3 --limit 3
+
+
+
+scp ~/Downloads/macse-2.07.tar.gz dendezia@scorpion:/home/dendezia/tool/for_macse
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/250724_11sp/filtered_triplet_CDS.tar.gz /Users/kosukesano/Downloads
+
+scp kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools/for_paml/data/250724_11sp/filtered_triplet_CDS.tar.gz ~/Downloads
+
+scp /Users/kosukesano/Downloads/filtered_triplet_CDS.tar.gz dendezia@scorpion:/home/dendezia/tool/for_SCO_trim/nama_data/250731
+
+
+(Agra,(Orus,((Pcer,(Sory,Tcas)),((Dpon,(Mtri#1,(Ldef,(Ebra,Escr)))),Cass)))); 
+
+
+(Agra:0.1955675776,(((Cass:0.1684985520,Dpon:0.2055971437):0.0120427752,(((Ebra:0.0096626377,Escr:0.0141541189):0.0688202261,Ldef:0.0779080942):0.0078719223,Mtri:0.1086795240):0.0088629374):0.0082580886,(Pcer:0.1196134676,(Sory:0.1924751506,Tcas:0.5359813098):0.0383632802):0.0460949151):0.0207003912,Orus:0.2353268962);
+
+
+scp dendezia@scorpion:/home/dendezia/tool/for_SCO_trim/250731/changehedder_result/supermatrix_45_46.nex.gz ../Desctop

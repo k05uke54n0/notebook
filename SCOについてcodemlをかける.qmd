@@ -1,0 +1,663 @@
+---
+title: "SCOについてcodemlをかける"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+## 実行の流れ
+実行には以下のインプットが必要となる。
+
+- アミノ酸配列ファイル 
+
+    アライメント・トリミングされているFASTA形式のファイル。
+
+- 系統樹ファイル
+
+    上記アミノ酸データの系統関係を示した系統樹ファイル。何を使って作ってもいいが、葉のラベルがアミノ酸ファイルのヘッダーと一致している必要がある。
+
+- コントロールファイル
+
+    進化シナリオが設定されたファイル。対立仮説と帰無仮説でそれぞれ１つづつ必要。
+
+「同じアミノ酸ファイルと系統樹ファイルについて、それぞれのコントロールファイルを使って`codeml`を実行し、その結果を尤度比検定で評価する」という流れで解析を行う。
+
+## テストデータを用いたチュートリアル
+以下の松田先輩のサイトにBranch、Branch-Siteモデルのチュートリアルがまとまっている。こちらを自身の環境で行えるようにしよう。
+>https://ymat2.github.io/bio/paml-tutorial.html<br>
+
+## `OrthoFinder`出力のSingle Copy Orthologsについて網羅的にcodemlを実行する
+
+実際に解析を行う際には複数の遺伝子をまとめて解析し、正の選択を受けたものを抽出する必要がある。ここでは、`OrthoFinder`出力の**Single Copy Orthologs (どの種も１コピーしか遺伝子を持っていないようなオーソログ)**
+について`codeml`により正の選択を検出する方法を紹介する。
+
+
+実行の手順は以下の通り。
+
+- `OrthoFinder`の実行
+  - `OrthoFinder`にインプットするアミノ酸ファイルのヘッダーを書き換えておく。
+  - `OrthoFinder`の実行、出力の確認。
+-  SCOの塩基配列ファイルを各オーソログごとに作成し、アライメント＆トリミングを行う
+   - `OrthoFinder`出力からSCOのOG番号と遺伝子IDを抽出し、1つのファイルにまとめる。
+   - CDS(塩基配列)のゲノムファイルのヘッダーをアミノ酸ファイルのヘッダー(遺伝子ID)に揃える。
+   - 各オーソログごとにCDS配列を切り出し、個別の.fastaファイルとして保存する。
+   - `MAFFT`と`trimAl`を用いてアライメントとトリミングを行う。
+   - `codeml`にインプットする種系統樹に合わせて、ヘッダーを種名のみに統一する。
+- `codeml`の実行、正の選択を受けた遺伝子の検出
+  -  対立仮説と帰無仮説ごとにコントロールファイルを作成し、すべてのSCOについて`codeml`を実行する。
+  -  尤度比検定を実施し、対立仮説が採択されたオーソログを検出する。
+  -  多重比較補正にかける。
+
+この方法はあくまで一例であり、最終的にCDSの塩基配列ファイルと系統樹、コントロールファイルがあれば`codeml`は実行できる。自分の環境や解析したい内容を元に逐次スクリプトを改造して使って欲しい。
+
+### `OrthoFinder`の実行
+
+`OrthoFinder`実行前にインプットファイルのヘッダー行を書き換えておく。
+```bash
+import os
+from Bio import SeqIO
+
+# 入力ディレクトリと出力ディレクトリのパス
+input_dir = '../Smad_Agra_Cass_Dpon_Sory_Tcas_fasta_dir/'
+output_dir = '../RemakeHedder_6sp/'
+
+# 出力ディレクトリが存在しない場合は作成
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+# 入力ディレクトリ内のすべての .fasta ファイルを処理
+for input_file in os.listdir(input_dir):
+    if input_file.endswith('.fasta'):
+        input_path = os.path.join(input_dir, input_file)
+        output_path = os.path.join(output_dir, input_file)
+
+        # 入力ファイルを読み込み、条件に基づいて書き換えた内容を出力ファイルに保存
+        with open(output_path, 'w') as outfile:
+            for record in SeqIO.parse(input_path, 'fasta'):
+                header = record.description
+                seq = str(record.seq)
+
+                # ヘッダーが「g」で始まる場合
+                if header.startswith("g"):
+                    # 新しいヘッダーは「>Smad」 + 「元のヘッダーの番号」
+                    number = header.split()[0]  # ヘッダーの最初の番号部分を取得
+                    new_header = f">Smad_{number}"
+
+                # ヘッダーが「]」で終わる場合
+                elif header.endswith("]"):
+                    # ヘッダーの最後の「[]」内の英字を抽出
+                    within_brackets = header.split('[')[-1].split(']')[0]
+                    first_letter = within_brackets[0]  # 最初の1文字
+                    space_after = within_brackets.split()[-1][:3]  # スペース後の3文字
+                    
+                    # 元のヘッダーから最初の「>」の次の文字から最初の「 」までの部分を取得
+                    first_part = header.split()[0][1:]
+                    new_header = f">{first_letter}{space_after}_{first_part}"
+
+                else:
+                    new_header = f">{header.split()[0]}"
+
+                # 新しいヘッダーと配列を出力ファイルに書き込む
+                outfile.write(f"{new_header}\n{seq}\n")
+
+        print(f"{output_path} に保存しました。")
+```
+上記のpythonスクリプトを実行しヘッダーを書き換えたアミノ酸ファイルを元に`OrthoFinder`を実行する。
+
+出力はこんな感じ
+```bash
+kosukesano@at139:~/tools/for_orthofinder/RemakeHedder_6sp/OrthoFinder/Results_Sep19$ ls
+Citation.txt                     Gene_Trees            Orthogroups                            Phylogenetically_Misplaced_Genes  Single_Copy_Orthologue_Sequences
+Comparative_Genomics_Statistics  Log.txt               Orthologues                            Putative_Xenologs                 Species_Tree
+Gene_Duplication_Events          Orthogroup_Sequences  Phylogenetic_Hierarchical_Orthogroups  Resolved_Gene_Trees               WorkingDirectory
+kosukesano@at139:~/tools/for_orthofinder/RemakeHedder_6sp/OrthoFinder/Results_Sep19$ ls Orthogroups
+Orthogroups.GeneCount.tsv  Orthogroups.tsv  Orthogroups.txt  Orthogroups_SingleCopyOrthologues.txt  Orthogroups_UnassignedGenes.tsv
+kosukesano@at139:~/tools/for_orthofinder/RemakeHedder_6sp/OrthoFinder/Results_Sep19$
+```
+主に`Orthogroups/`ディレクトリの`Orthogroups.txt`・`Orthogroups_SingleCopyOrthologues.txt`を使用する。
+
+
+### SCOの塩基配列ファイルを各オーソログごとに作成し、アライメント＆トリミングを行う
+
+続いて、これらの出力を元にSCOのOG番号と遺伝子IDを1つのファイルにまとめる。
+```bash
+# ファイルパスの設定
+orthogroups_file_path = '/home/kosukesano/tools/for_orthofinder/RemakeHedder_6sp/OrthoFinder/Results_Sep19/Orthogroups/Orthogroups.txt'
+single_copy_orthologues_file_path = '/home/kosukesano/tools/for_orthofinder/RemakeHedder_6sp/OrthoFinder/Results_Sep19/Orthogroups/Orthogroups_SingleCopyOrthologues.txt'
+output_file_path = '/home/kosukesano/tools/for_paml/data/241008_SCO/extracted_orthogroups.txt'
+
+# シングルコピーオルソログのIDをセットに格納
+single_copy_orthologues = set()
+with open(single_copy_orthologues_file_path, 'r') as single_copy_file:
+    for line in single_copy_file:
+        single_copy_orthologues.add(line.strip())
+
+# Orthogroups.txt から該当する行を抽出して新しいファイルに保存
+with open(orthogroups_file_path, 'r') as orthogroups_file, open(output_file_path, 'w') as output_file:
+    for line in orthogroups_file:
+        # 行の最初の部分を取り出してIDをチェック
+        og_id = line.split(':')[0].strip()
+        if og_id in single_copy_orthologues:
+            output_file.write(line)
+```
+これを実行すると`extracted_orthogroups.txt`ができる。その中身はこんな感じ。
+```bash
+OG0008033: Agra_P_050292688.1 Cass_AG9767834.1 Dpon_P_019769583.1 Smad_g5339.t1 Sory_P_030760502.1 Tcas_P_001812254.1
+OG0008034: Agra_P_050292700.1 Cass_AG9761214.1 Dpon_P_019755574.2 Smad_g6358.t1 Sory_P_030761209.1 Tcas_P_008195282.1
+OG0008035: Agra_P_050292731.1 Cass_AH1135743.1 Dpon_P_048519923.1 Smad_g2098.t1 Sory_P_030765758.1 Tcas_P_008196870.1
+OG0008036: Agra_P_050292732.1 Cass_AG9767756.1 Dpon_P_019773495.1 Smad_g5269.t1 Sory_P_030765067.1 Tcas_P_015836383.1
+OG0008037: Agra_P_050292739.1 Cass_AG9768060.1 Dpon_P_019769194.2 Smad_g11904.t1 Sory_P_030755089.1 Tcas_P_969265.1
+OG0008039: Agra_P_050292743.1 Cass_AG9767942.1 Dpon_P_019767966.1 Smad_g4980.t1 Sory_P_030750408.1 Tcas_P_971491.1
+OG0008040: Agra_P_050292768.1 Cass_AH1123990.1 Dpon_P_048523285.1 Smad_g10276.t1 Sory_P_030759374.1 Tcas_P_975603.1
+OG0008041: Agra_P_050292798.1 Cass_AG9770235.1 Dpon_P_019769671.2 Smad_g12750.t1 Sory_P_030747529.1 Tcas_P_971970.1
+OG0008042: Agra_P_050292813.1 Cass_AG9770251.1 Dpon_P_019769634.2 Smad_g5261.t1 Sory_P_030747567.1 Tcas_P_968688.1
+OG0008043: Agra_P_050292817.1 Cass_AG9770190.1 Dpon_P_019769690.1 Smad_g5262.t1 Sory_P_030747568.1 Tcas_P_968766.1
+OG0008044: Agra_P_050292828.1 Cass_AG9770237.1 Dpon_P_019769698.1 Smad_g7152.t1 Sory_P_030747658.1 Tcas_P_008190584.1
+OG0008045: Agra_P_050292879.1 Cass_AG9762270.1 Dpon_P_019773117.1 Smad_g12600.t1 Sory_P_030759522.1 Tcas_P_972888.1
+OG0008046: Agra_P_050292889.1 Cass_AG9762382.1 Dpon_P_019753344.1 Smad_g8693.t1 Sory_P_030760073.1 Tcas_P_008195985.1
+```
+
+続いてCDSのファイルのヘッダーをアミノ酸ファイルのヘッダーと揃える。以下の２つのスクリプトを実行する。
+```bash
+### ch_hed.py
+
+from Bio import SeqIO
+
+# ファイルパスの設定
+paml_fasta = "/home/kosukesano/tools/for_paml/data/6sp_nama_data/Agra.fasta"
+orthofinder_fasta = "/home/kosukesano/tools/for_orthofinder/Smad_Agra_Cass_Dpon_Sory_Tcas_fasta_dir/Agra.fasta"
+output_fasta = "/home/kosukesano/tools/for_paml/data/6sp_nama_data/changehedder/Agra_changehedder.fasta"
+
+# orthofinderのファイルからprotein_IDをキーにした辞書を作成
+orthofinder_dict = {}
+for record in SeqIO.parse(orthofinder_fasta, "fasta"):
+    protein_id = record.id.split()[0]  # protein_IDは最初のスペースまでの部分
+    print(f"Extracted orthofinder_protein_ID: {protein_id}") 
+    orthofinder_dict[protein_id] = record
+
+# 出力用リスト
+output_records = []
+
+# pamlのファイルを処理
+for record in SeqIO.parse(paml_fasta, "fasta"):
+    header_parts = record.description.split("protein_id=")
+    
+    if len(header_parts) > 1:
+        protein_id = header_parts[1].split("]")[0]  # protein_idを抽出
+        print(f"Extracted CDS_protein_ID: {protein_id}")  # 抽出したprotein_IDを出力
+
+        # orthofinderファイルで一致するprotein_IDがあるか確認
+        if protein_id in orthofinder_dict:
+            print(f"Match found for protein_ID: {protein_id}")
+            # 一致する場合、ヘッダーを置き換え
+            new_header = orthofinder_dict[protein_id].description
+            record.description = new_header
+        else:
+            print(f"No match found for protein_ID: {protein_id}")
+    else:
+        print(f"protein_ID not found in header: {record.description}")
+
+    # 出力リストに追加
+    output_records.append(record)
+
+# 新しいファイルに書き出し
+SeqIO.write(output_records, output_fasta, "fasta")
+print(f"Modified fasta file saved to: {output_fasta}")
+```
+```bash
+### ~/tools/for_paml/data/6sp_nama_data/changehedder/edit.pyの中身
+
+import os
+from Bio import SeqIO
+
+# 入力ディレクトリと出力ディレクトリのパス
+input_dir = '../changehedder/'
+output_dir = '../RemakeHedder_6sp_afterchange/'
+
+# 出力ディレクトリが存在しない場合は作成
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+# 入力ディレクトリ内のすべての .fasta ファイルを処理
+for input_file in os.listdir(input_dir):
+    if input_file.endswith('.fasta'):
+        input_path = os.path.join(input_dir, input_file)
+        output_path = os.path.join(output_dir, input_file)
+
+        # 入力ファイルを読み込み、条件に基づいて書き換えた内容を出力ファイルに保存
+        with open(output_path, 'w') as outfile:
+            for record in SeqIO.parse(input_path, 'fasta'):
+                header = record.description
+                seq = str(record.seq)
+
+                # ヘッダーが「g」で始まる場合
+                if header.startswith("g"):
+                    # 新しいヘッダーは「>Smad」 + 「元のヘッダーの番号」
+                    number = header.split()[0]  # ヘッダーの最初の番号部分を取得
+                    new_header = f">Smad_{number}"
+
+                # ヘッダーが「]」で終わる場合
+                elif header.endswith("]"):
+                    # ヘッダーの最後の「[]」内の英字を抽出
+                    within_brackets = header.split('[')[-1].split(']')[0]
+                    first_letter = within_brackets[0]  # 最初の1文字
+                    space_after = within_brackets.split()[-1][:3]  # スペース後の3文字
+                    
+                    # 元のヘッダーから最初の「>」の次の文字から最初の「 」までの部分を取得
+                    first_part = header.split()[1][1:]
+                    new_header = f">{first_letter}{space_after}_{first_part}"
+
+                else:
+                    new_header = f">{header.split()[0]}"
+
+                # 新しいヘッダーと配列を出力ファイルに書き込む
+                outfile.write(f"{new_header}\n{seq}\n")
+
+        print(f"{output_path} に保存しました。")
+```
+
+これらの出力ファイルを元にSCOの配列を抽出する。以下のスクリプトを使用する。
+```bash
+# 必要なモジュールをインポート
+import os
+
+# ファイルパスの設定
+orthogroups_file = "extracted_orthogroups.txt"
+input_dir = "../241009_RemakeHedder_6sp_afterchange/"
+output_dir = "/home/kosukesano/tools/for_paml/data/CDS_SCO/"
+
+# ディレクトリが存在しない場合、作成
+os.makedirs(output_dir, exist_ok=True)
+
+# OG番号と遺伝子IDをextracted_orthogroups.txtから取得
+with open(orthogroups_file, "r") as ortho_f:
+    for line in ortho_f:
+        if line.strip():  # 空行を無視
+            # 行をOG番号と遺伝子IDに分割
+            og_number, gene_ids_str = line.split(":")
+            og_number = og_number.strip()
+            gene_ids = gene_ids_str.strip().split()
+
+            # 遺伝子IDを種ごとに分割
+            genes = {
+                "Agra": gene_ids[0],
+                "Cass": gene_ids[1],
+                "Dpon": gene_ids[2],
+                "Smad": gene_ids[3],
+                "Sory": gene_ids[4],
+                "Tcas": gene_ids[5]
+            }
+
+            # 出力ファイルのパスを設定
+            output_file = os.path.join(output_dir, f"{og_number}.fna")
+
+            # 出力ファイルを開く
+            with open(output_file, "w") as out_f:
+                # 各種ごとに遺伝子IDを取得し、対応するファイルからシーケンスを検索
+                for species, gene_id in genes.items():
+                    fasta_file = os.path.join(input_dir, f"{species}_changehedder.fasta")
+
+                    with open(fasta_file, "r") as fasta_f:
+                        write_flag = False
+                        for line in fasta_f:
+                            if line.startswith(f">{gene_id}"):
+                                # ヘッダー行を見つけたら、出力ファイルに書き込みを開始
+                                out_f.write(line)
+                                print(line.strip())  # 標準出力にヘッダーを表示
+                                write_flag = True
+                            elif line.startswith(">") and write_flag:
+                                # 次のヘッダー行が見つかったら、現在の遺伝子の書き込みを終了
+                                write_flag = False
+                            elif write_flag:
+                                # シーケンス部分を書き込む
+                                out_f.write(line)
+                                print(line.strip())  # 標準出力にシーケンスを表示
+
+            print(f"{og_number}.fna ファイルが {output_dir} に保存されました。")
+```
+
+これにより各オーソログごとの`.fasta`ファイルが出力されたが、このままだと種ごとに遺伝子長がバラバラであり、`codeml`による比較ができない。`MAFFT`を用いて遺伝子をアライメントし、`trimAl`を用いて冗長な部分などを除去する。
+
+```bash
+#$ -S /bin/bash
+
+source ~/tools/pyenv_env/ManualPhylo_profile # MAFFT用の環境に入るためのプロファイル。MAFFTが起動できればなんでもいい。
+
+# ディレクトリパス
+input_dir="/home/kosukesano/tools/for_paml/data/CDS_SCO/"
+output_dir="/home/kosukesano/tools/for_paml/data/CDS_SCO/"
+
+# 各ファイルに対してアラインメントを実行
+for file in "$input_dir"*.fna; do
+  # 元のファイル名から拡張子を除いたものを取得
+  base_name=$(basename "$file" .fna)
+
+  # 出力ファイル名を生成
+  output_file="${output_dir}${base_name}_maffted.fna"
+
+  # MAFFTを実行
+  mafft --auto --maxiterate 1000 --localpair "$file" > "$output_file"
+
+  echo "Aligned file created: $output_file"
+done
+```
+
+SCOの各ファイルで、ヘッダーの内容が種名以外だと今後の解析に支障をきたす（`codeml`に入力する種系統樹の葉ラベルとヘッダーのdescriptionが一致している必要があるため）ので、前もってヘッダーの内容を変えておく。
+```bash
+
+import os
+
+# 対象ディレクトリ
+input_dir = "/home/kosukesano/tools/for_paml/data/CDS_SCO"
+
+# ディレクトリ内の_maffted.fnaファイルを処理
+for filename in os.listdir(input_dir):
+    if filename.endswith("_maffted.fna"):
+        input_filepath = os.path.join(input_dir, filename)
+        output_filename = filename.replace("_maffted.fna", "_maffted_fixed.fna")
+        output_filepath = os.path.join(input_dir, output_filename)
+        
+        with open(input_filepath, 'r') as infile, open(output_filepath, 'w') as outfile:
+            for line in infile:
+                if line.startswith(">"):
+                    # ヘッダーの「>」とその後の4文字に置き換える
+                    new_header = ">" + line[1:5] + "\n"
+                    outfile.write(new_header)
+                else:
+                    # 配列行はそのまま書き込む
+                    outfile.write(line)
+
+print("ヘッダー置き換え処理が完了しました。")
+```
+
+### `codeml`の実行、正の選択を受けた遺伝子の検出
+
+ここでは**Branch-Siteモデル（特定の枝の特定のサイトに正の選択がかかったモデルと中立モデルの比較）**の実行例を説明する。
+
+`codeml`の実行にはSCOの配列ファイル、系統樹ファイル、コントロールファイルが必要である。SCOの`.fasta`ファイルはこれまで整理したものを使用する。
+
+種系統樹は`IQ-TREE`や`OrthoFinder`、`ASTRAL`を使って用意する。葉ラベルがSCOのヘッダーの種名と合致しているか確認する。また、選択の有無を知りたい枝に`#1`をつけておく。
+```bash
+(Agra:494.7300332,((Cass:428.1808484,Dpon:428.1808484):29.94625692,Smad#1:458.1271054):36.60292787,(Sory:236.2,Tcas:236.2):258.5300332);
+```
+今回はマダラケシツブゾウムシで正の選択がかかっているかどうかを見るため、`Smad`の後に`#1`をつけている。
+
+対立仮説のコントロールファイルは以下のものを使用する。
+```bash
+### ~/tools/for_paml/241009_IQTREE_6sp/bsA/template.ctlの中身
+
+seqfile = <SEQFILE>
+treefile = /home/kosukesano/tools/for_paml/IQTREE_6sp/data/new_tree_IQTREE_ultrametric.nwk
+outfile = <OUTFILE>
+
+noisy = 9
+verbose = 1
+runmode = 0
+seqtype = 1
+CodonFreq = 2
+clock = 0
+model = 2
+NSsites = 2
+fix_omega = 0
+omega = 1
+icode = 0
+fix_kappa = 0
+kappa = 2
+fix_alpha = 1
+alpha = .0
+Malpha = 0
+ncatG = 4
+getSE = 0
+RateAncestor = 0
+method = 0
+fix_blength = 0
+```
+系統樹ファイルのみ1つの種系統樹を使い回すのでコントロールファイルで直接指定する。
+
+これらのファイルを使用して`codeml`を実行する。実行の際は以下のシェルスクリプトをジョブとして投げて行う。
+```bash
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+
+# ディレクトリの設定
+input_dir="/home/kosukesano/tools/for_paml/data/CDS_SCO" #SCOのファイルが格納されているディレクトリを指定する。
+bsA_dir="/home/kosukesano/tools/for_paml/241009_IQTREE_6sp/bsA" #対立仮説用のディレクトリを指定する
+result_dir="$bsA_dir/result" # 上記のディレクトリで結果を出力する/resultディレクトリを予め作成しておき、指定する。
+template_ctl="$bsA_dir/template.ctl" # 対立仮説用のコントロールファイルを指定する。
+
+# 出力ディレクトリが存在しない場合は作成
+mkdir -p "$result_dir"
+
+# テンプレートの制御ファイルを読み込む
+ctl_template=$(cat "$template_ctl")
+
+# ディレクトリ内の_maffted_fixed.fastaファイルを処理
+for file in "$input_dir"/*_maffted.fna; do
+  if [[ -f "$file" ]]; then
+    base_name=$(basename "$file" .fna)
+    outfile_path="$result_dir/${base_name}_branch_alt"
+
+    # 一時的な制御ファイルの内容を生成
+    ctl_content="${ctl_template//<SEQFILE>/$file}"
+    ctl_content="${ctl_content//<OUTFILE>/$outfile_path}"
+
+    # 一時的な制御ファイルを作成
+    ctl_path="$bsA_dir/bsA.ctl"
+    echo "$ctl_content" > "$ctl_path"
+
+    # PAMLを実行
+    singularity exec -e /usr/local/biotools/p/paml:4.9--h779adbc_6 codeml "$ctl_path"
+
+    echo "Processed file: $file, output: $outfile_path"
+  fi
+done
+```
+
+帰無仮説（中立モデル）はまた別途コントロールファイルと実行シェルスクリプトを用意する。
+
+コントロールファイル
+```bash
+seqfile = <SEQFILE>
+treefile = /home/kosukesano/tools/for_paml/IQTREE_6sp/data/new_tree_IQTREE_ultrametric.nwk
+outfile = <OUTFILE>
+
+noisy = 9
+verbose = 1
+runmode = 0
+seqtype = 1
+CodonFreq = 2
+clock = 0
+model = 2
+NSsites = 2
+fix_omega = 1
+omega = 1
+icode = 0
+fix_kappa = 0
+kappa = 2
+fix_alpha = 1
+alpha = .0
+Malpha = 0
+ncatG = 4
+getSE = 0
+RateAncestor = 0
+method = 0
+fix_blength = 0
+```
+
+実行シェルスクリプト
+```bash
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+
+# ディレクトリの設定
+input_dir="/home/kosukesano/tools/for_paml/data/CDS_SCO" #SCOのファイルが格納されているディレクトリを指定する。
+bsA_dir="/home/kosukesano/tools/for_paml/241009_IQTREE_6sp/bs_null" #帰無仮説用のディレクトリを指定する
+result_dir="$bsA_dir/result" # 上記のディレクトリで結果を出力する/resultディレクトリを予め作成しておき、指定する。
+template_ctl="$bsA_dir/bsN_template.ctl" # 帰無仮説用のコントロールファイルを指定する。
+
+# 出力ディレクトリが存在しない場合は作成
+mkdir -p "$result_dir"
+
+# テンプレートの制御ファイルを読み込む
+ctl_template=$(cat "$template_ctl")
+
+# ディレクトリ内の_maffted_fixed.fastaファイルを処理
+for file in "$input_dir"/*_maffted.fna; do
+  if [[ -f "$file" ]]; then
+    base_name=$(basename "$file" .fna)
+    outfile_path="$result_dir/${base_name}_branch_alt"
+
+    # 一時的な制御ファイルの内容を生成
+    ctl_content="${ctl_template//<SEQFILE>/$file}"
+    ctl_content="${ctl_content//<OUTFILE>/$outfile_path}"
+
+    # 一時的な制御ファイルを作成
+    ctl_path="$bsA_dir/bsA.ctl"
+    echo "$ctl_content" > "$ctl_path"
+
+    # PAMLを実行
+    singularity exec -e /usr/local/biotools/p/paml:4.9--h779adbc_6 codeml "$ctl_path"
+
+    echo "Processed file: $file, output: $outfile_path"
+  fi
+done
+```
+
+これら2つの出力について、オーソログごとに尤度比検定を行う。
+
+```bash
+import os
+import re
+from scipy.stats import chi2
+
+def parse_lnL(file_path):
+    try:
+        with open(file_path, 'r') as f:
+            for line in f:
+                print(f"Processing line: {line.strip()}")  # デバッグ用
+                match = re.search(r'lnL\(ntime:\s*\d+\s+np:\s*(\d+)\):\s+(-?\d+\.\d+)', line)
+                if match:
+                    np = int(match.group(1))
+                    lnL = float(match.group(2))
+                    return np, lnL
+        print(f"{file_path} に 'lnL' 行が見つかりませんでした。形式を確認してください。")
+        return None, None
+    except Exception as e:
+        print(f"{file_path} を開く際にエラーが発生しました: {e}")
+        return None, None
+
+def perform_lrt(alt_lnL, alt_np, null_lnL, null_np):
+    try:
+        lr_stat = 2 * (alt_lnL - null_lnL)
+        df = alt_np - null_np
+        p_val = chi2.sf(lr_stat, df)
+        return p_val
+    except Exception as e:
+        print(f"LRT計算中にエラーが発生しました: {e}")
+        return None
+
+def main():
+    alt_dir = '/home/kosukesano/tools/for_paml/241009_IQTREE_6sp/bsA/result' # 対立仮説の結果が格納してあるディレクトリを指定する。
+    null_dir = '/home/kosukesano/tools/for_paml/241009_IQTREE_6sp/bs_null/result' # 帰無仮説の結果が格納してあるディレクトリを指定する。
+    output_file = 'branch_site_lrt_results.txt'
+
+    alt_dir = os.path.expanduser(alt_dir)
+    null_dir = os.path.expanduser(null_dir)
+
+    # 処理するOGファイルリストの取得
+    og_files = [f for f in os.listdir(alt_dir) if '_maffted_fixed_branch_alt' in f]
+
+    with open(output_file, 'w') as out_f:
+        out_f.write('OG_num\tp_val\tpositive_selection\n')
+
+        # 各OGファイルについてループ処理
+        for idx, og_file in enumerate(og_files):
+            og_num = og_file.split('_')[0]
+            alt_file = os.path.join(alt_dir, og_file)
+            null_file = os.path.join(null_dir, og_file)
+
+            print(f"{idx+1}/{len(og_files)}: {og_num} の解析を開始します...")
+
+            if os.path.exists(null_file):
+                alt_np, alt_lnL = parse_lnL(alt_file)
+                null_np, null_lnL = parse_lnL(null_file)
+
+                if alt_np is not None and null_np is not None:
+                    p_val = perform_lrt(alt_lnL, alt_np, null_lnL, null_np)
+                    if p_val is not None:
+                        reject_null = '+' if p_val < 0.05 else '-'
+                        out_f.write(f'{og_num}\t{p_val}\t{reject_null}\n')
+                        print(f"{og_num} の解析が完了しました。p値: {p_val}, 正の選択: {reject_null}")
+                    else:
+                        print(f"{og_num} のLRT計算に失敗しました。")
+                else:
+                    print(f"{og_num} のlnLデータが不完全です。")
+            else:
+                print(f"{og_num} の対応するnullモデルファイルが見つかりませんでした。")
+
+if __name__ == "__main__":
+    main()
+
+```
+
+`branch_site_lrt_results.txt`に結果がまとまって出力される。
+```bash
+OG_num  p_val   positive_selection
+OG0008991       0.6689387557481495      -
+OG0009342       0.3841452960853403      -
+OG0009012       1.0     -
+OG0008220       1.0     -
+OG0009974       1.0     -
+OG0009317       1.0     -
+OG0009611       1.0     -
+OG0009516       0.018673863487145816    +
+OG0008378       1.0     -
+OG0009076       1.0     -
+OG0008104       1.0     -
+OG0009448       1.0     -
+OG0008267       0.33137986623411436     -
+OG0009258       1.0     -
+OG0008864       1.0     -
+OG0010025       1.0     -
+OG0009189       1.0     -
+OG0009135       1.0     -
+OG0009615       1.0     -
+OG0009095       1.0     -
+OG0009667       0.6902914814471439      -
+```
+
+最後に、これらの結果が偶然正の選択として検出されたわけでは無いことを示すため、多重比較補正にかけて偽陽性を取り除く。
+
+`branch_site_lrt_results.txt`をローカルに転送した後に以下のスクリプトを実行する。
+
+```bash
+import pandas as pd
+from statsmodels.stats.multitest import multipletests
+
+# 入力ファイルと出力ファイルのパス
+input_file = 'branch_site_lrt_results.txt'
+output_file = 'hosei_branch_site_lrt_results.txt'
+
+# ファイルを読み込む
+df = pd.read_csv(input_file, sep='\t')
+
+# p値をリストに変換
+p_values = df['p_val'].tolist()
+
+# FDR制御を使用してp値を補正
+rejected, q_values, _, _ = multipletests(p_values, alpha=0.05, method='fdr_bh')
+
+# 補正後のq値と有意差をデータフレームに追加
+df['q_val'] = q_values
+df['significant'] = rejected
+
+# 結果を新しいファイルに出力
+df.to_csv(output_file, sep='\t', index=False)
+
+print(f"補正後の結果が{output_file}に保存されました。")
+```
+これにより、正の選択を受けた遺伝子が抽出された。

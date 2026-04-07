@@ -1,0 +1,386 @@
+---
+title: "BRAKERの環境構築と実行方法まとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+# `BRAKER`環境構築概要
+- `pyenv`環境の構築
+  - `pyenv`のインストール
+  - `pyenv`用のプロファイル設定
+- `BRAKER`本体および内部ツールのインストール
+  - `BRAKER`本体を`git`によりインストール
+  - `ProtHint`を`git`によりインストール
+  - `GeneMark-ETP`を`git`によりインストール
+  - `TSEBRA`を`git`によりインストール
+- `anaconda`を用いた`BRAKER`実行環境の構築
+  - `pyenv`環境内で`anaconda3`のインストール＆`anaconda`環境構築
+  - `BRAKER`実行環境の構築&プロファイル設定
+  - `BRAKER`実行時に使用するモジュールを`conda`コマンドでインストール
+- プロテインデータベースのダウンロード
+
+# `singularity`を利用した`BRAKER`の利用
+
+[公式のGithub](https://github.com/Gaius-Augustus/BRAKER?tab=readme-ov-file#container)にて全部入りの`Singularity`コンテナが公開されました。`Scorpion`で動作することを確認しましたので、取り急ぎ環境構築の手順だけ書き出します。めちゃくちゃ簡単にインストールできるので、皆さん使ってみましょう。<br>
+
+
+## インストール
+
+`BRAKER`本体を落とすディレクトリを用意し、そこで以下のコマンドを実行。
+```bash
+singularity build --fakeroot braker3.0.8.sif docker://teambraker/braker3:latest
+```
+うまくいけば、`BRAKER`の`sif`イメージファイルができるはず。
+```bash
+dendezia@scorpion:~/tool/braker_container$ ls
+braker3.0.8.sif
+dendezia@scorpion:
+```
+
+続いて`AUGUSTUS`の`config`パスに関する設定を行う。`Singularity`イメージ内には`AUGUSTUS`も含まれるが、その`config`パスには書き込み権限が与えられないためエラーが起きてしまう。<br>
+別のディレクトリに`AUGUSTUS`を手動で落とし、`config`以外のディレクトリを削除し、残った`config`ファイルにパスを指定すると上手くいく。
+
+適当なディレクトリを用意して以下のコマンドを実行
+```bash
+git clone https://github.com/Gaius-Augustus/Augustus.git -b v3.5.0
+```
+
+その下の`config/`ディレクトリだけ移動
+```bash
+### 移動先の/home/dendezia/tool/config/AUGUSTUS_CONFIG_PATH/は各自で好きなディレクトリを指定してください
+
+mv Augustus/config /home/dendezia/tool/config/AUGUSTUS_CONFIG_PATH/
+```
+
+残った`AUGUSTUS/`ディレクトリは邪魔なので以下のコマンドで消去
+```bash
+rm -rfv Augustus
+```
+
+これでインストール完了！
+
+## 実行
+
+以下のスクリプトで実行する
+```bash
+#$ -S /bin/bash
+#$ -cwd
+#PBS -l select=1:ncpus=16:mem=64gb
+
+
+echo start at
+date
+
+
+singularity exec braker3.0.8.sif braker.pl \
+        --genome=231117_madaragenome.fasta\
+        --prot_seq=Arthropoda.fa\
+        --threads=16\
+        --workingdir=/home/dendezia/tool/for_braker/250606/braker \
+        --AUGUSTUS_CONFIG_PATH=/home/dendezia/tool/config/AUGUSTUS_CONFIG_PATH/config
+
+echo end at
+date
+```
+
+- `--genome`: インプットのゲノム配列。反復配列をマスキングしておくと精度が向上する。<br>
+- `--prot_seq`: `BRAKER`用のデータベースファイル。[こちらのサイト](https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/)から合うものをダウンロードして使う。<br>
+- `--threads`: スレッド数の指定。<br>
+- `--workingdir`: ワーキングディレクトリ及び結果を出力するディレクトリを指定する。<br>
+- `--AUGUSTUS_CONFIG_PATH`: `AUGUSTUS`の`config/`ディレクトリを置いた場所を指定する。<br>
+
+最終的な出力は以下のようになる。
+```bash
+dendezia@scorpion:~/tool/for_braker/250606$ ls braker
+Augustus  braker.aa  braker.codingseq  braker.gtf  braker.log  errors  GeneMark-EP  GeneMark-ES  genome_header.map  hintsfile.gff  prothint.gff  species  what-to-cite.txt
+dendezia@scorpion:~/tool/for_braker/250606$ 
+```
+**主要な出力ファイル**<br>
+- `braker.aa`: 予測された遺伝子のアミノ酸配列データ。今後の解析で`OrthoFinder`のインプットなどに使う。
+- `braker.codingseq`: 予測された遺伝子の塩基配列データ。こちらもよく使う。
+- `braker.gtf`: 予測された遺伝子のgtfファイル。遺伝子の位置情報などが格納されている。
+- `braker.log`: ログファイル
+
+
+
+
+## `pyenv`環境の構築
+
+### `pyenv`のインストール
+
+`git clone`を使ってダウンロードするだけ。[githubのページはこちら](https://github.com/pyenv/pyenv)
+```bash
+### git cloneを使ったpyenvのダウンロード
+kosukesano@at139:~$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+```
+
+### `pyenv`用のプロファイル設定
+
+`pyenv`の起動にはパスの開通が必要だが、`.bash_profile`などに直接書き込むと環境が乱立し複雑化した際に対応できない。また環境に重篤な改変をもたらしうる。
+
+そこで`pyenv`専用のプロファイルを作成し、`pyenv`使用時は毎回それを`source`することで対応する。
+```php
+### プロファイルを格納するディレクトリを作成する。今回はpyenv_conda_environmentというディレクトリをホーム直下に作成した。名前はなんでもいい。
+kosukesano@at139:~$ mkdir pyenv_conda_environment
+
+### そのディレクトリの中で.pyenv_profileというファイルを作成。隠しファイルにはしなくとも良い。
+kosukesano@at139:~$ cd pyenv_conda_environment/
+kosukesano@at139:~/pyenv_conda_environment$ nano .pyenv_profile
+```
+環境設定プロファイル (`.pyenv_profile`)の中身は以下の通り。
+```php
+### .pyenv_profileの中身。pyenvへのパスが書いてある。
+
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+```
+このプロファイルをソースすると、pyenvが機能するようになる。
+```bash
+### sourceする前はpyenvと打ってもコマンドが見つからずエラーが出る。
+kosukesano@at137:~$ pyenv
+Command 'pyenv' not found, did you mean:
+  command 'p7env' from deb libnss3-tools (2:3.68.2-0ubuntu1.2)
+Try: apt install <deb name>
+
+### .pyenv_profileをsourceした後だとpyenvが機能する。
+kosukesano@at137:~$ source ~/pyenv_conda_environment/.pyenv_profile 
+kosukesano@at137:~$ pyenv
+pyenv 2.4.0-3-g3ff54e89
+Usage: pyenv <command> [<args>]
+
+Some useful pyenv commands are:
+   --version   Display the version of pyenv
+   .
+   .
+   .
+   .
+   .
+
+```
+
+## `BRAKER`本体および内部ツールのインストール
+
+ホームディレクトリ直下に`tools/`というディレクトリを作成した。今後はここにいろんな物を入れていく。
+```bash
+### ~/tools/を作成
+kosukesano@at139:~$ mkdir tools
+```
+
+### `BRAKER`本体のインストール
+
+`~/tool`直下に`braker_git_install`というディレクトリを作成し、そこで`git clone`を実行。[githubのページはこちら](https://github.com/Gaius-Augustus/BRAKER)
+
+(`braker_git_install`を作る必要はないかも。)
+```bash
+### braker_git_installを作成
+(braker) kosukesano@at139:~/tools$ mkdir braker_git_install
+(braker) kosukesano@at139:~/tools$ cd braker_git_install/
+
+### gitでBRAKERをインストール
+(braker) kosukesano@at139:~/tools/braker_git_install$ git clone https://github.com/Gaius-Augustus/BRAKER.git
+Cloning into 'BRAKER'...
+remote: Enumerating objects: 7324, done.
+remote: Counting objects: 100% (1666/1666), done.
+remote: Compressing objects: 100% (660/660), done.
+remote: Total 7324 (delta 1072), reused 1530 (delta 983), pack-reused 5658
+Receiving objects: 100% (7324/7324), 123.32 MiB | 20.53 MiB/s, done.
+Resolving deltas: 100% (5423/5423), done.
+Updating files: 100% (152/152), done.
+(braker) kosukesano@at139:~/tools/braker_git_install$ ls
+BRAKER
+(braker) kosukesano@at139:~/tools/braker_git_install$
+```
+### その他のツールのインストール
+- `ProtHint`[github](https://github.com/gatech-genemark/ProtHint)
+- `TSEBRA`[github](https://github.com/Gaius-Augustus/TSEBRA)
+- `GeneMark-ETP`[github](https://github.com/gatech-genemark/GeneMark-ETP)
+  
+上記の３つのツールはそれぞれ`~/tool`直下にディレクトリを作成し、`git clone`でインストールした。
+
+```bash
+git clone https://github.com/gatech-genemark/ProtHint.git
+git clone https://github.com/Gaius-Augustus/TSEBRA.git
+git clone https://github.com/gatech-genemark/GeneMark-ETP.git
+```
+
+## `anaconda`を用いた`BRAKER`実行環境の構築
+
+### `pyenv`環境内で`anaconda3`のインストール＆`anaconda`環境構築
+`pyenv`のコマンドを使って`anaconda3`をインストールすると、`anaconda3`の独立した環境が作られる。
+
+**注意！**`anaconda3`が重すぎるため、作業ノードで実行するとサーバーが落ちる。`qsub`でジョブとして投げよう。また、結構メモリを増やさないとメモリ不足で途中で止まる。
+
+実際に投げたジョブスクリプトは以下の通り。
+```php
+#$ -S /bin/bash
+#$ -cwd
+#$ -l medium
+#$ -pe def_slot 1
+#$ -l s_vmem=48G
+#$ -l mem_req=48G
+date
+
+echo starting at date
+source ~/pyenv_conda_environment/.pyenv_profile
+pyenv install anaconda3-2020.11
+
+date
+```
+これが実行されると`/home/kosukesano/.pyenv/version`に`anaconda3-2020.11`ができる。`anaconda3`のバージョンは多分なんでもいい。
+
+### `BRAKER`実行環境の構築&プロファイル設定
+
+`pyenv`・`anaconda3-2020.11`を起動、`anaconda3-2020.11`の`base`環境にいる状態で`BRAKER`用の仮想`conda`環境を作る。
+```bash
+(base) kosukesano@at137:~/tools$ conda create -n braker python=3.9
+```
+**`python`は3.9を指定すること**
+
+`~/tools/pyenv_env`を作成、その下に設定用プロファイルとして`braker_profile`を作成した。`braker_profile`の中身は以下の通り。
+
+```bash
+source ~/.bash_profile　#.bash_profileをsourceする
+source ~/pyenv_conda_environment/.pyenv_profile　#.pyenv_profileをsourceし、pyenvを起動する
+pyenv global anaconda3-2020.11 #anaconda3環境を起動する
+
+
+### condaのパスを通す
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/kosukesano/.pyenv/versions/anaconda3-2020.11/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/kosukesano/.pyenv/versions/anaconda3-2020.11/etc/profile.d/conda.sh" ]; then
+        . "/home/kosukesano/.pyenv/versions/anaconda3-2020.11/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/kosukesano/.pyenv/versions/anaconda3-2020.11/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+conda activate braker #braker環境を立ち上げる
+
+export PATH="~/tools/braker_git_install/BRAKER/scripts:$PATH" #braker_plのパスを通す。
+```
+この`braker_profile`を`source`することで`BRAKER`用の環境に入れる。
+
+### `BRAKER`実行時に使用するモジュールを`conda`コマンドでインストール
+以下のコマンドで依存モジュールをインストールする。この時、環境が`python=3.9`じゃないと一部でエラーが起きる。
+```bash
+conda install -c anaconda perl
+conda install -c anaconda biopython
+conda install -c bioconda perl-app-cpanminus
+conda install -c bioconda perl-file-spec
+conda install -c bioconda perl-hash-merge
+conda install -c bioconda perl-list-util
+conda install -c bioconda perl-module-load-conditional
+conda install -c bioconda perl-posix
+conda install -c bioconda perl-file-homedir
+conda install -c bioconda perl-parallel-forkmanager
+conda install -c bioconda perl-scalar-util-numeric
+conda install -c bioconda perl-yaml
+conda install -c bioconda perl-class-data-inheritable
+conda install -c bioconda perl-exception-class
+conda install -c bioconda perl-test-pod
+conda install -c bioconda perl-mce
+conda install -c bioconda perl-threaded
+conda install -c bioconda perl-math-utils
+conda install -c bioconda cdbtools
+conda install -c eumetsat perl-yaml-xs
+conda install -c bioconda perl-data-dumper
+```
+一部WARNING MESSAGEが出たりするけど、多分大丈夫。
+
+また、`perl`モジュールでも必要なものがあるので、こちらもインストールする。
+```bash
+#いけたやつ
+cpanm Hash::Merge
+cpanm List::Util
+cpanm MCE::Mutex
+cpanm Module::Load::Conditional
+cpanm Parallel::Forkcpanm 
+cpanm Scalar::Util::Numeric
+cpanm YAML
+cpanm Math::Utils
+cpanm File::HomeDir
+cpanm Thread::Queue
+
+#いけなかったやつ
+cpanm File::Spec::Functions
+cpanm YAML::XS
+cpanm Data::Dumper
+cpanm threads
+
+#skip?
+(braker) kosukesano@at137:~/tools$ cpanm POSIX
+skipping R/RJ/RJBS/perl-5.38.0.tar.gz
+```
+一部のモジュールでインストールに失敗した。
+
+`x86_64-conda_cos6-linux-gnu-gcc`が無いことが原因らしく、これを`conda`でダウンロードした上でもう一度試したが、失敗。このまま強行してみたら`BRAKER`自体は動いたので、気にせず使い続けている。悪影響があるのかは不明。
+
+## プロテインデータベースのダウンロード
+
+[ダウンロード元](https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/)
+
+ここから`Athropoda`のファイルをローカルでダウンロード。遺伝研に移動し`gunzip`で解凍した。
+
+```bash
+# ローカルで実行
+scp ~/Downloads/Arthropoda.fa.gz kosukesano@gw.ddbj.nig.ac.jp:/home/kosukesano/tools
+
+# 遺伝研で実行
+gunzip Arthropoda.fa.gz
+```
+
+#  `BRAKER`の実行
+
+ソフトマスク後の塩基配列ファイルを用意し、以下のようなスクリプトで実行する。
+
+```bash
+### madara_braker.shの中身
+
+#$ -S /bin/bash
+#$ -cwd
+#$ -l gpu
+#$ -pe def_slot 16
+#$ -l s_vmem=16G
+#$ -l mem_req=16G
+echo start at
+date
+
+source /home/kosukesano/tools/pyenv_env/braker_profile
+
+braker.pl --genome=/home/kosukesano/tools/for_braker/nama_data/231117_Madara_softmasked.fasta\
+        --prot_seq=/home/kosukesano/tools/Arthropoda.fa\
+        --rnaseq_sets_ids=adult-1_1,adult-1_2,adult-2_1,adult-2_2,adult-3_1,adult-3_2,\
+        body-1_1,body-1_2,body-2_1,body-2_2,body-3_1,body-3_2,\
+        large-larva-1_1,large-larva-1_2,large-larva-2_1,large-larva-2_2,large-larva-3_1,large-larva-3_2,\
+        middle-larva-1_1,middle-larva-1_2,middle-larva-2_1,middle-larva-2_2,middle-larva-3_1,middle-larva-3_2,\
+        ovary-1_1,ovary-1_2,ovary-2_1,ovary-2_2,ovary-3_1,ovary-3_2 \
+        --rnaseq_sets_dir=/home/kosukesano/tools/for_braker/nama_data/Madara_RNAseq\
+        --threads=16\
+        --species=0529_Smadaranus\
+        --AUGUSTUS_CONFIG_PATH=/usr/share/augustus/config\
+        --AUGUSTUS_BIN_PATH=/usr/bin\
+        --AUGUSTUS_SCRIPTS_PATH=/usr/share/augustus/scripts\
+        --GENEMARK_PATH=/home/kosukesano/tools/GeneMarkETP_git_install/GeneMark-ETP/bin\
+        --PROTHINT_PATH=/home/kosukesano/tools/ProtHint_git_install/ProtHint/bin\
+        --TSEBRA_PATH=/home/kosukesano/tools/TSEBRA_git_install/TSEBRA/bin
+
+date
+```
+
+注意点
+
+- 基本的にパスは全て絶対パスで指定。相対パスはエラーの元。
+- 遺伝研スパコンを使用する場合、`medium`ノードに投げるとディレクトリ構造の関係かパスが通らずエラーが生じる。`intel`か`gpu`ノードを使用するとうまくいく。
+- `species`は過去に指定した文字列を受け付けない。自分は日付の部分を毎回変えることで対応している。
+

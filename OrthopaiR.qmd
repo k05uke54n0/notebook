@@ -1,0 +1,393 @@
+---
+title: "OrthoPaiR使用方法まとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.show="hold")
+library(BiocManager)
+library(tidyverse)
+library(ape)
+library(ggtree)
+library(BiocManager)
+library(GenomicRanges)
+library(GenomeInfoDb)
+library(GenomicFeatures)
+library(rhdf5)
+library(txdbmaker)
+library(BiocGenerics)
+library(Biobase)
+library(IRanges)
+library(rtracklayer)
+library(Biostrings)
+library(S4Vectors)
+library(BSgenome)
+library(ggplot2)
+library(devtools)
+library(pwalign)
+library(rdiamond)
+library(OrthoPaiR)
+library(rhdf5)
+```
+
+# インストール
+
+本体は`R`のパッケージだが、`conda`など他のツールにも依存しているため、別途用意する。<br>
+また、`R`のバージョンは`4.4.x`以上が必要(`4.3.3`ではエラーが出た)。
+
+## 依存ツールのインストール
+
+- `miniprot`
+
+    `git clone`でインストールし、`make`を実行する
+
+    ```bash
+    git clone https://github.com/lh3/miniprot
+
+    cd miniprot
+
+    make
+    ```
+
+    結果として、`miniprot`内がこのようになればOK
+
+    ```bash
+    (base) :~/bio/for_miniprot/miniprot$ ls 
+    Dockerfile    README.md     bseq.o        format.c      index.c       kalloc.o      ksort.h       kvec-km.h     map.c         miniprot.h    nasw-sse.c    nasw.h        options.o     sys.c
+    LICENSE.txt   align.c       chain.c       format.o      index.o       ketopt.h      kthread.c     libminiprot.a map.o         misc.c        nasw-sse.o    ntseq.c       s2n-lite.h    sys.o
+    Makefile      align.o       chain.o       hit.c         kalloc.c      khashl-km.h   kthread.h     main.c        miniprot      misc.o        nasw-tab.c    ntseq.o       sketch.c      test
+    NEWS.md       bseq.c        example.c     hit.o         kalloc.h      kseq.h        kthread.o     main.o        miniprot.1    mppriv.h      nasw-tab.o    options.c     sketch.o      tex
+    ```
+
+
+
+- `SibeliaZ`
+
+    **`Github`には記載が無いが、一部コマンドの実行に必要な依存ツール**<br>
+    結局これが必要なコマンドはうまく実行できなかったが、エラーの挙動的には確実に必要そうなツール。しかも`conda`環境としてインストールしなければいけない？
+
+    ```bash
+    conda install -c bioconda sibeliaz
+    ```
+    コマンドの環境変数として`SibeliaZ`をインストールした`conda`の環境名(`base`など)が必要なので、控えておくと良い。
+
+## 依存`R`パッケージのインストール
+
+まず、パッケージ導入用のパッケージを落とす。
+```{r, eval=FALSE}
+install.packages("BiocManager")
+library(BiocManager)
+```
+
+続いて、以下のパッケージを全てインストールする。
+```{r, eval=FALSE}
+BiocManager::install("GenomicRanges")
+library(GenomicRanges)
+BiocManager::install("GenomeInfoDb")#warningmassageが出たけど多分大丈夫
+library(GenomeInfoDb)
+BiocManager::install("GenomicFeatures")
+library(GenomicFeatures)
+BiocManager::install("rhdf5")
+library(rhdf5)
+BiocManager::install("txdbmaker")#R.4.4.xじゃないとインストールできない
+library(txdbmaker)
+BiocManager::install("BiocGenerics")
+library(BiocGenerics)
+BiocManager::install("Biobase")
+library(Biobase)
+BiocManager::install("IRanges")
+library(IRanges)
+BiocManager::install("rtracklayer")
+library(rtracklayer)
+BiocManager::install("Biostrings")
+library(Biostrings)
+BiocManager::install("S4Vectors")
+library(S4Vectors)
+BiocManager::install("BSgenome")
+library(BSgenome)
+install.packages("ggplot2")
+library(ggplot2)
+install.packages("parallel")
+library(parallel)
+install.packages("dplyr")
+library(dplyr)
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("devtools")
+library(devtools)
+```
+
+また、`rBLAST`のインストーラーは`R.4.3.x`および`R.4.4.x`に対応していないのかエラーが生じた。
+```{r, eval=FALSE}
+> install.packages("rBLAST", dependencies=TRUE)
+Installing package into ‘/Users/kosukesano/Library/R/x86_64/4.3/library’
+(as ‘lib’ is unspecified)
+Warning in install.packages :
+  package ‘rBLAST’ is not available for this version of R
+
+A version of this package for your version of R might be available elsewhere,
+see the ideas at
+https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages
+> library(rBLAST)
+Error in library(rBLAST) : there is no package called ‘rBLAST’
+```
+
+以下の方法だとエラーを回避できた。
+```{r, eval=FALSE}
+#R.4.4.xだとinstall.packages("rBLAST")がエラーを吐いてインストール不可？
+#Githubから直接落とした
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+remotes::install_github("mhahsler/rBLAST")
+library(rBLAST)
+```
+
+これで`Github`に記載されている依存ツールは全て揃った。しかしまだエラーが......。
+
+以下のパッケージを追加でインストールする。
+```{r, eval=FALSE}
+BiocManager::install("pwalign")#追加で必要らしい
+library(pwalign)
+
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+remotes::install_github("drostlab/rdiamond")#追加で必要らしい
+library(rdiamond)
+```
+
+## `OrthopaiR`本体のインストール
+
+```{r, eval=FALSE}
+devtools::install_github("tomoyukif/OrthoPaiR")
+library(OrthoPaiR)
+```
+
+
+# コマンド
+
+このツールのコマンドは、
+
+- `Github`に記載されている内容
+- `help(package = "OrthoPaiR")`で出力される説明文の内容
+- 実際にインストールされたパッケージに格納されている内容
+
+の3つで**内容がそれぞれ異なっている**。
+
+`Github`にはツールのパイプラインが以下のように説明されている。
+```bash
+# Run OrthoPaiR pipeline
+object <- runOrthoPaiR(
+  query_genome = query_genome,
+  subject_genome = subject_genome,
+  query_gff = query_gff,
+  subject_gff = subject_gff,
+  query_cds = query_cds,
+  subject_cds = subject_cds,
+  query_prot = query_prot,
+  subject_prot = subject_prot,
+  hdf5_path = hdf5_path,
+  maf2synteny_bin = "maf2synteny",
+  conda = "/home/ftom/miniforge/miniforge3/bin/conda",
+  sibeliaz_condaenv = "sibeliaz",
+  miniprot_bin = "miniprot",
+  miniprot_condaenv = "miniprot",
+  n_threads = 30
+)
+```
+
+しかし、実際にコマンドを見てみると
+```bash
+> ls("package:OrthoPaiR")
+ [1] "compareOrthoSeq"  "fixInfiles"       "formatGFF"        "getLCBpairs"      "getOrphan"        "getOrthoPair"     "graph2df"         "lcbClassify"     
+ [9] "makeOrthoGraph"   "makeOrthoPairDB"  "mapProt"          "orgInputFiles"    "orthopair"        "plotLCBpairs"     "rbh"              "reorgOrthopiars" 
+[17] "runSibeliaZ"      "showLCB"          "sibeliaRaw2Graph" "statsLCB"         "summaryOrthoPair" "syntenicOrtho"   
+>
+```
+
+**`runOrthoPaiR()`というコマンドが存在しない**
+
+また、ヘルプを出してみると
+
+```bash
+.addChrLen	Add chromosome lengths to plot
+.blast_filter	Filter BLAST search results
+.blast_search	Perform BLAST search
+.calc_lcb_stats	Calculate LCB statistics
+.condaExe	Execute a command using conda environment
+.createFASTA	Create FASTA files
+.find_reciprocal	Find Reciprocal Best Hits (RBH)
+.fixGFFphase	Fix GFF Phase
+.fixGFFrange	Fix GFF Range
+.genomeSummary	Summarize genome information
+.get1to1	Get 1-to-1 LCB pairs
+.getNon1to1	Get non-1-to-1 LCB pairs
+.makeFASTA	Merge CDS files into a single FASTA file
+.mapEngine	Execute Protein Mapping Between Genomes
+.phaseMinus	Adjust Phase for CDS Features on Minus Strand
+.phasePlus	Adjust Phase for CDS Features on Plus Strand
+.prepGenome	Prepare genome for SibeliaZ
+.sortLabels	Sort labels
+getLCBpairs	Get pairs of blocks between query and subject genomes
+getOrphan	Get orphan information
+getOrthoPair	Get OrthoPair information
+lcbClassify	Classify LCBs
+makeOrthoPairDB	Create a OrthoPairDB object
+mapProt	Map Proteins Between Genomes
+orthopair	Function to go through the OrthoPair pipeline for all combinations of genomes
+plotLCBpairs	Plot LCB pairs
+rbh	Execute Reciprocal BLAST Hits (RBH) search
+runSibeliaZ	Run SibeliaZ
+showLCB	Show LCB information
+sibeliaLCB2DF	Convert SibeliaZ output to a data.frame
+statsLCB	Summarize LCB statistics
+summaryOrthoPair	Summarize OrthoPairDB object
+syntenicOrtho	Filter ortholog pairs based on Locally Collinear Blocks (LCBs)
+```
+
+この中の`sibeliaLCB2DF`というコマンドは上記の`ls("package:OrthoPaiR")`の出力に記載が無い。これが無いせいで`SibeliaZ`が動かせない(?)。
+
+その中でも挙動のわかったコマンドを挙げていく。
+
+## `makeOrthoPairDB`
+
+おそらく`OrthoPaiR`の基礎となるコマンド。インプットするゲノムデータをまとめ、`HDF5`ファイルに格納する。<br>
+以下のようにして実行する。
+```{r, eval=FALSE}
+
+db2 <- makeOrthoPairDB(
+  query_genome = "/Users/kosukesano/Desktop/genome_data/softmasked_data/241129_madara_dfamplusbuilddb.fasta",
+  subject_genome = "/Users/kosukesano/Desktop/genome_data/softmasked_data/241129_madara_dfamplusbuilddb.fasta",
+  query_gff = "/Users/kosukesano/Desktop/genome_data/241129_Madara_braker/hintsfile.gff",
+  subject_gff = "/Users/kosukesano/Desktop/genome_data/Release_240921-SmiMad_GenePrediction_GM1/braker.SmiMad_GM1.gff",
+  query_cds = "/Users/kosukesano/Desktop/genome_data/241129_Madara_braker/braker.codingseq",
+  subject_cds = "/Users/kosukesano/Desktop/genome_data/Release_240921-SmiMad_GenePrediction_GM1/braker.SmiMad_GM1.gff.cds.fasta",
+  query_prot = "/Users/kosukesano/Desktop/genome_data/241129_Madara_braker/braker.aa",
+  subject_prot = "/Users/kosukesano/Desktop/genome_data/Release_240921-SmiMad_GenePrediction_GM1/braker.SmiMad_GM1.gff.aa.fasta ",
+  hdf5_path = "/Users/kosukesano/bio/for_OrthopaiR/250315/OrthoPaiR_2.h5"
+)
+```
+実行結果は以下のとおり
+```bash
+Use following parameters:
+len_diff = 0.2
+pident = 0
+qcovs = 0
+evalue = 1e-04
+rbbh_mci_threshold = 0.1
+rbh_mci_threshold = 0.4
+```
+
+`h5ls`コマンドで中の構造を確認する。
+```bash
+> h5ls("/Users/kosukesano/bio/for_OrthopaiR/250315/OrthoPaiR_2.h5")
+        group           name       otype dclass dim
+0           /          files   H5I_GROUP           
+1      /files      query_cds H5I_DATASET STRING   1
+2      /files   query_genome H5I_DATASET STRING   1
+3      /files      query_gff H5I_DATASET STRING   1
+4      /files     query_prot H5I_DATASET STRING   1
+5      /files    subject_cds H5I_DATASET STRING   1
+6      /files subject_genome H5I_DATASET STRING   1
+7      /files    subject_gff H5I_DATASET STRING   1
+8      /files   subject_prot H5I_DATASET STRING   1
+9           /      timestamp   H5I_GROUP           
+10 /timestamp         makedb H5I_DATASET STRING   1
+```
+インプットのデータのみが格納されている。
+
+## `rbh`
+
+Reciprocal BLAST Hitsを探索するコマンド。以下のようにして実行。
+```{r, eval=FALSE}
+rbh <- rbh(
+  "/Users/kosukesano/bio/for_OrthopaiR/250315/OrthoPaiR.h5",
+  db1 = NULL,
+  db2 = NULL,
+  use_prot = FALSE,
+  n_threads = 1,
+  n_batch = NULL,
+  makedb = TRUE,
+  max_target_seqs = 1e+05,
+  pident = 0,
+  qcovs = 0,
+  evalue = 1e-04,
+  diamond_exec_path = NULL,
+  diamond_out_dir = ""
+)
+```
+実行結果は`NULL`となる(?)<br>
+しかし、先ほどの`HDF5`データをもう一度見てみると......。
+
+```bash
+> h5ls("/Users/kosukesano/bio/for_OrthopaiR/250315/OrthoPaiR.h5")
+        group           name       otype   dclass   dim
+0           /          blast   H5I_GROUP               
+1      /blast     blastn_q2s H5I_DATASET COMPOUND 28152
+2      /blast     blastn_s2q H5I_DATASET COMPOUND 30663
+3      /blast           rbbh H5I_DATASET COMPOUND 13626
+4      /blast            rbh H5I_DATASET COMPOUND 24875
+5           /          files   H5I_GROUP               
+6      /files      query_cds H5I_DATASET   STRING     1
+7      /files   query_genome H5I_DATASET   STRING     1
+8      /files      query_gff H5I_DATASET   STRING     1
+9      /files     query_prot H5I_DATASET   STRING     1
+10     /files    subject_cds H5I_DATASET   STRING     1
+11     /files subject_genome H5I_DATASET   STRING     1
+12     /files    subject_gff H5I_DATASET   STRING     1
+13     /files   subject_prot H5I_DATASET   STRING     1
+14          /       miniprot   H5I_GROUP               
+15  /miniprot        q2s_gff H5I_DATASET   STRING     1
+16  /miniprot        s2q_gff H5I_DATASET   STRING     1
+17          /      timestamp   H5I_GROUP               
+18 /timestamp          blast H5I_DATASET   STRING     1
+19 /timestamp         makedb H5I_DATASET   STRING     1
+```
+`blast`と`rbh`のデータが増えてる！
+
+中のデータはこんな風にして確認できる。
+```bash
+> h5read("/Users/kosukesano/bio/for_OrthopaiR/250315/OrthoPaiR.h5", "/blast/rbh")
+     qseqid        sseqid q2s_pident q2s_qcovs q2s_evalue s2q_pident s2q_qcovs s2q_evalue
+1   g652.t1   SM1_g756.t2    100.000       100   0.00e+00    100.000       100   0.00e+00
+2   g652.t1   SM1_g756.t1     98.704       100   0.00e+00     98.704       100   0.00e+00
+3   g654.t1   SM1_g757.t1    100.000       100   0.00e+00    100.000       100   0.00e+00
+4   g654.t1   SM1_g757.t2    100.000       100   0.00e+00    100.000        94   0.00e+00
+5   g656.t1   SM1_g758.t1    100.000       100   0.00e+00    100.000       100   0.00e+00
+6   g657.t1   SM1_g759.t1    100.000       100  5.87e-172    100.000       100  5.26e-172
+```
+
+現状まともに動いたコマンドはこの2つくらい。RBH見るならわざわざこれ使う必要ない.....。
+
+## `runSibeliaZ`
+
+シンテニ-構造を解析するツール。<br>
+先ほどの`makeOrthoPairDB`実行後に実行する。
+```{r, eval=FALSE}
+sib<-runSibeliaZ(object = object, out_dir = "/Users/kosukesano/bio/for_OrthopaiR/250314_test",  sibeliaz_bin = "sibeliaz",
+                 maf2synteny_bin = "maf2synteny",
+                 conda = "conda",
+                 condaenv = NULL,
+                 run_sibeliaz = TRUE
+)
+```
+これがめちゃくちゃに重い。24時間回しても計算が終わらない。上手く実行できてるのかもわからない。
+
+## `getOrthoPair`
+
+RBPなど、オーソログのペアの情報をまとめて出力してくれるらしいコマンド。エラーが出て実行できなかった。
+```{r, eval=FALSE}
+gop <- getOrthoPair(object = db, hdf5_fn = NULL, gene = FALSE)
+```
+```bash
+> gop <- getOrthoPair(object = db, hdf5_fn = NULL, gene = FALSE)
+Error in h5read(file = h5id, name = name) : 
+  Object 'data_type' does not exist in this HDF5 file.
+> 
+```
+この`Object 'data_type' does not exist in this HDF5 file.`というエラーは他のコマンドでも発生した。`HDF5`データ中には`otype`という行は存在したが`data_type`はなかった。これを生み出す別のコマンドがあるのか？

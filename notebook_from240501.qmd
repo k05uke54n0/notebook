@@ -26003,3 +26003,111 @@ logfile="${HOME}/Desktop/.$(/bin/date +%Y%m%d_%H%M%S)_log.txt"
 } > "$logfile"
 ```
 
+
+## 0724
+
+### オジロを含む11種の甲虫ゲノムのSCOについて、CDSを取得する
+
+`/home/kosukesano/tools/for_paml/data/250724_11sp`にて、`ExOG.py`を作成。実行した。
+
+**`ExOG.py`:`OrthoFinder`の出力から、SCOの遺伝子IDとヘッダーをまとめたファイルを作成するスクリプト**
+```bash
+### ExOG.py
+
+# ファイルパスの設定
+orthogroups_file_path = '/home/kosukesano/tools/for_orthofinder/250620_11sp/old_OrthoFinder/Results_Jun20/Orthogroups/Orthogroups.txt'
+single_copy_orthologues_file_path = '/home/kosukesano/tools/for_orthofinder/250620_11sp/old_OrthoFinder/Results_Jun20/Orthogroups/Orthogroups_SingleCopyOrthologues.txt'
+output_file_path = '/home/kosukesano/tools/for_paml/data/250724_11sp/extracted_orthogroups.txt'
+
+# シングルコピーオルソログのIDをセットに格納
+single_copy_orthologues = set()
+with open(single_copy_orthologues_file_path, 'r') as single_copy_file:
+    for line in single_copy_file:
+        single_copy_orthologues.add(line.strip())
+
+# Orthogroups.txt から該当する行を抽出して新しいファイルに保存
+with open(orthogroups_file_path, 'r') as orthogroups_file, open(output_file_path, 'w') as output_file:
+    for line in orthogroups_file:
+        # 行の最初の部分を取り出してIDをチェック
+        og_id = line.split(':')[0].strip()
+        if og_id in single_copy_orthologues:
+            output_file.write(line)
+```
+実行すると`extracted_orthogroups.txt`ができる
+
+
+続いて`makefna.py`を実行
+
+**`makefna.py`:`extracted_orthogroups.txt`および各種のCDS配列ファイルからCDSのSCOファイルを作成するスクリプト**
+```bash
+### makefna.py
+
+
+import os
+
+# ファイルパスの設定
+orthogroups_file = "/home/kosukesano/tools/for_paml/data/250724_11sp/extracted_orthogroups.txt"
+input_dir = "/home/kosukesano/tools/for_paml/data/250724_11sp/CDS"
+output_dir = "/home/kosukesano/tools/for_paml/data/250724_11sp/CDS_SCO"
+
+# ディレクトリが存在しない場合、作成
+os.makedirs(output_dir, exist_ok=True)
+
+# 種名とプレフィックスの対応辞書
+species_prefix = {
+    "Agra": "Agra",
+    "Cass": "Cass",
+    "Dpon": "Dpon",
+    "Mtri": "Mtri",
+    "Sory": "Sory",
+    "Tcas": "Tcas",
+    "Ebra": "Ebra",
+    "Escr": "Escr",
+    "Ldef": "Ldef",
+    "Orus": "Orus",
+    "Pcer": "Pcer"
+}
+
+# 各種のFASTAファイルを辞書に格納
+fasta_files = {species: os.path.join(input_dir, f"{species}.fasta") for species in species_prefix}
+
+# OG番号と遺伝子IDをextracted_orthogroups.txtから取得
+with open(orthogroups_file, "r") as ortho_f:
+    for line in ortho_f:
+        if line.strip():  # 空行を無視
+            # 行をOG番号と遺伝子IDリストに分割
+            og_number, gene_ids_str = line.split(":")
+            og_number = og_number.strip()
+            gene_ids = gene_ids_str.strip().split()
+
+            # 出力ファイルのパス
+            output_file = os.path.join(output_dir, f"{og_number}.fna")
+
+            # 出力ファイルを開く
+            with open(output_file, "w") as out_f:
+                for gene_id in gene_ids:
+                    species = None
+                    prefix = gene_id[:4]
+                    
+                    # 種類の判定
+                    for key, sp in species_prefix.items():
+                        if prefix.startswith(sp):
+                            species = sp
+                            break
+                    
+                    if species and species in fasta_files:
+                        fasta_file = fasta_files[species]
+                        with open(fasta_file, "r") as fasta_f:
+                            write_flag = False
+                            for fasta_line in fasta_f:
+                                if fasta_line.startswith(f">{gene_id}"):
+                                    out_f.write(fasta_line)
+                                    print(fasta_line.strip())
+                                    write_flag = True
+                                elif fasta_line.startswith(">") and write_flag:
+                                    write_flag = False
+                                elif write_flag:
+                                    out_f.write(fasta_line)
+                                    print(fasta_line.strip())
+            print(f"{og_number}.fna ファイルが {output_dir} に保存されました。")
+```

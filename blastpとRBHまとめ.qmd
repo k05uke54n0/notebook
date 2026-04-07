@@ -1,0 +1,594 @@
+---
+title: "blastpとRBHまとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.show="hold")
+library(BiocManager)
+library(tidyverse)
+library(ape)
+library(ggtree)
+
+```
+
+# `blastp`
+
+## レファレンスを4種のゲノムに、クエリーをマダラにした`blastp`
+
+レファレンスとするには4種のゲノムを１つのファイルへと結合しなければならないが、それぞれの遺伝子がどの種由来かわからなくなる。そこでperlスクリプトによりヘッダーの頭に種名を加えるよう加工した。
+```bash
+### ヘッダー加工に使ったperlスクリプト add_hoge_to_headers.plの中身
+
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use File::Copy qw(move);
+
+# 入力ファイルと一時ファイルの定義
+my $input_fasta = 'Dmel_protein.fasta';
+my $temp_fasta = 'temp.fasta';
+
+# 入力ファイルを開く
+open(my $in, '<', $input_fasta) or die "Cannot open $input_fasta: $!";
+# 一時ファイルを開く
+open(my $out, '>', $temp_fasta) or die "Cannot open $temp_fasta: $!";
+
+# 行ごとに処理
+while (my $line = <$in>) {
+    if ($line =~ /^>/) {
+        # ヘッダー行にhoge_を追加
+        $line =~ s/^>(.*)/>Dmel_$1/;
+    }
+    print $out $line;
+}
+
+# ファイルを閉じる
+close($in);
+close($out);
+
+```
+
+これを使ってヘッダーを書き換えたファイルを、以下のコマンドで統合した。
+```bash
+kosukesano@at139:~/reference_sequence/Sory_Tcas_Dmel_Ecol_ref$ cat Dmel_protein.fasta Ecol_protein.fasta Sory_protein.fasta Tcas_protein.fasta > merge_4sp.faa
+```
+
+`merge_4sp.faa`を使って`blast`データベースを構築する。
+```bash
+kosukesano@at139:~/reference_sequence/Sory_Tcas_Dmel_Ecol_ref$ singularity exec -e /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 makeblastdb -in merge_4sp.faa -out merge_4sp -dbtype prot -hash_index
+WARNING: Skipping mount /opt/pkg/singularity-ce/4.0.0/var/singularity/mnt/session/etc/resolv.conf [files]: /etc/resolv.conf doesn't exist in container
+
+
+Building a new DB, current time: 06/17/2024 16:46:13
+New DB name:   /home/kosukesano/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/merge_4sp
+New DB title:  merge_4sp.faa
+Sequence type: Protein
+Keep MBits: T
+Maximum file size: 1000000000B
+Adding sequences from FASTA; added 82065 sequences in 4.80911 seconds.
+kosukesano@at139:~/reference_sequence/Sory_Tcas_Dmel_Ecol_ref$ ls
+Dmel_protein.fasta  Sory_protein.fasta  add_hoge_to_headers.pl  merge_4sp.phd  merge_4sp.phr  merge_4sp.pog  merge_4sp.psi
+Ecol_protein.fasta  Tcas_protein.fasta  merge_4sp.faa           merge_4sp.phi  merge_4sp.pin  merge_4sp.psd  merge_4sp.psq
+kosukesano@at139:~/reference_sequence/Sory_Tcas_Dmel_Ecol_ref$ 
+```
+
+`blast`用のシェルスクリプトを作成する。名前にtestと入っているけどこれで上手くいっていたはず。
+```bash
+### blastp_4sp_test.shの中身
+
+#!/bin/bash
+#$ -S /bin/sh
+#$ -pe def_slot 8
+#$ -l s_vmem=64G,mem_req=64G
+#$ -cwd
+#$ -o ~/results_sh_eando
+#$ -e ~/results_sh_eando
+
+echo "pwd: $(pwd)"
+echo HOME: $HOME
+echo USER: $USER
+echo JOB_ID: $JOB_ID
+
+echo starting at
+date
+
+#BLASTの標準列名を定義
+
+header="qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+
+#出力ファイルの定義
+
+output_file="out_madara_blastp_test.txt"
+
+#列名を出力ファイルに書き込む
+
+echo "$header" > $output_file
+
+#BLASTpを実行し、結果を追加する
+
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query ${HOME}/reference_sequence/madara_protein.fasta \
+-db ${HOME}/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/merge_4sp \
+-evalue 1e-04 \
+-outfmt 6 >> $output_file
+
+echo ending at
+date
+```
+
+実行結果はこんな感じ。
+```bash
+### out_madara_blastp_testの中身
+
+qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
+g704.t1 Sory_XP_030750051.1     82.587  201     34      1       1       201     1       200     8.77e-99        336
+g704.t1 Sory_XP_030750049.1     82.587  201     34      1       1       201     1       200     2.24e-98        335
+g704.t1 Sory_XP_030750048.1     82.587  201     34      1       1       201     1       200     2.85e-98        336
+g704.t1 Sory_XP_030750047.1     82.587  201     34      1       1       201     1       200     2.85e-98        336
+g704.t1 Tcas_XP_973129.2        69.268  205     56      1       1       198     1       205     3.66e-88        300
+g704.t1 Tcas_XP_973129.2        42.857  217     89      5       873     1076    459     653     9.64e-14        77.4
+g704.t1 Dmel_NP_001401025.1     55.238  210     74      3       1       196     1       204     3.49e-67        228
+g704.t1 Dmel_NP_647642.2        52.655  226     85      4       1       210     1       220     1.63e-65        242
+g704.t1 Dmel_NP_001246548.1     52.655  226     85      4       1       210     1       220     1.63e-65        242
+g704.t1 Dmel_NP_001400988.1     52.655  226     85      4       1       210     1       220     2.69e-65        241
+g704.t1 Dmel_NP_728652.1        52.655  226     85      4       1       210     1       220     3.76e-65        241
+g704.t1 Dmel_NP_001401027.1     52.655  226     85      4       1       210     1       220     5.79e-65        241
+g704.t1 Dmel_NP_001401026.1     52.655  226     85      4       1       210     1       220     1.06e-64        240
+g704.t1 Dmel_NP_001097475.2     56.140  114     49      1       1       114     1       113     6.41e-34        144
+g704.t1 Sory_XP_030750050.1     86.364  88      12      0       114     201     89      176     4.61e-31        134
+g704.t1 Sory_XP_030750053.1     80.851  94      16      1       108     201     2       93      8.27e-31        132
+g704.t1 Sory_XP_030750052.1     86.207  87      12      0       115     201     14      100     1.59e-30        132
+g704.t1 Dmel_NP_001286903.1     52.778  108     32      2       103     196     5       107     2.62e-25        105
+g704.t1 Tcas_XP_008198255.2     61.957  92      28      1       114     198     71      162     1.21e-22        105
+g704.t1 Tcas_XP_008198255.2     45.622  217     83      4       873     1076    416     610     1.20e-13        77.0
+g704.t1 Dmel_NP_728653.2        46.980  149     55      4       103     232     5       148     2.12e-22        96.7
+g704.t1 Tcas_XP_008198256.2     61.538  91      28      1       115     198     11      101     4.04e-22        103
+g704.t1 Tcas_XP_008198256.2     45.622  217     83      4       873     1076    355     549     4.51e-14        78.2
+g706.t1 Sory_XP_030750036.1     85.816  423     55      4       1       423     1       418     0.0     746
+```
+
+## レファレンスをマダラに、クエリーをその他4種にした`blastp`
+
+`blast`データベースを構築する。
+```bash
+kosukesano@at139:~/reference_sequence/Madara$ singularity exec -e /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 makeblastdb -in madara_protein.fasta -out madara_ref -dbtype prot -hash_in
+dex
+WARNING: Skipping mount /opt/pkg/singularity-ce/4.0.0/var/singularity/mnt/session/etc/resolv.conf [files]: /etc/resolv.conf doesn't exist in container
+
+
+Building a new DB, current time: 06/18/2024 12:51:23
+New DB name:   /home/kosukesano/reference_sequence/Madara/madara_ref
+New DB title:  madara_protein.fasta
+Sequence type: Protein
+Keep MBits: T
+Maximum file size: 1000000000B
+Adding sequences from FASTA; added 16570 sequences in 0.594244 seconds.
+kosukesano@at139:~/reference_sequence/Madara$ ls
+```
+
+`blast`用のシェルスクリプトを作成する。
+```bash
+### blastp_RefAsMadara.shの中身
+
+#!/bin/bash
+#$ -S /bin/sh
+#$ -pe def_slot 8
+#$ -l s_vmem=64G,mem_req=64G
+#$ -cwd
+#$ -o ~/results_sh_eando
+#$ -e ~/results_sh_eando
+
+echo "pwd: $(pwd)"
+echo HOME: $HOME
+echo USER: $USER
+echo JOB_ID: $JOB_ID
+
+echo starting at
+date
+
+#BLASTの標準列名を定義
+
+header="qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+
+#出力ファイルの定義
+
+output_file="out_madara_as_ref_blastp_.txt"
+
+#列名を出力ファイルに書き込む
+
+echo "$header" > $output_file
+
+#BLASTpを実行し、結果を追加する
+
+#ココクゾウムシのblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query ${HOME}/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Sory_protein.fasta \
+-db ${HOME}/reference_sequence/Madara/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Sory_blastp_RefAsMadara.txt
+
+#コクヌストモドキのblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query ${HOME}/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Tcas_protein.fasta \
+-db ${HOME}/reference_sequence/Madara/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Tcas_blastp_RefAsMadara.txt
+
+#ショウジョウバエのblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query ${HOME}/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Dmel_protein.fasta \
+-db ${HOME}/reference_sequence/Madara/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Dmel_blastp_RefAsMadara.txt
+
+#大腸菌のblastp
+singularity exec --bind /usr/local/seq /usr/local/biotools/b/blast:2.9.0--pl526h979a64d_3 blastp \
+-query ${HOME}/reference_sequence/Sory_Tcas_Dmel_Ecol_ref/Ecol_protein.fasta \
+-db ${HOME}/reference_sequence/Madara/madara_ref \
+-evalue 1e-04 \
+-outfmt 6 \
+-out out_Ecol_blastp_RefAsMadara.txt
+
+echo ending at
+date
+```
+これも同様に実行する。
+
+# RBH
+
+それぞれの生物種ごとにRBHを検索し、`bitscore`が最も高い行のみを抽出する。`bitscore`が同じ場合は一番上のもののみを抽出する。
+
+上手くいったスクリプトは以下の通り。
+
+```bash
+### new_rbh.pyの中身
+
+import pandas as pd
+
+print('start')
+
+# forward BLAST結果の読み込み
+forward = pd.read_csv('out_madara_blastp_test.txt', sep='\s+', header=None, low_memory=False)
+forward.columns = ['qseqid', 'sseqid', 'pident', 'length', 'mismatch', 'gapopen', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore']
+dtypes = {
+    'qseqid': str,
+    'sseqid': str,
+    'pident': float,
+    'length': int,
+    'mismatch': int,
+    'gapopen': int,
+    'qstart': int,
+    'qend': int,
+    'sstart': int,
+    'send': int,
+    'evalue': float,
+    'bitscore': float
+}
+
+print('forward_BLAST was scanned')
+
+# 逆BLAST結果の読み込みと処理
+reverse_files = ['out_Sory_blastp_RefAsMadara.txt', 'out_Tcas_blastp_RefAsMadara.txt', 'out_Dmel_blastp_RefAsMadara.txt', 'out_Ecol_blastp_RefAsMadara.txt']
+
+for reverse_file in reverse_files:
+    reverse = pd.read_csv(reverse_file, sep='\s+', header=None, low_memory=False)
+    reverse.columns = ['qseqid', 'sseqid', 'pident', 'length', 'mismatch', 'gapopen', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore']
+
+    # forwardとreverseをマージし、条件に合う行を抽出
+    merged = forward.merge(reverse, left_on=['qseqid', 'sseqid'], right_on=['sseqid', 'qseqid'], suffixes=('_fwd', '_rev'))
+    print(len(merged), 'hits were judged')
+
+# bitscore_fwdを数値型に変換
+    merged['bitscore_fwd'] = pd.to_numeric(merged['bitscore_fwd'], errors='coerce')
+
+    # qseqid_fwdが重複する行の中で、bitscore_fwdが最も高い行だけを抽出
+    idx = merged.groupby('qseqid_fwd')['bitscore_fwd'].idxmax()
+    best_hits = merged.loc[idx]
+
+    # 各ファイルごとにRBH結果を保存
+    output_file = f'reciprocal_best_hits_{reverse_file.split("_")[1]}.txt'
+    best_hits.to_csv(output_file, sep='\t', index=False)  # タブ文字を区切り文字として使用
+
+print('All RBH results have been saved.')
+```
+
+実行結果は以下の通り
+```bash
+kosukesano@at137:~/reference_sequence$ python new_rbh.py 
+start
+forward_BLAST was scanned
+4877948 hits were judged
+12427340 hits were judged
+8626859 hits were judged
+21265 hits were judged
+All RBH results have been saved.
+kosukesano@at137:~/reference_sequence$ 
+kosukesano@at137:~/reference_sequence$ ls reciprocal_best_hits_*
+reciprocal_best_hits_Dmel.txt  reciprocal_best_hits_Ecol.txt  reciprocal_best_hits_Sory.txt  reciprocal_best_hits_Tcas.txt  reciprocal_best_hits_madara.txt
+kosukesano@at137:~/reference_sequence$
+```
+
+`reciprocal_best_hits_Dmel.txt`、`reciprocal_best_hits_Ecol.txt`、`reciprocal_best_hits_Sory.txt`、`reciprocal_best_hits_Tcas.txt`が出力された。
+
+これらのファイルを遺伝子名で結合する。
+```bash
+### merge_rbh.pyの中身
+
+import pandas as pd
+
+# 出力ファイルのリスト
+output_files = ['reciprocal_best_hits_Ecol.txt', 'reciprocal_best_hits_Dmel.txt', 'reciprocal_best_hits_Tcas.txt', 'reciprocal_best_hits_Sory.txt']
+
+# 各ファイルからqseqid_fwdとsseqid_fwdを抽出
+dataframes = []
+for file in output_files:
+    df = pd.read_csv(file, sep='\t', low_memory=False)
+    df = df[['qseqid_fwd', 'sseqid_fwd']]
+    df.columns = ['qseqid_fwd', f'sseqid_fwd_{file.split("_")[2]}']
+    dataframes.append(df)
+
+# qseqid_fwdを基準に横に結合
+merged_df = dataframes[0]
+for df in dataframes[1:]:
+    merged_df = pd.merge(merged_df, df, on='qseqid_fwd', how='outer')
+
+# 結果を保存
+merged_df.to_csv('merged_best_hits.txt', sep='\t', index=False)
+
+print('Merged results have been saved.')
+```
+
+実行結果は以下の通り
+```bash
+kosukesano@at137:~/reference_sequence$ python merge_rbh.py 
+/lustre7/home/kosukesano/reference_sequence/merge_rbh.py:17: FutureWarning: Passing 'suffixes' which cause duplicate columns {'sseqid_fwd_hits_x'} in the result is deprecated and will raise a MergeError in a future version.
+  merged_df = pd.merge(merged_df, df, on='qseqid_fwd', how='outer')
+Merged results have been saved.
+kosukesano@at137:~/reference_sequence$
+```
+
+# `blastp`の結果と機能アノテーションの紐付け
+
+まずショウジョウバエの`genomic.gff`から、遺伝子IDと機能情報を対応させた辞書を作る。作成用のスクリプトは以下の通り。
+```bash
+### makedic_test.pyの中身
+
+import pandas as pd
+import re
+
+# GFFファイルのパス
+gff_file = '/home/kosukesano/old_envilonment_until20240430/outgroup/Drosophila_melanogaster/ncbi_dataset/data/GCF_000001215.4/genomic.gff'
+# merged_best_hits.txtのパス
+merged_file = 'merged_best_hits.txt'
+# gene_function.txtのパス
+gene_function_file = 'gene_function.txt'
+
+# GFFファイルから遺伝子IDとタンパク質の機能名を抽出
+gene_function = {}
+
+with open(gff_file, 'r') as file:
+    for line in file:
+        if line.startswith('#') or line.strip() == '':
+            continue
+        parts = line.strip().split('\t')
+        if len(parts) < 9:
+            continue
+        attributes = parts[8]
+        match_gene_id = re.search(r'GeneID:(\d+)', attributes)
+        match_product = re.search(r'product=([^;]+)', attributes)
+        if match_gene_id and match_product:
+            gene_id = match_gene_id.group(1)
+            product = match_product.group(1)
+            gene_function[gene_id] = product
+
+# gene_functionをgene_function.txtとして保存
+with open(gene_function_file, 'w') as file:
+    for gene_id, product in gene_function.items():
+        file.write(f"{gene_id}\t{product}\n")
+```
+
+各生物の`protein.faa`のヘッダー行を抽出して辞書を作成、それを次々に結合。
+
+実行コードが記された`python`ファイルは以下の通り。
+```bash
+### fnanno.pyの中身
+
+import pandas as pd
+# merged_best_hits.txtのパスと読み込み
+merged_best_hits_file = 'merged_best_hits.txt'
+merged_df = pd.read_csv(merged_best_hits_file, sep='\t')
+
+#出力ファイルのパス
+output_file = 'merged_with_gene_function.csv'
+output_file2 = 'merged_with_gene_function.txt'
+
+##########################################################
+###Dmel
+# Dmel_protein.faaのパス
+dmel_protein_file = 'Dmel_protein.faa'
+
+# 遺伝子IDと遺伝子機能を抽出するリスト
+gene_ids = []
+gene_functions = []
+
+# Dmel_protein.faaファイルを読み込み、ヘッダー行から情報を抽出
+with open(dmel_protein_file, 'r') as file:
+    for line in file:
+        if line.startswith('>'):
+            parts = line.strip().split(' ', 1)
+            gene_id = "Dmel_" + parts[0][1:]  # ">"を取り除き、"Dmel_"を追加
+            parts2 = parts[1].split(' [')
+            gene_function = parts2[0]  # 遺伝子機能
+            gene_ids.append(gene_id)
+            gene_functions.append(gene_function)
+
+# 遺伝子IDと遺伝子機能のデータフレームを作成
+data = {'GeneID': gene_ids, 'GeneFunction': gene_functions}
+df = pd.DataFrame(data)
+
+# マージ
+merged_df = pd.merge(
+    merged_df,
+    df,
+    left_on='Dmelanogaster',
+    right_on='GeneID',
+    how='left'
+)
+
+# 不要なGeneID列を削除し、列名をDmel_GeneFunctionに変更
+merged_df = merged_df.drop(columns=['GeneID'])
+merged_df = merged_df.rename(columns={'GeneFunction': 'Dmel_GeneFunction'})
+
+# 確認のため最初の数行を表示
+print("Dmel")
+print(merged_df)
+####################################################################
+###Ecol
+
+# Ecol_protein.faaのパス
+Ecol_protein_file = 'Ecol_protein.faa'
+
+# 遺伝子IDと遺伝子機能を抽出するリスト
+gene_ids = []
+gene_functions = []
+
+# Ecol_protein.faaファイルを読み込み、ヘッダー行から情報を抽出
+with open(Ecol_protein_file, 'r') as file:
+    for line in file:
+        if line.startswith('>'):
+            parts = line.strip().split(' ', 1)
+            gene_id = "Ecol_" + parts[0][1:]  # ">"を取り除き、"Ecol_"を追加
+            parts2 = parts[1].split(' [')
+            gene_function = parts2[0]  # 遺伝子機能
+            gene_ids.append(gene_id)
+            gene_functions.append(gene_function)
+
+# 遺伝子IDと遺伝子機能のデータフレームを作成
+data = {'GeneID': gene_ids, 'GeneFunction': gene_functions}
+df = pd.DataFrame(data)
+
+# マージ
+merged_df = pd.merge(
+    merged_df,
+    df,
+    left_on='Ecoli',
+    right_on='GeneID',
+    how='left'
+)
+
+# 不要なGeneID列を削除し、列名をEcol_GeneFunctionに変更
+merged_df = merged_df.drop(columns=['GeneID'])
+merged_df = merged_df.rename(columns={'GeneFunction': 'Ecol_GeneFunction'})
+
+# 確認のため最初の数行を表示
+print("Ecol")
+print(merged_df)
+####################################################################
+###Tcas
+
+# Tcas_protein.faaのパス
+Tcas_protein_file = 'Tcas_protein.faa'
+
+# 遺伝子IDと遺伝子機能を抽出するリスト
+gene_ids = []
+gene_functions = []
+
+# Tcas_protein.faaファイルを読み込み、ヘッダー行から情報を抽出
+with open(Tcas_protein_file, 'r') as file:
+    for line in file:
+        if line.startswith('>'):
+            parts = line.strip().split(' ', 1)
+            gene_id = "Tcas_" + parts[0][1:]  # ">"を取り除き、"Tcas_"を追加
+            parts2 = parts[1].split(' [')
+            gene_function = parts2[0]  # 遺伝子機能
+            gene_ids.append(gene_id)
+            gene_functions.append(gene_function)
+
+# 遺伝子IDと遺伝子機能のデータフレームを作成
+data = {'GeneID': gene_ids, 'GeneFunction': gene_functions}
+df = pd.DataFrame(data)
+
+# マージ
+merged_df = pd.merge(
+    merged_df,
+    df,
+    left_on='Tcastaneum',
+    right_on='GeneID',
+    how='left'
+)
+
+# 不要なGeneID列を削除し、列名をTcas_GeneFunctionに変更
+merged_df = merged_df.drop(columns=['GeneID'])
+merged_df = merged_df.rename(columns={'GeneFunction': 'Tcas_GeneFunction'})
+
+# 確認のため最初の数行を表示
+print("Tcas")
+print(merged_df)
+####################################################################
+###Sory
+
+# Sory_protein.faaのパス
+Sory_protein_file = 'Sory_protein.faa'
+
+# 遺伝子IDと遺伝子機能を抽出するリスト
+gene_ids = []
+gene_functions = []
+
+# Sory_protein.faaファイルを読み込み、ヘッダー行から情報を抽出
+with open(Sory_protein_file, 'r') as file:
+    for line in file:
+        if line.startswith('>'):
+            parts = line.strip().split(' ', 1)
+            gene_id = "Sory_" + parts[0][1:]  # ">"を取り除き、"Sory_"を追加
+            parts2 = parts[1].split(' [')
+            gene_function = parts2[0]  # 遺伝子機能
+            gene_ids.append(gene_id)
+            gene_functions.append(gene_function)
+
+# 遺伝子IDと遺伝子機能のデータフレームを作成
+data = {'GeneID': gene_ids, 'GeneFunction': gene_functions}
+df = pd.DataFrame(data)
+
+# マージ
+merged_df = pd.merge(
+    merged_df,
+    df,
+    left_on='Soryzae',
+    right_on='GeneID',
+    how='left'
+)
+
+# 不要なGeneID列を削除し、列名をSory_GeneFunctionに変更
+merged_df = merged_df.drop(columns=['GeneID'])
+merged_df = merged_df.rename(columns={'GeneFunction': 'Sory_GeneFunction'})
+
+# 確認のため最初の数行を表示
+print("Sory")
+print(merged_df)
+#########################################################
+
+merged_df_with_function = merged_df.reindex(columns=['Madara',\
+ 'Ecoli','Ecol_GeneFunction',\
+ 'Dmelanogaster', 'Dmel_GeneFunction',\
+  'Tcastaneum', 'Tcas_GeneFunction',\
+   'Soryzae', 'Sory_GeneFunction'])
+
+# 新しいデータフレームをCSVファイルとして保存
+merged_df_with_function.to_csv(output_file, index=False)
+
+# 新しいデータフレームをTXTファイルとして保存
+merged_df_with_function.to_csv(output_file2, sep='\t', index=False)  # タブ文字を区切り文字として使用
+
+# 確認のため最初の数行を表示
+print(merged_df_with_function)
+```
+

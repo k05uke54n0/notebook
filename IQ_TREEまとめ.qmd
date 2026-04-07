@@ -1,0 +1,250 @@
+---
+title: "IQ-TREEまとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.show="hold")
+library(BiocManager)
+library(tidyverse)
+library(ape)
+library(ggtree)
+
+```
+
+# 概要
+
+`IQ-TREE`は**最尤法　(Maximum Likelihood method)**を用いた系統推定を行うツール。最尤系統樹を描くツールは他にも`RAxML`など様々あるが、アップグレード版の`IQ-TREE2`はその中でも高精度かつ高速であり、操作も易しい。現在広く使用されているのもバージョン2である`IQ-TREE2`であり、今回は主にこちらを取り上げる。
+
+## インストール
+
+`Github`、`Anaconda`、公式サイトから直接ダウンロードなど、方法は様々。
+
+- [`Github`](https://github.com/iqtree/iqtree2)<br>
+
+    ```bash
+    git clone https://github.com/iqtree/iqtree2.git
+    ```
+
+- `Conda`モジュールを使用<br>
+  
+    ```bash
+    mamba install bioconda::iqtree -y
+    ```
+
+- `brew`を使用<br>
+
+    ```bash
+    brew install iqtree2
+    ```
+
+- [公式サイト](http://www.iqtree.org/)
+
+- `Singularity`(遺伝研スパコン)<br>
+    遺伝研スパコンであればインストールせずとも`Singularity`コンテナのものが使用できる<br>
+```bash
+kosukesano@at139:~$ ls /usr/local/biotools/i/iqtree:2*
+/usr/local/biotools/i/iqtree:2.0.3--h176a8bc_0       /usr/local/biotools/i/iqtree:2.2.2.3--hb97b32f_0  /usr/local/biotools/i/iqtree:2.3.4--h21ec9f0_0
+/usr/local/biotools/i/iqtree:2.0.3--h176a8bc_1       /usr/local/biotools/i/iqtree:2.2.2.3--hb97b32f_1  /usr/local/biotools/i/iqtree:2.3.4--hdcf5f25_1
+/usr/local/biotools/i/iqtree:2.1.2--h56fc30b_0       /usr/local/biotools/i/iqtree:2.2.2.7--h21ec9f0_2  /usr/local/biotools/i/iqtree:2.3.4--hdcf5f25_2
+/usr/local/biotools/i/iqtree:2.1.4_beta--hdcc8f71_0  /usr/local/biotools/i/iqtree:2.2.2.7--h7ff8a90_0  /usr/local/biotools/i/iqtree:2.3.5--hdbdd923_2
+/usr/local/biotools/i/iqtree:2.2.0.3--hb97b32f_0     /usr/local/biotools/i/iqtree:2.2.3--h21ec9f0_0    /usr/local/biotools/i/iqtree:2.3.5--hdbdd923_3
+/usr/local/biotools/i/iqtree:2.2.0.3--hb97b32f_1     /usr/local/biotools/i/iqtree:2.2.5--h21ec9f0_0    /usr/local/biotools/i/iqtree:2.3.5--hdcf5f25_0
+/usr/local/biotools/i/iqtree:2.2.0_beta--hb97b32f_1  /usr/local/biotools/i/iqtree:2.2.6--h21ec9f0_0    /usr/local/biotools/i/iqtree:2.3.5--hdcf5f25_1
+/usr/local/biotools/i/iqtree:2.2.0_beta--hdcc8f71_0  /usr/local/biotools/i/iqtree:2.3.0--h21ec9f0_0    /usr/local/biotools/i/iqtree:2.3.6--hdbdd923_0
+/usr/local/biotools/i/iqtree:2.2.2.3--h2202e69_2     /usr/local/biotools/i/iqtree:2.3.3--h21ec9f0_0
+kosukesano@at139:~$
+```
+
+## 実行
+
+実行時のコマンド例はこんな感じ
+```bash
+iqtree2 -s input-data.fasta -m MFP　-nt AUTO -bb 1000 -alrt 1000 -cptime 600
+```
+
+**オプション**
+
+- `-s`<br>
+    インプットデータを指定する。インプットにはPHYLIP、FASTA、NEXUS、CLUSTAL、MSFフォーマットに対応しているが、アライメントされている必要がある。別途`MAFFT`などでアライメントを済ませておくこと。<br>
+
+- `-st`<br>
+    DNA、タンパク質など配列の種類を指定する。以下の6種が指定できる。<br>
+    `DNA`、`AA`、`BIN`、`MORPH`、`CODON`、`NT2AA`<br>
+
+- `-m`<br>
+    モデルを指定する。`-m MF`で最適なモデルの検出を行う。`-m MFP`では最適なモデルを検出した後、そのモデルを使用して系統樹を再構築する。基本的には`-m MFP`で良い？<br>
+
+- `-nt`<br>
+    使用するCPUコア数を指定する。`-nt AUTO`で自動設定。<br>
+
+- `-ntmax`<br>
+    使用する最大CPUコア数を指定する。<br>
+
+- `-b`<br>
+    Nonparametric bootstrap法の繰り返し回数を指定する。最小値は100。遅いので使わない事が多い。<br>
+
+- `-bb`<br>
+    Ultrafast bootstrap法の繰り返し回数を指定する。最小値は1000。高速。こっちを使おう。<br>
+
+- `-alrt`<br>
+    尤度比検定の1つであるSH like aLRT検定の繰り返し回数を指定する。最小値は1000。<br>
+
+- `-t`<br>
+    starting treeを指定する。デフォルトでは「100本のparsimony treeとBIONJ tree」から推定するようになっている。`-t BIONJ`でBIONJ treeのみに、`-t RANDOM`で完全にランダムなツリーに変更できる。<br>
+
+- `-te`<br>
+    `-t`と同様にstarting treeを指定するが、こちらではその後にツリーの探索を行わず対数尤度の計算だけを行う。<br>
+
+- `-o`<br>
+    アウトグループを指定する。<br>
+
+- `-seed`<br>
+    実行を再現するためのシード値を指定する。<br>
+
+- `-safe`<br>
+    安全な数値処理モードを使用する。主に大規模解析で使用することを想定。<br>
+
+- `-mem`<br>
+    最大RAM使用量を指定する。`-mem 64G`で64GBまで。<br>
+
+- `-cptime`<br>
+    `IQ-TREE`は実行中に随時チェックポイントを生成している。もし何らかの理由で解析が停止した後、同じコマンド・インプットデータを用いて再度実行すると、最後のチェックポイントから自動的に解析が再開する。`-cptime`ではチェックポイントの生成間隔を設定できる。デフォルトは20(second)<br>
+
+
+**Partition modelのオプション**<br>
+特に種系統樹を推定する際、複数の独立した多重配列アライメントのデータ（SCOなど）をインプットに用いる事がある。このとき、NEXUSや`RAxML`の形式で各配列データを記載したパーティションファイルを用意し、それをインプットする事で各データを`IQ-TREE`に読み込ませる。<br>
+パーティションファイルの内容ごとに3つのモデルとオプションがある<br>
+
+- `-q`<br>
+    edge-equal partition model。パーティションファイル内の各データが全て同じ枝長であると仮定する。`RAxML`の`-q`オプションに相当。<br>
+
+- `-spp`<br>
+    edge-proportional partition model。`-q`に近いが、各データが独自の進化速度を持つことを許容する。枝長は全てのデータで共有された枝長を元に、進化速度に比例して調整される。<br>
+
+- `-sp`<br>
+    edge-unlinked partition model。各データは完全に独立した進化速度・枝長を持つ。最もパラメータが多いモデルで、異なる進化パターンや構造に対応可能。`RAxML`の`-M`オプションに相当。<br>
+
+
+オプションはここで紹介しきれなかったものが膨大に存在する。全て公式マニュアルのCommand referenceページにまとまっているのでチェックしてみよう。<br>
+**Command reference**<br>
+
+>http://www.iqtree.org/doc/Command-Reference
+
+## 出力
+
+出力は(特に何も指定しなければ)カレントディレクトリに複数のファイルが書き込まれる。
+```bash
+### run.nexファイルをインプットとした時の出力
+
+kosukesano@at139:~/tools/for_IQTREE/241019_plusOjiro$ ls run.nex*
+run.nex                 run.nex.best_scheme      run.nex.bionj   run.nex.contree  run.nex.log     run.nex.model.gz   run.nex.splits.nex
+run.nex.best_model.nex  run.nex.best_scheme.nex  run.nex.ckp.gz  run.nex.iqtree   run.nex.mldist  run.nex.parttrees  run.nex.treefile
+```
+このうち、`filename.iqtree`には解析結果の概要やコンセンサス系統樹などが書き込まれている。
+```bash
+### 上記run.nex.iqtreeの一部
+
+IQ-TREE 2.3.3 COVID-edition built Apr 25 2024
+
+Partition file name: run.nex
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 785523
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+.
+.
+.
+.
+.
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -3963996.176107
+Robinson-Foulds distance between ML tree and consensus tree: 0
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++-------------------Agra
+|
+|     +-----------------Cass
+|  +--| (99)
+|  |  +----------------------Dpon
++--| (99)
+|  |  +------------Ojir
+|  +--| (100)
+|     +------------Smad
+|
+|     +--------------------Sory
++-----| (100)
+      +----------------------------------------------------Tcas
+
+
+Consensus tree in newick format: 
+
+(Agra:0.2064231336,((Cass:0.1847016434,Dpon:0.2309526937)99:0.0141774805,(Ojir:0.1302822265,Smad:0.1372018013)100:0.0147184817)99:0.0198269471,(Sory:0.2107658864,Tcas:0.5234085211)100:0.0665656466);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t run.nex.parttrees -Q run.nex.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s <alignment.phy> --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s <alignment.phy> --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Mon Oct 21 15:37:09 2024
+Total CPU time used: 31763.36304 seconds (8h:49m:23s)
+Total wall-clock time used: 1961.496382 seconds (0h:32m:41s)
+```
+
+また、`filename.treefile`には最尤系統樹がnewick形式で書き込まれる。
+```bash
+### 上記run.nex.treefile
+
+(Agra:0.2064152840,((Cass:0.1846827428,Dpon:0.2309412762)99:0.0141744790,(Ojir:0.1302744127,Smad:0.1371942640)100:0.0147201119)99:0.0198273026,(Sory:0.2107346009,Tcas:0.5234357886)100:0.0665911250);
+```
+
+## `OrthoFinder`出力のSingle Copy Orthologsを元に種系統樹を推定する
+**🚧 工事中 🚧**
+
+## リンク集・参考文献
+**公式マニュアル・ドキュメント・チュートリアル**<br>
+内容が非常に充実している上、UIも作り込まれている。行き詰まったらここを頼ろう。
+>http://www.iqtree.org/doc<br>
+
+**IQ-TREE 2**<br>
+Macでインフォマティクスの`IQ-TREE2`の記事。他のツールとの比較したコメントや、中間出力の内容などがわかりやすく掲載されている。<br>
+>https://kazumaxneo.hatenablog.com/entry/2024/06/23/200502<br>
+
+**IQ-TREEで系統樹の最尤推定**<br>
+NEXUSファイルを用いた複数データでの系統樹推定の方法が説明されている。<br>
+>https://qiita.com/YF_bio/items/d952f54c8d570a6ea0cb<br>

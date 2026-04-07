@@ -1,0 +1,246 @@
+---
+title: "OrthoFinder使い方まとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.show="hold")
+library(BiocManager)
+library(tidyverse)
+library(ape)
+library(ggtree)
+library(phytools)
+```
+
+
+# インストール
+
+## `conda`、`mamba`を用いたインストール
+
+`OrthoFinder`を動かす環境を作る。今回はOF3という名前にした。
+```bash
+mamba create -n OF3
+```
+作った環境を立ち上げる。
+```bash
+conda activate OF3
+```
+環境を立ち上げた状態で、以下のコマンドを実行
+```bash
+mamba install orthofinder=3.0.1b1 -c bioconda
+```
+いろいろ質問されたらyes(y)を選択しておく。
+
+インストール後、`orthofinder`と打って以下の画面が出たらOK
+```bash
+(OF3) kosukesano@a001:~/tools/pyenv_env$ orthofinder
+
+OrthoFinder version 3.0.1b1 Copyright (C) 2014 David Emms
+
+SIMPLE USAGE:
+Run full OrthoFinder analysis on FASTA format proteomes in <dir>
+  orthofinder [options] -f <dir>
+
+To assign species from <dir1> to existing OrthoFinder orthogroups in <dir2>
+  orthofinder [options] --assign <dir1> --core <dir2>
+
+OPTIONS:
+ -t <int>        Number of parallel sequence search threads [Default = 192]
+ -a <int>        Number of parallel analysis threads
+ -d              Input is DNA sequences
+ -M <txt>        Method for gene tree inference. Options 'dendroblast' & 'msa'
+                 [Default = msa]
+ -S <txt>        Sequence search program [Default = diamond]
+                 Options: blast, diamond, diamond_ultra_sens, blast_gz, mmseqs, blast_nucl
+ -A <txt>        MSA program, requires '-M msa' [Default = mafft]
+                 Options: mafft, muscle, mafft_memsave
+ -T <txt>        Tree inference method, requires '-M msa' [Default = fasttree]
+                 Options: fasttree, fasttree_fastest, raxml, raxml-ng, iqtree
+ -s <file>       User-specified rooted species tree
+ -I <int>        MCL inflation parameter [Default = 1.2]
+ --save-space    Only create one compressed orthologs file per species
+ -x <file>       Info for outputting results in OrthoXML format
+ -p <dir>        Write the temporary pickle files to <dir>
+ -1              Only perform one-way sequence search
+ -X              Don't add species names to sequence IDs
+ -y              Split paralogous clades below root of a HOG into separate HOGs
+ -z              Don't trim MSAs (columns>=90% gap, min. alignment length 500)
+ -n <txt>        Name to append to the results directory
+ -o <txt>        Non-default results directory
+ -h              Print this help text
+
+WORKFLOW STOPPING OPTIONS:
+ -op             Stop after preparing input files for BLAST
+ -og             Stop after inferring orthogroups
+ -os             Stop after writing sequence files for orthogroups
+                 (requires '-M msa')
+ -oa             Stop after inferring alignments for orthogroups
+                 (requires '-M msa')
+ -ot             Stop after inferring gene trees for orthogroups 
+
+WORKFLOW RESTART COMMANDS:
+ -b  <dir>         Start OrthoFinder from pre-computed BLAST results in <dir>
+ -fg <dir>         Start OrthoFinder from pre-computed orthogroups in <dir>
+ -ft <dir>         Start OrthoFinder from pre-computed gene trees in <dir>
+
+LICENSE:
+ Distributed under the GNU General Public License (GPLv3). See License.md
+
+CITATION:
+ When publishing work that uses OrthoFinder please cite:
+ Emms D.M. & Kelly S. (2019), Genome Biology 20:238
+
+ If you use the species tree in your work then please also cite:
+ Emms D.M. & Kelly S. (2017), MBE 34(12): 3267-3278
+ Emms D.M. & Kelly S. (2018), bioRxiv https://doi.org/10.1101/267914
+(OF3) kosukesano@a001:~/tools/pyenv_env$
+```
+
+## 遺伝研スパコンで`apptainer`を利用する
+
+遺伝研スパコンには様々なツールが`apptainer`パッケージングされた状態で利用可能になっている。遺伝研スパコンにログインさえできれば誰でもすぐ利用可能。インストールの必要が無いので簡便。<br>
+
+2025年9月現在、遺伝研の`apptainer`パッケージにある`OrthoFinder`はバージョン2まで。バージョン3以降を利用したい場合は別の方法を利用してください。
+```bash
+### 遺伝研apptainerで利用可能なOrthoFinderのバージョン一覧
+
+kosukesano@a001:~$ ls /usr/local/biotools/o/orthofinder\:*
+/usr/local/biotools/o/orthofinder:1.1.10--py27_0  /usr/local/biotools/o/orthofinder:2.3.8--0
+/usr/local/biotools/o/orthofinder:1.1.2--py27_0   /usr/local/biotools/o/orthofinder:2.3.8--1
+/usr/local/biotools/o/orthofinder:1.1.4--py27_0   /usr/local/biotools/o/orthofinder:2.3.8--2
+/usr/local/biotools/o/orthofinder:1.1.8--py27_0   /usr/local/biotools/o/orthofinder:2.4.0--0
+/usr/local/biotools/o/orthofinder:2.1.2--py27_0   /usr/local/biotools/o/orthofinder:2.4.0--1
+/usr/local/biotools/o/orthofinder:2.1.2--py27_1   /usr/local/biotools/o/orthofinder:2.4.1--0
+/usr/local/biotools/o/orthofinder:2.2.0--py27_0   /usr/local/biotools/o/orthofinder:2.4.1--1
+/usr/local/biotools/o/orthofinder:2.2.1--py27_0   /usr/local/biotools/o/orthofinder:2.5.1--0
+/usr/local/biotools/o/orthofinder:2.2.6--py27_0   /usr/local/biotools/o/orthofinder:2.5.2--0
+/usr/local/biotools/o/orthofinder:2.2.7--0        /usr/local/biotools/o/orthofinder:2.5.2--hdfd78af_1
+/usr/local/biotools/o/orthofinder:2.3.10--0       /usr/local/biotools/o/orthofinder:2.5.3--hdfd78af_0
+/usr/local/biotools/o/orthofinder:2.3.11--0       /usr/local/biotools/o/orthofinder:2.5.4--hdfd78af_0
+/usr/local/biotools/o/orthofinder:2.3.11--1       /usr/local/biotools/o/orthofinder:2.5.5--hdfd78af_0
+/usr/local/biotools/o/orthofinder:2.3.12--0       /usr/local/biotools/o/orthofinder:2.5.5--hdfd78af_1
+/usr/local/biotools/o/orthofinder:2.3.3--0        /usr/local/biotools/o/orthofinder:2.5.5--hdfd78af_2
+/usr/local/biotools/o/orthofinder:2.3.3--1
+kosukesano@a001:~$ 
+```
+
+# 実行
+
+`mamba`を用いてインストールした`OrthoFinder3`を例にとって説明
+
+ワーキングディレクトリを作成する。今回は`~/tools/for_orthofinder/OF3_test_250921/genome/`ディレクトリを作った。
+```bash
+(OF3) kosukesano@a001:~/tools/for_orthofinder/OF3_test_250921$ mkdir genome
+```
+
+この`genome/`ディレクトリに解析したい種のゲノム配列ファイルをコピーする。
+```bash
+(OF3) kosukesano@a001:~/tools/for_orthofinder/OF3_test_250921$ ls genome/
+Agra_iso1.faa  Cass_iso1.faa  Dpon_iso1.faa  Mtri_iso1.faa  Smad_iso1.faa  Sory_iso1.faa  Tcas_iso1.faa
+(OF3) kosukesano@a001:~/tools/for_orthofinder/OF3_test_250921$
+```
+
+- インプットのゲノム配列にはアミノ酸・塩基配列のどちらも利用可能だが、どちらかに統一する必要がある。
+- インプットに使用できる配列ファイルの拡張子は`.fa`, `.faa`, `.fasta`, `.fas`, `.pep`の5つのみ。
+- 配列ファイルのファイル名が最終産物の列名や種系統樹のリーフラベルに使われるので、ファイル名を種名に統一しておくとベター。
+
+前準備はこれだけ。
+
+続いて実際の解析に移る。<br>
+基本的なコマンドは以下の通り。
+```bash
+orthofinder -f INPUT/DIR/
+```
+これを打ち込めば解析が始まる。
+
+
+`OrthoFinder`はblast検索など重たい計算を内部で行うので、シェルスクリプトにコマンドを書いてジョブとして投げた方が良い。以下は私が投げたシェルスクリプトの例。
+```bash
+#!/bin/bash
+#SBATCH --job-name=OF3
+#SBATCH -n 32
+#SBATCH --mem-per-cpu=8G
+#SBATCH --partition=epyc
+#SBATCH --error=/home/kosukesano/tools/for_orthofinder/OF3_test_250921/log/%x_%j_%A_%a.err.log
+#SBATCH --output=/home/kosukesano/tools/for_orthofinder/OF3_test_250921/log/%x_%j_%A_%a.out.log
+#SBATCH --time=120:00:00
+
+#########YOUR JOB#############
+
+echo start at
+date
+
+source /home/kosukesano/tools/pyenv_env/OrthoFinder3_profile
+
+orthofinder\
+        -f /home/kosukesano/tools/for_orthofinder/OF3_test_250921/genome\
+        -t 32
+
+echo end at
+date
+```
+- `source /home/kosukesano/tools/pyenv_env/OrthoFinder3_profile`は `OrthoFinder`の`conda`環境を呼び出すためのコマンド。`OrthoFinder3_profile`に`conda`や`mamba`のパスを予め書いておき、これを`source`することでパス開通状態で立ち上がるようにしている。
+- `-f /home/kosukesano/tools/for_orthofinder/OF3_test_250921/genome\`はインプットのディレクトリを指定するコマンド。
+- `-t 32`はスレッド数を指定するコマンド。
+
+
+<details>
+  <summary>ちなみに`apptainer`を使う場合はこんな感じ。</summary>
+```bash
+#!/bin/bash
+#SBATCH --job-name=OF3
+#SBATCH -n 32
+#SBATCH --mem-per-cpu=8G
+#SBATCH --partition=epyc
+#SBATCH --error=/home/kosukesano/tools/for_orthofinder/OF3_test_250921/log/%x_%j_%A_%a.err.log
+#SBATCH --output=/home/kosukesano/tools/for_orthofinder/OF3_test_250921/log/%x_%j_%A_%a.out.log
+#SBATCH --time=120:00:00
+
+#########YOUR JOB#############
+
+echo start at
+date
+
+apptainer exec /usr/local/biotools/o/orthofinder:2.5.4--hdfd78af_0 orthofinder\
+        -f /home/kosukesano/tools/for_orthofinder/OF3_test_250921/of2_comp_genome\
+        -t 32
+
+echo end at
+date
+```
+`apptainer exec /usr/local/biotools/o/orthofinder:2.5.4--hdfd78af_0`で`apptainer`コンテナを呼び出す。
+</details>
+
+# 結果
+
+インプットのディレクトリ(今回は`genome`)に`OrthoFinder/Results_MMDD/`ディレクトリが作成され、その中に結果が格納される。
+```bash
+kosukesano@a001:~/tools/for_orthofinder/OF3_test_250921/genome/OrthoFinder/Results_Sep21$ ls
+Citation.txt                     Log.txt                     Orthologues                            Resolved_Gene_Trees
+Comparative_Genomics_Statistics  MultipleSequenceAlignments  Phylogenetic_Hierarchical_Orthogroups  Single_Copy_Orthologue_Sequences
+Gene_Duplication_Events          Orthogroup_Sequences        Phylogenetically_Misplaced_Genes       Species_Tree
+Gene_Trees                       Orthogroups                 Putative_Xenologs                      WorkingDirectory
+kosukesano@a001:~/tools/for_orthofinder/OF3_test_250921/genome/OrthoFinder/Results_Sep21$ 
+```
+
+- Results Files: `Orthogroups/`<br>
+    - Orthogroups.tsv&Orthogroups.txt: 各OGに対する種ごとの遺伝子名
+    - Orthogroups_UnassignedGenes.tsv: 1種しかいなかったOG
+    - Orthogroups_SingleCopyOrthologues.txt: シングルコピーオーソログ名
+    - Single_Copy_Orthologue_Sequences/:OG ごとのシングルコピーオーソログの配列
+    - Orthogroups.GeneCount.tsv: 各OGに対する種ごとの遺伝子数
+
+- Results Files: `Comparative_Genomics_Statistics`<br>
+    - Statistics_Overall.tsv: 解析の要約統計
+    - Statistics PerSpecies.tsv: 各種ごとの要約統計
+    - Orthogroups SpeciesOverlaps.csv: 各種ペアごとのオーソグループ数
+
+- Results Files: `Orthologues`<br>
+    各OGにおける、1種対1種のオーソログに関するファイル、ディレクトリ
+
+- Results Files: `Gene Trees`, `Species Tree`<br>
+    OGごとの遺伝子系統樹と種の系統樹

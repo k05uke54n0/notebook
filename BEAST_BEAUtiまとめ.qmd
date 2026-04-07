@@ -1,0 +1,89 @@
+---
+title: " BEAST_BEAUtiまとめ"
+author: "佐野孔亮"
+format: 
+  html: 
+    embed-resources: true
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.show="hold")
+library(BiocManager)
+library(tidyverse)
+library(ape)
+library(ggtree)
+
+```
+
+# 概要
+`BEAST`は配列データや系統樹データを元に系統解析、分岐年代推定、進化モデル予測などを行うツール。実行には`.xml`という形式のコントロールファイルを作成し、それを指定することで解析を行う。`.xml`ファイルにはインプットの配列データや`BEAST`に設定するモデル・数値・ファイル名などが書いてある。`BEAUti`はこの`.xml`ファイルを作成するアプリケーションであり、タブ分けされた画面で必要な設定を入力し実行するとそれに合った`.xml`ファイルができる。
+
+特に今回は**「シングルコピーオーソログの配列」と「種系統樹のトポロジー」、「既知の分岐年代の上限下限」の３つを元に系統樹の各分岐について分岐年代を推定する**ための方法を記す。
+
+解析の流れとしては<br>
+
+インプット用のファイルの前処理<br>
+`BEAUti`による`.xml`ファイルの作成<br>
+`BEAST`の実行
+`TreeAnnotater`による系統樹ファイルの処理<br>
+解析が十分に収束しているかの確認<br>
+
+に分かれる。
+
+# インストール
+
+## `BEAST`/`BEAUti`/`TreeAnnotater`のインストール
+
+## `BEAST`の遺伝研スパコンでのインストール
+
+# 実行
+
+## インプット用のファイルの前処理
+
+## `BEAUti`による`.xml`ファイルの作成
+
+
+`BEAUti`を開くとこんな画面が出る。<br>
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 15.54.36.png" alt="デフォルト時" width="80%"><br>
+
+この左下にある**+**マーク、もしくは`file`→`Import Alignment`から配列ファイルを指定する。<br>
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.05.47.png" width="80%"><br>
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.05.58.png" width="80%"><br>
+配列入力に成功すると、上記のように`Partition`タブに配列データを示す行が1つ追加される。
+
+次に他のタブについて。<br>
+
+まず、`tip date`タブは何もいじらない。`Use tip date`にチェックがついていないか確認しておく。
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.12.52.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.13.12.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.13.18.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.13.21.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.13.37.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.13.57.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.14.04.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.25.26.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.26.17.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.26.33.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.27.36.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.29.10.png" width="80%"><br>
+
+<img src="/Users/kosukesano/Desktop/notebook/画像用/BEAST使い方ノート用/スクリーンショット 2025-08-21 16.29.18.png" width="80%"><br>
+
+## `BEAST`の実行
+
+## `TreeAnnotater`による系統樹ファイルの処理<br>
+
+## 解析が十分に収束しているかの確認<br>
